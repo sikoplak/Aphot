@@ -76,4 +76,52 @@ class Permission_model extends MY_Model{
 
     }
 
+    public function checkPermission($route, $action = null){
+        $user_id = $this->session->userdata('user_id');
+        $this->db->distinct();
+        $this->db->select('group_id');
+        $this->db->where('user_id',$user_id);
+        $result = $this->db->get('users_groups')->result();
+        $group_id = array();
+        foreach($result as $row){
+            $group_id[] = (int)$row->group_id;
+        }
+        if(!is_null($action)){
+            if(count($group_id) > 0){
+                $this->db->distinct();
+                $this->db->where('permissions.group_id IN ('.implode(",",$group_id).')', NULL, FALSE);
+                $this->db->where('routes.url',str_replace("web/", null, $route));
+                $this->db->where('permissions.can_'.$action, 1);
+                $this->db->join('routes','routes.id = permissions.route_id');
+                $permission = $this->db->get("permissions")->num_rows();
+                return (int)$permission > 0 ? TRUE : FALSE;
+            }else{
+                return FALSE;
+            }
+        }else{
+            if(count($group_id) > 0){
+                $this->db->distinct();
+                $this->db->where('permissions.group_id IN ('.implode(",",$group_id).')', NULL, FALSE);
+                $this->db->where('routes.url',str_replace("web/", null, $route));
+                $this->db->limit(1);
+                $this->db->join('routes','routes.id = permissions.route_id');
+                $permission = $this->db->get("permissions")->row();
+                return [
+                    "create"=> isset($permission->can_create) && (int)$permission->can_create == 1 ? TRUE : FALSE ,
+                    "update"=> isset($permission->can_update) && (int)$permission->can_update == 1 ? TRUE : FALSE ,
+                    "view"  => isset($permission->can_view) && (int)$permission->can_view == 1 ? TRUE : FALSE ,
+                    "delete"=> isset($permission->can_delete) && (int)$permission->can_delete == 1 ? TRUE : FALSE
+                ];
+            }else{
+                return [
+                    "create"=>FALSE,
+                    "update"=>FALSE,
+                    "view"=>FALSE,
+                    "delete"=>FALSe
+                ];
+            }
+        }
+        
+    }
+
 }

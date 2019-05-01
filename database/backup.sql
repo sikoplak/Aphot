@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS `audits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `audits` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
   `event` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `auditable_id` bigint(20) unsigned DEFAULT NULL,
   `auditable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `audits` (
   `date_created` timestamp NULL DEFAULT NULL,
   `date_updated` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `audits` (
 
 LOCK TABLES `audits` WRITE;
 /*!40000 ALTER TABLE `audits` DISABLE KEYS */;
+INSERT INTO `audits` VALUES (1,14,'DELETE',2,'categories_room','{\"categories_room_id\":\"2\",\"categories_room_name\":\"Sandy Andryanto\",\"categories_room_cost\":\"234234\",\"categories_room_description\":\"sdfsdf\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 14:59:09\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":null,\"categories_room_deleted_by\":null}','{\"categories_room_id\":\"2\",\"categories_room_name\":\"Sandy Andryanto\",\"categories_room_cost\":\"234234\",\"categories_room_description\":\"sdfsdf\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 14:59:09\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":\"2019-05-01 20:52:40\",\"categories_room_deleted_by\":\"14\"}','http://localhost:5000/api/category_room/delete','127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',NULL,'2019-05-01 13:52:41','2019-05-01 13:52:41'),(2,14,'DELETE',3,'categories_room','{\"categories_room_id\":\"3\",\"categories_room_name\":\"admindevel\",\"categories_room_cost\":\"10000\",\"categories_room_description\":\"ssss\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 15:12:14\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":null,\"categories_room_deleted_by\":null}','{\"categories_room_id\":\"3\",\"categories_room_name\":\"admindevel\",\"categories_room_cost\":\"10000\",\"categories_room_description\":\"ssss\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 15:12:14\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":\"2019-05-01 20:52:44\",\"categories_room_deleted_by\":\"14\"}','http://localhost:5000/api/category_room/delete','127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',NULL,'2019-05-01 13:52:44','2019-05-01 13:52:44'),(3,14,'CREATE',4,'categories_room','[null]','{\"categories_room_id\":\"4\",\"categories_room_name\":\"dfddfdfdf\",\"categories_room_cost\":\"333\",\"categories_room_description\":\"dfdfdfdf\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 20:53:07\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":null,\"categories_room_deleted_by\":null}','http://localhost:5000/web/category_room/store','127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',NULL,'2019-05-01 13:53:08','2019-05-01 13:53:08'),(4,14,'UPDATE',4,'categories_room','{\"categories_room_id\":\"4\",\"categories_room_name\":\"dfddfdfdf\",\"categories_room_cost\":\"333\",\"categories_room_description\":\"dfdfdfdf\",\"categories_room_image\":null,\"categories_room_created_on\":\"2019-05-01 20:53:07\",\"categories_room_created_by\":\"14\",\"categories_room_deleted_on\":null,\"categories_room_deleted_by\":null}','{\"id\":\"4\",\"name\":\"dfddfdfdf\",\"cost\":\"111111\",\"description\":\"dfdfdfdf\",\"created_on\":\"2019-05-01 20:53:17\",\"created_by\":\"14\"}','http://localhost:5000/web/category_room/update','127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',NULL,'2019-05-01 13:53:17','2019-05-01 13:53:17');
 /*!40000 ALTER TABLE `audits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `categories_room` (
   `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +106,7 @@ CREATE TABLE `categories_room` (
 
 LOCK TABLES `categories_room` WRITE;
 /*!40000 ALTER TABLE `categories_room` DISABLE KEYS */;
+INSERT INTO `categories_room` VALUES (1,'Hello World',0,'sss',NULL,NULL,14,'2019-05-01 20:52:08',14),(2,'Sandy Andryanto',234234,'sdfsdf',NULL,'2019-05-01 14:59:09',14,'2019-05-01 20:52:40',14),(3,'admindevel',10000,'ssss',NULL,'2019-05-01 15:12:14',14,'2019-05-01 20:52:44',14),(4,'dfddfdfdf',111111,'dfdfdfdf',NULL,'2019-05-01 20:53:17',14,NULL,NULL);
 /*!40000 ALTER TABLE `categories_room` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +132,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('olkdke3hoj6tainj3qaksik5j8u2qjsn','127.0.0.1',1556683845,'__ci_last_regenerate|i:1556683845;'),('vf6550vc18cs84q2crd3ek04p7pq2qof','127.0.0.1',1556684288,'__ci_last_regenerate|i:1556684288;'),('mms6r3tucrjior82kv2ngppbri5dih1b','127.0.0.1',1556684628,'__ci_last_regenerate|i:1556684628;'),('6rs9iflm7nlp0gtsth1c4va4a3k90e93','127.0.0.1',1556684849,'__ci_last_regenerate|i:1556684849;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1268889823\";last_check|i:1556684849;'),('76q1vpb3ea7k9mqi68prf9l8vnpjrep0','127.0.0.1',1556685262,'__ci_last_regenerate|i:1556685262;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1556684849\";last_check|i:1556685262;'),('5k12o7l9vuce7fqg9h1i66h7eudoegqa','127.0.0.1',1556686322,'__ci_last_regenerate|i:1556686322;__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}message|s:39:\"<p>Tidak Dapat Mengganti Kata Sandi</p>\";'),('rpo5rene1qks7qum41j7269f1g5dlaks','127.0.0.1',1556685315,'__ci_last_regenerate|i:1556685315;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1556685262\";last_check|i:1556685314;'),('6m8dq9tmmnv841nv31vub68e64hhf7u3','127.0.0.1',1556685681,'__ci_last_regenerate|i:1556685681;'),('5d9ga48eah78vqhmumdsn16adng3cdge','127.0.0.1',1556686015,'__ci_last_regenerate|i:1556686015;message|s:39:\"<p>Tidak Dapat Mengganti Kata Sandi</p>\";__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}'),('0edpa600u8eur2j9lqdrtie656uk4ass','127.0.0.1',1556686330,'__ci_last_regenerate|i:1556686330;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1556685314\";last_check|i:1556686330;'),('l6eqsnv0hd1vo3lmkj1kapnmojt6tuln','127.0.0.1',1556686634,'__ci_last_regenerate|i:1556686634;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1556685314\";last_check|i:1556686330;'),('nitcig08h1ig8dt5a34rv9kqepe90tql','127.0.0.1',1556686812,'__ci_last_regenerate|i:1556686812;identity|s:15:\"admin@admin.com\";email|s:15:\"admin@admin.com\";user_id|s:1:\"1\";old_last_login|s:10:\"1556686330\";last_check|i:1556686812;'),('pjhrfj66io8nmq0268h618et92b1cksj','127.0.0.1',1556687063,'__ci_last_regenerate|i:1556687063;message|s:23:\"<p>Log Out Berhasil</p>\";__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}');
+INSERT INTO `ci_sessions` VALUES ('g8pvdr60hrg5luqt7ve4iqcq3kc0cmac','127.0.0.1',1556743774,'__ci_last_regenerate|i:1556743774;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('3khbpsqqqacp07c80fbbpl7dent75u33','127.0.0.1',1556743997,'__ci_last_regenerate|i:1556743774;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;success|s:18:\"Berhasil edit data\";__ci_vars|a:1:{s:7:\"success\";s:3:\"old\";}'),('vafa8thmbcsrf8phghb7h3pcrkn01cu2','127.0.0.1',1556743465,'__ci_last_regenerate|i:1556743465;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('hjfdoj3vqmr6p1gjeqh6fiua74hi6vkq','127.0.0.1',1556743147,'__ci_last_regenerate|i:1556743147;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('2ci989vo0i4t333jf6j2o9e20fjiq3ii','127.0.0.1',1556742823,'__ci_last_regenerate|i:1556742823;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('urd6vm749ofn80blf32s59je37qntpo8','127.0.0.1',1556742432,'__ci_last_regenerate|i:1556742432;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('u4n4tb2g7gkuo2dgv46uq3qjradrsg1f','127.0.0.1',1556741977,'__ci_last_regenerate|i:1556741977;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('82hpdpeff22kqrjr3276ljcsfc0631al','127.0.0.1',1556741669,'__ci_last_regenerate|i:1556741669;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('isbpo8jj0bbqublogcu86nra0acso2v1','127.0.0.1',1556741365,'__ci_last_regenerate|i:1556741365;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('8t1jgb73c3g63p84m2gumfjf4jrvusrj','127.0.0.1',1556740821,'__ci_last_regenerate|i:1556740821;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('c07hon2avculc1h2uqvga4t93e2p1h6g','127.0.0.1',1556740460,'__ci_last_regenerate|i:1556740460;identity|s:21:\"admin.admin@devel.com\";email|s:21:\"admin.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556716441\";last_check|i:1556740460;'),('oh8pt6ufhd46ukgs2bg9rn8rq5h57m91','127.0.0.1',1556734827,'__ci_last_regenerate|i:1556734827;'),('11kr725slqm9uao5glnn6idnp9idjgh5','127.0.0.1',1556740409,'__ci_last_regenerate|i:1556740409;'),('ji5hqqush6ttas99o8cehfmaoqj79fkn','127.0.0.1',1556734412,'__ci_last_regenerate|i:1556734412;'),('v3a8pprhid70cng8aao4dnepgm3jftjn','127.0.0.1',1556734827,'__ci_last_regenerate|i:1556734827;message|s:39:\"<p>Tidak Dapat Mengganti Kata Sandi</p>\";__ci_vars|a:1:{s:7:\"message\";s:3:\"old\";}'),('7h9n2u90dur3vaui4ncl1otskqt4vj14','127.0.0.1',1556723732,'__ci_last_regenerate|i:1556723707;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;success|s:19:\"Berhasil hapus data\";__ci_vars|a:1:{s:7:\"success\";s:3:\"old\";}'),('23ku6r4ujam7j4i41ciqfu7qc5br0jm3','127.0.0.1',1556723707,'__ci_last_regenerate|i:1556723707;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('lmnbb7l85j70b18fududbr2q6rnr93kn','127.0.0.1',1556715891,'__ci_last_regenerate|i:1556715891;identity|s:21:\"super.admin@devel.com\";email|s:21:\"super.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556708801\";last_check|i:1556709363;'),('ha5356dlj8tpnsorutg2oj62vampgcsf','127.0.0.1',1556716224,'__ci_last_regenerate|i:1556716224;identity|s:21:\"super.admin@devel.com\";email|s:21:\"super.admin@devel.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556708801\";last_check|i:1556709363;'),('049q429bjgu2mlujg0i144sp5vvdleb5','127.0.0.1',1556716441,'__ci_last_regenerate|i:1556716441;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('0oj5qnp8tpqjrfnfnjkeo1t779je095c','127.0.0.1',1556721242,'__ci_last_regenerate|i:1556721242;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('nf7mettgiqqf52hbur6ll0om5nj7ndv2','127.0.0.1',1556721543,'__ci_last_regenerate|i:1556721543;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('u1ccguveq4rrsjh4h75404j4u74n7h93','127.0.0.1',1556721853,'__ci_last_regenerate|i:1556721853;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('73fqp6uoa0hula01ul0c311tvs09l5nj','127.0.0.1',1556722239,'__ci_last_regenerate|i:1556722239;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('ljo72v5ii3casgpi1815sc4l561nlcr0','127.0.0.1',1556722741,'__ci_last_regenerate|i:1556722741;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;message-success|s:20:\"Berhasil simpan data\";__ci_vars|a:1:{s:15:\"message-success\";s:3:\"new\";}'),('pprfn81ima77qd530gd15imp9hh8urpj','127.0.0.1',1556723047,'__ci_last_regenerate|i:1556723047;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;'),('up603adpbabm10cihus3pjc1gt3t5fjg','127.0.0.1',1556723402,'__ci_last_regenerate|i:1556723402;identity|s:29:\"sandy.andryanto.dev@gmail.com\";email|s:29:\"sandy.andryanto.dev@gmail.com\";user_id|s:2:\"14\";old_last_login|s:10:\"1556709363\";last_check|i:1556716441;message-success|s:18:\"Berhasil edit data\";__ci_vars|a:1:{s:15:\"message-success\";s:3:\"old\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +274,7 @@ CREATE TABLE `groups` (
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +283,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'admin','Administrator'),(2,'members','General User');
+INSERT INTO `groups` VALUES (39,'admin','ADMIN'),(40,'receptionst','RECEPTIONST'),(41,'manager','MANAGER'),(42,'director','DIRECTOR'),(43,'supervisor','SUPERVISOR'),(44,'engineer','ENGINEER');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,6 +467,7 @@ CREATE TABLE `invoices` (
   `payment_type` tinyint(4) DEFAULT NULL,
   `type` tinyint(4) DEFAULT NULL,
   `parent_id` int(10) unsigned DEFAULT NULL,
+  `is_draft` tinyint(4) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `deleted_on` datetime DEFAULT NULL,
@@ -499,7 +502,7 @@ CREATE TABLE `login_attempts` (
   `login` varchar(100) NOT NULL,
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -508,7 +511,7 @@ CREATE TABLE `login_attempts` (
 
 LOCK TABLES `login_attempts` WRITE;
 /*!40000 ALTER TABLE `login_attempts` DISABLE KEYS */;
-INSERT INTO `login_attempts` VALUES (1,'127.0.0.1','user.unikom',1556684692),(2,'127.0.0.1','sandy.andryantoo@gmail.com',1556684757),(3,'127.0.0.1','super.admin',1556684811),(4,'127.0.0.1','user.unikom',1556684831),(5,'127.0.0.1','super.admin',1556684839);
+INSERT INTO `login_attempts` VALUES (6,'127.0.0.1','admin@admin.com',1556698952),(7,'127.0.0.1','super.admin',1556740416);
 /*!40000 ALTER TABLE `login_attempts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,6 +542,7 @@ CREATE TABLE `permissions` (
 
 LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+INSERT INTO `permissions` VALUES (190,39,1,1,1,1),(190,40,1,1,1,1),(190,41,1,1,1,1),(190,42,1,1,1,1),(190,43,1,1,1,1),(190,44,1,1,1,1),(191,39,1,1,1,1),(191,40,1,1,1,1),(191,41,1,1,1,1),(191,42,1,1,1,1),(191,43,1,1,1,1),(191,44,1,1,1,1),(192,39,1,1,1,1),(192,40,1,1,1,1),(192,41,1,1,1,1),(192,42,1,1,1,1),(192,43,1,1,1,1),(192,44,1,1,1,1),(193,39,1,1,1,1),(193,40,1,1,1,1),(193,41,1,1,1,1),(193,42,1,1,1,1),(193,43,1,1,1,1),(193,44,1,1,1,1),(194,39,1,1,1,1),(194,40,1,1,1,1),(194,41,1,1,1,1),(194,42,1,1,1,1),(194,43,1,1,1,1),(194,44,1,1,1,1),(195,39,1,1,1,1),(195,40,1,1,1,1),(195,41,1,1,1,1),(195,42,1,1,1,1),(195,43,1,1,1,1),(195,44,1,1,1,1),(196,39,1,1,1,1),(196,40,1,1,1,1),(196,41,1,1,1,1),(196,42,1,1,1,1),(196,43,1,1,1,1),(196,44,1,1,1,1),(197,39,1,1,1,1),(197,40,1,1,1,1),(197,41,1,1,1,1),(197,42,1,1,1,1),(197,43,1,1,1,1),(197,44,1,1,1,1),(198,39,1,1,1,1),(198,40,1,1,1,1),(198,41,1,1,1,1),(198,42,1,1,1,1),(198,43,1,1,1,1),(198,44,1,1,1,1),(199,39,1,1,1,1),(199,40,1,1,1,1),(199,41,1,1,1,1),(199,42,1,1,1,1),(199,43,1,1,1,1),(199,44,1,1,1,1),(200,39,1,1,1,1),(200,40,1,1,1,1),(200,41,1,1,1,1),(200,42,1,1,1,1),(200,43,1,1,1,1),(200,44,1,1,1,1),(201,39,1,1,1,1),(201,40,1,1,1,1),(201,41,1,1,1,1),(201,42,1,1,1,1),(201,43,1,1,1,1),(201,44,1,1,1,1),(202,39,1,1,1,1),(202,40,1,1,1,1),(202,41,1,1,1,1),(202,42,1,1,1,1),(202,43,1,1,1,1),(202,44,1,1,1,1),(203,39,1,1,1,1),(203,40,1,1,1,1),(203,41,1,1,1,1),(203,42,1,1,1,1),(203,43,1,1,1,1),(203,44,1,1,1,1),(204,39,1,1,1,1),(204,40,1,1,1,1),(204,41,1,1,1,1),(204,42,1,1,1,1),(204,43,1,1,1,1),(204,44,1,1,1,1),(205,39,1,1,1,1),(205,40,1,1,1,1),(205,41,1,1,1,1),(205,42,1,1,1,1),(205,43,1,1,1,1),(205,44,1,1,1,1),(206,39,1,1,1,1),(206,40,1,1,1,1),(206,41,1,1,1,1),(206,42,1,1,1,1),(206,43,1,1,1,1),(206,44,1,1,1,1),(207,39,1,1,1,1),(207,40,1,1,1,1),(207,41,1,1,1,1),(207,42,1,1,1,1),(207,43,1,1,1,1),(207,44,1,1,1,1),(208,39,1,1,1,1),(208,40,1,1,1,1),(208,41,1,1,1,1),(208,42,1,1,1,1),(208,43,1,1,1,1),(208,44,1,1,1,1),(209,39,1,1,1,1),(209,40,1,1,1,1),(209,41,1,1,1,1),(209,42,1,1,1,1),(209,43,1,1,1,1),(209,44,1,1,1,1),(210,39,1,1,1,1),(210,40,1,1,1,1),(210,41,1,1,1,1),(210,42,1,1,1,1),(210,43,1,1,1,1),(210,44,1,1,1,1);
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,7 +628,7 @@ CREATE TABLE `routes` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `routes_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `routes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,6 +637,7 @@ CREATE TABLE `routes` (
 
 LOCK TABLES `routes` WRITE;
 /*!40000 ALTER TABLE `routes` DISABLE KEYS */;
+INSERT INTO `routes` VALUES (190,'Dashboard','dashboard',NULL,NULL,1,NULL),(191,'Master Data',NULL,NULL,NULL,2,NULL),(192,'Transaksi',NULL,NULL,NULL,3,NULL),(193,'Laporan','laporan',NULL,NULL,4,NULL),(194,'Pengaturan',NULL,NULL,NULL,5,NULL),(195,'Kategori Menu','category_menu',NULL,NULL,1,191),(196,'Kategori Kamar','category_room',NULL,NULL,2,191),(197,'Diskon','discount',NULL,NULL,NULL,194),(198,'Extra','extra',NULL,NULL,3,191),(199,'Menu','menu',NULL,NULL,4,191),(200,'Akses','role',NULL,NULL,NULL,194),(201,'Reservasi','reservation',NULL,NULL,NULL,192),(202,'Restoran','resto',NULL,NULL,NULL,192),(203,'Kamar','room',NULL,NULL,5,191),(204,'Servis','service',NULL,NULL,6,191),(205,'Status Ruangan','status_room',NULL,NULL,7,191),(206,'Pajak','tax',NULL,NULL,NULL,194),(207,'Pengguna','users',NULL,NULL,NULL,194),(208,'Profil Saya','profile',NULL,1,NULL,194),(209,'Akun','account',NULL,1,NULL,194),(210,'Aplikasi','application',NULL,NULL,NULL,194);
 /*!40000 ALTER TABLE `routes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,6 +669,31 @@ CREATE TABLE `services` (
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `config_value` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `settings`
+--
+
+LOCK TABLES `settings` WRITE;
+/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -753,7 +783,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `uc_activation_selector` (`activation_selector`),
   UNIQUE KEY `uc_forgotten_password_selector` (`forgotten_password_selector`),
   UNIQUE KEY `uc_remember_selector` (`remember_selector`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -762,7 +792,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'127.0.0.1','administrator','$2y$12$juHlhCt98aeisGVYOBBiSeuU60wxe.r7h0H7kg1mc.bSw2J4wUXDa','admin@admin.com',NULL,NULL,'',NULL,NULL,NULL,'8001101df9531278be02d391eefeb21868141727','$2y$10$AKspvldqeR6PPaSkExgBv.PrKdmrr8b7CItZKmD5qJYuRee55Q/ni',1268889823,1556686812,1);
+INSERT INTO `users` VALUES (14,'0.0.0.0','admin','$2y$10$ljWogeUXrA4fEHmVG6V/W..4rKVqJhtGPgeJdLNUfyNn3GDlilqMK','admin.admin@devel.com','0792 6022 340',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698631,1556740460,1),(15,'0.0.0.0','fitriani00','$2y$10$ej7R/wCuN96.x4DlsCbRb.DZ5U9eQtF5WU2sK4MsicInSA8p9D1qu','langgeng.pradipta@example.org','(+62) 219 0241 885',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698631,NULL,1),(16,'0.0.0.0','gawati82','$2y$10$ljWogeUXrA4fEHmVG6V/W..4rKVqJhtGPgeJdLNUfyNn3GDlilqMK','kalim.andriani@example.com','0395 0372 342',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698631,NULL,1),(17,'0.0.0.0','halima34','$2y$10$dJ6Xap0h8byZbOyRgSuIKu.LGC4myUbbY1iHuleUZXAXV2zbPf3ke','ryolanda@example.net','0704 4832 1580',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698632,NULL,1),(18,'0.0.0.0','situmorang.eli','$2y$10$qySdFDC8lVa1qm5xx73BMuo.KFGpgSe.oGDMv1ctUDgRIdKY2D9mu','dirja.hutapea@example.net','0544 5180 2405',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698632,NULL,1),(19,'0.0.0.0','xmayasari','$2y$10$FC2xhsSJP1wiUoAZmdNRHeONz21.3YY55ZZy.lL5jqKMwju3FSoeq','yuni27@example.com','(+62) 287 3607 9709',NULL,NULL,NULL,NULL,NULL,NULL,NULL,1556698632,NULL,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -783,7 +813,7 @@ CREATE TABLE `users_groups` (
   KEY `fk_users_groups_groups1_idx` (`group_id`),
   CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -792,7 +822,7 @@ CREATE TABLE `users_groups` (
 
 LOCK TABLES `users_groups` WRITE;
 /*!40000 ALTER TABLE `users_groups` DISABLE KEYS */;
-INSERT INTO `users_groups` VALUES (1,1,1),(2,1,2);
+INSERT INTO `users_groups` VALUES (15,14,39),(16,15,40),(17,16,41),(18,17,42),(19,18,43),(20,19,44);
 /*!40000 ALTER TABLE `users_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -826,6 +856,7 @@ CREATE TABLE `users_profile` (
 
 LOCK TABLES `users_profile` WRITE;
 /*!40000 ALTER TABLE `users_profile` DISABLE KEYS */;
+INSERT INTO `users_profile` VALUES (14,'Sandy','Andryanto',0,0,0,'Kebon Kopi','Kumaha Maneh Weh Lah','0000-00-00','Cimahi',NULL),(15,'Puput','Hutapea',1,1,1,'Ut est eum voluptates quod suscipit enim suscipit. Eos est aut minus eos commodi non. Ratione omnis dolore occaecati et.','Eveniet voluptate veritatis minus sunt itaque odio. Ut ipsum corporis ut omnis et. Ut laudantium dicta dolor sunt aut.','2019-05-01','Tasikmalaya',NULL),(16,'Intan','Melani',0,0,1,'Mollitia rerum praesentium consequatur corrupti tempore accusantium error. Rem laboriosam consequatur sit aspernatur sit.','Molestiae ab eos aut consequatur. Iure ipsa iste eum quia laborum. Dolor est ut qui soluta ea.','2019-05-01','Gorontalo',NULL),(17,'Irwan','Wulandari',0,2,0,'Nemo fuga velit qui autem beatae similique nostrum. Quo dignissimos saepe iure cumque. Est aut quia facilis veritatis nemo pariatur et quibusdam. Ut tenetur ut eveniet ullam omnis.','Consequatur ullam beatae sunt quidem consectetur illum quos. Omnis quod et inventore dolorem architecto nihil. Sed mollitia et alias voluptates. Dolor reiciendis fuga ratione.','2019-05-01','Solok',NULL),(18,'Raditya','Prayoga',1,1,0,'Ducimus delectus corporis voluptatem ea totam impedit deleniti. Ut sunt quaerat distinctio ut rerum deserunt. Culpa quia molestiae dolores necessitatibus ut. Rerum deleniti consequatur quasi aut.','Architecto numquam quisquam tenetur sequi et. Quia perspiciatis at omnis et occaecati ipsa.','2019-05-01','Kotamobagu',NULL),(19,'Silvia','Mardhiyah',0,3,2,'Iusto dolore dolorem explicabo. Earum inventore repellat ab facere cumque iure temporibus. Omnis molestiae rerum adipisci et aspernatur ut adipisci. Non delectus ut debitis ut.','Veniam delectus et fugiat soluta voluptatem a unde. Dolore ab sed minima doloremque voluptate ea at. Pariatur mollitia perspiciatis vel.','2019-05-01','Madiun',NULL);
 /*!40000 ALTER TABLE `users_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -838,4 +869,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-01 12:57:02
+-- Dump completed on 2019-05-02  3:53:46

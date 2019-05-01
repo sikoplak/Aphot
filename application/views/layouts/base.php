@@ -11,6 +11,7 @@
     <meta name="csrf-token-value" content="<?php echo $this->security->get_csrf_hash() ?>">
     <meta name="base-url" content="<?php echo base_url();?>">
     <meta name="api-token" content="<?php echo getUserApiToken();?>">
+    <?php echo $this->template->permissions; ?>
     <?php $this->load->view("layouts/css"); ?>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

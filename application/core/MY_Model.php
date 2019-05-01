@@ -7,8 +7,6 @@ class MY_Model extends CI_Model {
 
     protected $table;
 
-    protected $isTimeStamp = TRUE;
-
     public function __construct() {
         parent::__construct();
         $this->db = $this->load->database('default', TRUE);
@@ -95,31 +93,33 @@ class MY_Model extends CI_Model {
     }
 
     public function store(array $data) {
-        if($this->isTimeStamp){
+        if($this->isTimeStamp()){
             $data["created_on"] = date("Y-m-d H:i:s");
             $data["created_by"] = $this->session->userdata('user_id');
         }
         $this->db->insert($this->table, $data);
         $insert_id = $this->db->insert_id();
         $newValue = $this->find($insert_id);
+        audit([NULL],  $newValue, "CREATE", $insert_id, $this->table);
         return $insert_id;
     }
 
     public function update(array $data, $value, $primary = "id") {
         $oldData = $this->find($value);
-        if($this->isTimeStamp){
+        if($this->isTimeStamp()){
             $data["created_on"] = date("Y-m-d H:i:s");
             $data["created_by"] = $this->session->userdata('user_id');
         }
         $this->db->where($this->table . "." . $primary, $value);
         $this->db->limit(1);
         $this->db->update($this->table, $data);
+        audit($oldData, $data, "UPDATE", $value, $this->table);
         return $value;
     }
 
     public function delete($value, $primary = "id") {
         $oldData = $this->find($value);
-        if($this->isTimeStamp){
+        if($this->isTimeStamp()){
              $data = array();
              $data["deleted_on"] = date("Y-m-d H:i:s");
              $data["deleted_by"] = $this->session->userdata('user_id');
@@ -127,8 +127,10 @@ class MY_Model extends CI_Model {
              $this->db->limit(1);
              $this->db->update($this->table, $data);
              $updateValue = $this->find($value);
+             audit($oldData, $updateValue, "DELETE", $value, $this->table);
              return TRUE;
         }else{  
+            audit($oldData, $updateValue, "DELETE", $value, $this->table);
             $this->db->where($this->table . "." . $primary, $value);
             return $this->db->delete($this->table);
         }
@@ -183,7 +185,12 @@ class MY_Model extends CI_Model {
 
     protected function updateValidation($form, $id) {}
 
-    protected function onWhere($db) {}
+    protected function onWhere($db) {
+        if($this->isTimeStamp()){
+            $db->where($this->table.".deleted_on", null);
+            $db->where($this->table.".deleted_by", null);
+        }
+    }
 
     protected function belongsTo() { return []; }
 
@@ -200,4 +207,16 @@ class MY_Model extends CI_Model {
         }
     }
 
+    private function isTimeStamp(){
+        $query = $this->db->query("DESC ".$this->table)->result_array();
+        foreach($query as $row){
+            if(isset($row["Field"])){
+                if($row["Field"] == "created_on" || $row["Field"] == "deleted_on"){
+                    return TRUE;
+                    break;
+                }
+            }
+        }
+        return FALSE;
+    }
 }

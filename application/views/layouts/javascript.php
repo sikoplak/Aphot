@@ -25,12 +25,21 @@
 <script src="<?php echo site_url("assets/plugins/datepicker/bootstrap-datepicker.js");?>"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo site_url("assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js");?>"></script>
+<!-- DataTables -->
+<script src="<?php echo site_url("assets/plugins/datatables/jquery.dataTables.min.js");?>"></script>
+<script src="<?php echo site_url("assets/plugins/datatables/dataTables.bootstrap.min.js");?>"></script>
 <!-- Slimscroll -->
 <script src="<?php echo site_url("assets/plugins/slimScroll/jquery.slimscroll.min.js");?>"></script>
+<!-- Sweet Alert -->
+<script src="<?php echo site_url("assets/plugins/sweetalert/sweetalert.min.js");?>"></script>
+<!-- Toast -->
+<script src="<?php echo site_url("assets/plugins/toast/toastr.min.js");?>"></script>
+<!-- Select2 -->
+<script src="<?php echo site_url("assets/plugins/select2/select2.min.js");?>"></script>
 <!-- iCheck 1.0.1 -->
 <script src="<?php echo site_url("assets/plugins/iCheck/icheck.min.js");?>"></script>
 <!-- FastClick -->
 <script src="<?php echo site_url("assets/plugins/fastclick/fastclick.min.js");?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo site_url("assets/dist/js/app.min.js");?>"></script>
-<script src="<?php echo site_url("assets/app/js/core.js");?>"></script>
+<script src="<?php echo site_url("assets/app/js/app.core.js");?>"></script>

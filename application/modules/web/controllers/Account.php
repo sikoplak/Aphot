@@ -23,7 +23,7 @@ class Account extends MY_Controller {
         $this->index();
     }
 
-    public function delete($id, $status){
+    public function delete($id){
         show_404();
     }
 

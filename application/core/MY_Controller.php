@@ -28,21 +28,24 @@ class MY_Controller extends MX_Controller
 		$this->db = $this->load->database('default', TRUE);
         $this->load->library($this->libraries);
         $this->template->set_template('layouts/base');
-        if (!$this->ion_auth->logged_in()) redirect('auth');
+		if (!$this->ion_auth->logged_in()) redirect('auth');
 	}
 
 	public function index(){
+		checkPermission($this->route,"view");
 		$this->template->content->view($this->route.'/index');
         $this->template->publish();
 	}
 
 	public function create(){
+		checkPermission($this->route,"create");
 		$this->template->content->view($this->route.'/create');
         $this->template->publish();
 	}
 
 	public function store(){
 		try{
+			checkPermission($this->route,"create");
 			$this->load->model($this->model, "mdl");
 			$this->mdl->createValidation($this->form_validation);
 			if ($this->form_validation->run() == TRUE) {
@@ -63,6 +66,7 @@ class MY_Controller extends MX_Controller
 
 	public function update(){
 		try{
+			checkPermission($this->route,"update");
 			$id = $this->input->post("id");
 			$this->load->model($this->model, "mdl");
 			$this->mdl->updateValidation($this->form_validation,$id);
@@ -84,6 +88,7 @@ class MY_Controller extends MX_Controller
 	}
 
 	public function show($id){
+		checkPermission($this->route,"view");
 		$this->load->model($this->model,"mdl");
 		$data = $this->mdl->find($id);
 		$items = [
@@ -101,6 +106,7 @@ class MY_Controller extends MX_Controller
 	}
 
 	public function edit($id){
+		checkPermission($this->route,"update");
 		$this->load->model($this->model,"mdl");
 		$data = $this->mdl->find($id);
 		$items = ["data"=>$data];
@@ -110,6 +116,7 @@ class MY_Controller extends MX_Controller
 	}
 
 	public function delete($id){
+		checkPermission($this->route,"delete");
 		try{
 			$this->load->model($this->model,'mdl');
 			$response = $this->mdl->delete($id,"id");

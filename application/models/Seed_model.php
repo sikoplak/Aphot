@@ -84,10 +84,10 @@ class Seed_model extends MY_Model{
                 $this->db->insert("permissions", [
                     "group_id"=>$role->id,
                     "route_id"=>$route->id,
-                    "can_create"=>$route->name == "admin" ? 1 : 0,
-                    "can_update"=>$route->name == "admin" ? 1 : 0,
+                    "can_create"=>$role->name == "admin" ? 1 : 0,
+                    "can_update"=>$role->name == "admin" ? 1 : 0,
                     "can_view"=>1,
-                    "can_delete"=>$route->name == "admin" ? 1 : 0,
+                    "can_delete"=>$role->name == "admin" ? 1 : 0,
                 ]);
             }
         }
