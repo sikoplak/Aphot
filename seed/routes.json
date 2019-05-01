@@ -1,0 +1,172 @@
+{
+    "RECORDS": [
+        {
+            "name": "Dashboard",
+            "url": "dashboard",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": ""
+        },
+        {
+            "name": "Master Data",
+            "url": "",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": ""
+        },
+        {
+            "name": "Transaksi",
+            "url": "",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": ""
+        },
+        {
+            "name": "Laporan",
+            "url": "laporan",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": ""
+        },
+        {
+            "name": "Pengaturan",
+            "url": "",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": ""
+        },
+        {
+            "name": "Kategori Menu",
+            "url": "category_menu",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Kategori Kamar",
+            "url": "category_room",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Diskon",
+            "url": "discount",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Extra",
+            "url": "extra",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Menu",
+            "url": "menu",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Akses",
+            "url": "role",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Reservasi",
+            "url": "reservation",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "3"
+        },
+        {
+            "name": "Restoran",
+            "url": "resto",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "3"
+        },
+        {
+            "name": "Kamar",
+            "url": "room",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Servis",
+            "url": "service",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Status Ruangan",
+            "url": "status_room",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
+        },
+        {
+            "name": "Pajak",
+            "url": "tax",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Pengguna",
+            "url": "users",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Profil Saya",
+            "url": "profil",
+            "icon": "",
+            "protected": "1",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Akun",
+            "url": "account",
+            "icon": "",
+            "protected": "1",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Aplikasi",
+            "url": "application",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        }
+    ]
+}

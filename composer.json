@@ -1,0 +1,22 @@
+{
+	"description": "The CodeIgniter framework with HMVC Library",
+	"name": "alzen8work/ci_hmvc",
+	"type": "project",
+	"homepage": "https://github.com/alzen8work/ci_hmvc",
+	"license": "MIT",
+	"require": {
+		"php": ">=5.2.4",
+		"chriskacerguis/codeigniter-restserver": "^3.0",
+        "firebase/php-jwt": "^5.0",
+        "fzaninotto/faker": "^1.7",
+        "webpatser/laravel-uuid": "^3.0",
+        "simplesoftwareio/simple-qrcode": "~2"
+	},
+	"suggest": {
+		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
+	},
+	"require-dev": {
+		"mikey179/vfsStream": "1.1.*",
+		"phpunit/phpunit": "4.* || 5.*"
+	}
+}
