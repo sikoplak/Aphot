@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="<?php echo site_url("assets/dist/css/skins/_all-skins.min.css");?>">
 <!-- iCheck -->
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/iCheck/all.css");?>">
+<!-- File Input -->
+<link rel="stylesheet" href="<?php echo site_url("assets/plugins/bootstrap-fileinput/css/fileinput.min.css");?>">
 <!-- Morris chart -->
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/morris/morris.css");?>">
 <!-- jvectormap -->

@@ -38,6 +38,8 @@
 <script src="<?php echo site_url("assets/plugins/select2/select2.min.js");?>"></script>
 <!-- iCheck 1.0.1 -->
 <script src="<?php echo site_url("assets/plugins/iCheck/icheck.min.js");?>"></script>
+<!-- File Input -->
+<script src="<?php echo site_url("assets/plugins/bootstrap-fileinput/js/fileinput.min.js");?>"></script>
 <!-- FastClick -->
 <script src="<?php echo site_url("assets/plugins/fastclick/fastclick.min.js");?>"></script>
 <!-- AdminLTE App -->
