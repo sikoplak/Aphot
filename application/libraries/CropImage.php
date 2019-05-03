@@ -50,11 +50,11 @@ class CropImage {
             if ($type) {
                 $extension = image_type_to_extension($type);
 
-                if (!is_dir(FCPATH . 'public/uploads/temp')) {
-                    mkdir(FCPATH . 'public/uploads/temp/');
+                if (!is_dir(FCPATH . 'uploads/temp')) {
+                    mkdir(FCPATH . 'uploads/temp/');
                 }
 
-                $src = FCPATH . 'public/uploads/temp/' . md5(date('YmdHis')) . '.original' . $extension;
+                $src = FCPATH . 'uploads/temp/' . md5(date('YmdHis')) . '.original' . $extension;
                 $this->setOriginal(str_replace(FCPATH,null,$src));
                 if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG) {
 
@@ -84,7 +84,7 @@ class CropImage {
     }
 
     private function setDst() {
-        $this->dst = 'public/uploads/temp/' . md5(date('YmdHis')) . '.png';
+        $this->dst = 'uploads/temp/' . md5(date('YmdHis')) . '.png';
     }
 
     private function crop($src, $dst, $data) {

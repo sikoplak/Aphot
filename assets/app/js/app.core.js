@@ -111,6 +111,14 @@ var timeStamp = function() {
     return Math.floor(timeStampInMs);
 }
 
+var labelStatus = function(val) {
+    if (parseInt(val) == 1) {
+        return '<span class="label label-success">Aktif</span>';
+    } else {
+        return '<span class="label label-danger">Tidak Aktif</span>';
+    }
+}
+
 var fileSizeInfo = function(bytes, si) {
     var thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
@@ -299,6 +307,13 @@ $(document).ready(function() {
 
     if ($(".iradio").length) {
         $('input[type="radio"].iradio').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+    }
+
+    if ($(".icheck").length) {
+        $('input[type="checkbox"].icheck').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
         });

@@ -30,7 +30,7 @@
                                     <a href="#">
                                         <div class="pull-left">
                                             <img src="<?php echo photo();?>"
-                                                class="img-circle" alt="User Image">
+                                                class="img-circle img-profile" alt="User Image">
                                         </div>
                                         <h4>
                                             Support Team

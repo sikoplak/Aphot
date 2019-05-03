@@ -4,7 +4,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo photo();?>" class="img-circle" alt="User Image">
+                <img src="<?php echo photo();?>" class="img-circle img-profile" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p><?php echo profile()->first_name." ".profile()->last_name; ?></p>

@@ -37,13 +37,13 @@ if (!function_exists('gen_token')) {
 
 
 
-if (!function_exists('status')) {
+if (!function_exists('labelStatus')) {
 
-    function status($value = null) {
+    function labelStatus($value = null) {
         if ((int) $value == 1) {
-            return '<span class="badge badge-radius badge-success"> Aktif</span>';
+            return '<span class="label label-success"> Aktif</span>';
         } else {
-            return '<span class="badge badge-radius badge-danger"> Tidak Aktif</span>';
+            return '<span class="label label-danger"> Tidak Aktif</span>';
         }
     }
 

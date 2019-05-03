@@ -34,6 +34,7 @@ class User_model extends MY_Model{
         $user = $this->ion_auth->user()->row();
         $user_id = is_null($id) ? $user->id : $id;
         $this->db->where("user_id", $user_id);
+        $this->db->join("users","users.id = users_profile.user_id");
         $this->db->limit(1);
         return $this->db->get("users_profile")->row();
     }
@@ -71,5 +72,17 @@ class User_model extends MY_Model{
     public function updateUserAccount(array $data, $id){
         $this->load->model('ion_auth_model');
         return $this->ion_auth_model->update($id, $data);
+    }
+
+    public function updateImage($path){
+       $profile = $this->getProfile();
+       if(!is_null($profile->image)){
+            if(file_exists($profile->image)){
+                unlink($profile->image);
+            }
+        }
+        $data["image"] = $path;
+        $this->db->where("user_id", $profile->user_id);
+        return $this->db->update("users_profile", $data);
     }
 }

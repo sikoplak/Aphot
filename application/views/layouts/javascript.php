@@ -42,6 +42,9 @@
 <script src="<?php echo site_url("assets/plugins/bootstrap-fileinput/js/fileinput.min.js");?>"></script>
 <!-- FastClick -->
 <script src="<?php echo site_url("assets/plugins/fastclick/fastclick.min.js");?>"></script>
+<!-- Cropper -->
+<script src="<?php echo site_url("assets/plugins/cropper/cropper.min.js");?>"></script>
+<script src="<?php echo site_url("assets/plugins/cropper/main.js");?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo site_url("assets/dist/js/app.min.js");?>"></script>
 <script src="<?php echo site_url("assets/app/js/app.core.js");?>"></script>
