@@ -64,7 +64,7 @@ if (!function_exists('index_number')) {
 
 if (!function_exists('uploadFile')) {
 
-    function uploadFile($fileName = "file", $pathTarget = "public/upload", $type = "gif|jpg|png") {
+    function uploadFile($fileName = "file", $pathTarget = "uploads", $type = "gif|jpg|png") {
         if ($_FILES[$fileName]) {
             if (!is_dir(FCPATH . "/" . $pathTarget . "/")) {
                 mkdir(FCPATH . "/" . $pathTarget . "/");
@@ -292,5 +292,15 @@ if (!function_exists('get_client_ip')) {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
+    }
+}
+
+if (!function_exists('imageExist')) {
+    function imageExist($path = null) {
+        if(!is_null($path) && file_exists($path)){
+            return '<img src="'.site_url($path).'" class="img-thumbnail img-form" >';
+        }else{
+            return '<p class="form-control-static">-</p>';
+        }
     }
 }

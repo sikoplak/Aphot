@@ -11,7 +11,7 @@ const USER_CAN_DELETE = $('meta[name="can-delete"]').length > 0 ? $('meta[name="
 moment.locale($("html").attr("lang"));
 
 jQuery.browser = {};
-(function () {
+(function() {
     jQuery.browser.msie = false;
     jQuery.browser.version = 0;
     if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
@@ -20,7 +20,7 @@ jQuery.browser = {};
     }
 })();
 
-var browser = function () {
+var browser = function() {
     var ua = navigator.userAgent,
         tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
     if (/trident/i.test(M[1])) {
@@ -49,7 +49,7 @@ var browser = function () {
     };
 }
 
-var jsonToString = function (data) {
+var jsonToString = function(data) {
     var encoded = JSON.stringify(data);
     encoded = encoded.replace(/\\"/g, '"')
         .replace(/([\{|:|,])(?:[\s]*)(")/g, "$1'")
@@ -58,7 +58,7 @@ var jsonToString = function (data) {
     return encoded;
 };
 
-var stringToJson = function (input) {
+var stringToJson = function(input) {
     var result = [];
 
     //replace leading and trailing [], if present
@@ -83,7 +83,7 @@ var stringToJson = function (input) {
 
     input = input.split(';;;');
 
-    input.forEach(function (element) {
+    input.forEach(function(element) {
         // console.log(JSON.stringify(element));
 
         result.push(JSON.parse(element));
@@ -92,11 +92,11 @@ var stringToJson = function (input) {
     return result;
 }
 
-var getRandomInt = function (min, max) {
+var getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var arrayDistinct = function (arr) {
+var arrayDistinct = function(arr) {
     let unique_array = []
     for (let i = 0; i < arr.length; i++) {
         if (unique_array.indexOf(arr[i]) == -1) {
@@ -106,12 +106,12 @@ var arrayDistinct = function (arr) {
     return unique_array
 }
 
-var timeStamp = function () {
+var timeStamp = function() {
     var timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
     return Math.floor(timeStampInMs);
 }
 
-var fileSizeInfo = function (bytes, si) {
+var fileSizeInfo = function(bytes, si) {
     var thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
         return bytes + ' B';
@@ -125,7 +125,7 @@ var fileSizeInfo = function (bytes, si) {
     return bytes.toFixed(1) + ' ' + units[u];
 }
 
-var headerRequest = function () {
+var headerRequest = function() {
     $.ajaxSetup({
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -135,14 +135,14 @@ var headerRequest = function () {
 }
 
 var appDataTable = {
-    "render": function (option) {
+    "render": function(option) {
         var columnLength = option.column.length - 1;
         $(option.table).DataTable({
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "sAjaxSource": BASE_URL + "api/" + option.route + "/datatable",
-            "fnServerData": function (sSource, aoData, fnCallback) {
+            "fnServerData": function(sSource, aoData, fnCallback) {
                 aoData.push({
                     name: CSRF_NAME,
                     value: CSRF_VALUE
@@ -184,7 +184,7 @@ var appDataTable = {
             minimumResultsForSearch: Infinity
         });
 
-        $("body").on("click", ".btn-remove", function (e) {
+        $("body").on("click", ".btn-remove", function(e) {
             e.preventDefault();
             var targetUrl = $(this).attr("href");
             var id = $(this).attr("data-id");
@@ -200,13 +200,13 @@ var appDataTable = {
                 cancelButtonText: "Tidak",
                 closeOnConfirm: false,
                 closeOnCancel: true
-            }, function (isConfirm) {
+            }, function(isConfirm) {
                 if (isConfirm) {
                     var postData = {};
                     headerRequest();
                     postData["id"] = id;
                     postData[CSRF_NAME] = CSRF_VALUE;
-                    $.post(targetUrl, postData, function (result) {
+                    $.post(targetUrl, postData, function(result) {
                         if (result) {
                             if (result) {
                                 swal("Berhasil !", notif, "success");
@@ -220,7 +220,7 @@ var appDataTable = {
             return false;
         });
 
-        $("body").on("click", ".btn-remove-data", function (e) {
+        $("body").on("click", ".btn-remove-data", function(e) {
             e.preventDefault();
             var targetUrl = $(this).attr("href");
             var message = 'Apakan anda yakin akan menghapus data ini ?'
@@ -234,7 +234,7 @@ var appDataTable = {
                 cancelButtonText: "Tidak",
                 closeOnConfirm: false,
                 closeOnCancel: true
-            }, function (isConfirm) {
+            }, function(isConfirm) {
                 if (isConfirm) {
                     window.location.href = targetUrl;
                 }
@@ -243,11 +243,11 @@ var appDataTable = {
         });
 
     },
-    "action": function (option) {
+    "action": function(option) {
         var edit = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/edit/" + option.id + "' class='btn btn-sm btn-warning btn-edit'><i class='fa fa-edit'></i></a>";
         var detail = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/show/" + option.id + "' class='btn btn-sm btn-success btn-detail'><i class='fa fa-search'></i></a>";
         var deleted = "<a href='" + BASE_URL + "api/" + option.route + "/delete' data-id='" + option.id + "'  class='btn btn-sm btn-danger btn-remove'><i class='fa fa-trash'></i></a>";
-        
+
 
         if (parseInt(USER_CAN_VIEW) == 0) {
             detail = "";
@@ -265,7 +265,7 @@ var appDataTable = {
     }
 };
 
-var toastShow = function (option) {
+var toastShow = function(option) {
     var title = option.title;
     var message = option.message;
     var mode = option.mode;
@@ -281,7 +281,7 @@ var toastShow = function (option) {
 }
 
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     var url = window.location;
     // Will only work if string in href matches with location
@@ -297,18 +297,26 @@ $(document).ready(function () {
         $(".select2").select2();
     }
 
-    if($(".iradio").length){
+    if ($(".iradio").length) {
         $('input[type="radio"].iradio').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
         });
     }
 
-    if($(".input-datepicker").length){
+    if ($(".input-datepicker").length) {
         $(".input-datepicker").datepicker({
             autoclose: true,
             clearBtn: true,
             format: 'yyyy-dd-mm',
+        });
+    }
+
+    if ($(".file-input-image").length) {
+        $(".file-input-image").fileinput({
+            showUpload: false,
+            allowedFileExtensions: ["jpg", "png", "gif"],
+            maxFileCount: 1,
         });
     }
 

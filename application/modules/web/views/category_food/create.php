@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        Kategori Kamar
+        Kategori Menu Restoran
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
-        <li><a href="<?php echo base_url("web/category_room");?>">Kategori Kamar</a></li>
+        <li><a href="<?php echo base_url("web/category_food");?>">Kategori Menu Restoran</a></li>
         <li class="active">Tambah Baru</li>
     </ol>
 </section>
@@ -16,21 +16,15 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Form Kategori Kamar</h3>
+                    <h3 class="box-title">Form Kategori Menu Restoran</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php echo form_open("web/category_room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                    <?php echo form_open("web/category_food/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="name" id="name" value="" >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Harga</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cost" id="cost" value="0" >
                                 </div>
                             </div>
                             <div class="form-group">

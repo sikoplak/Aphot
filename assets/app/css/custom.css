@@ -1,3 +1,11 @@
-#table_wrapper table{
+#table_wrapper table {
+    width: 100% !important;
+}
+
+.img-form {
+    width: 25% !important;
+}
+
+.select2-container {
     width: 100% !important;
 }

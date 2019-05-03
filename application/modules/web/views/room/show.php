@@ -1,12 +1,12 @@
 <section class="content-header">
     <h1>
-        Kategori Kamar
+         Kamar
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
-        <li><a href="<?php echo base_url("web/category_room");?>">Kategori Kamar</a></li>
-        <li class="active">Detail Data</li>
+        <li><a href="<?php echo base_url("web/room");?>">Kamar</a></li>
+        <li class="active">Detail Kamar</li>
     </ol>
 </section>
 
@@ -18,7 +18,7 @@
                 <div class="box-header with-border">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h3 class="box-title">Detail Kategori Kamar</h3>
+                            <h3 class="box-title">Detail  Kamar</h3>
                         </div>
                         <div class="pull-right">
                             <a href="<?php echo $links["create"]; ?>" class="btn btn-success btn-create-data">
@@ -34,31 +34,49 @@
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php echo form_open("web/category_room/update", ["class"=>"form-horizontal"]); ?>
-                        <?php echo form_hidden("id",$data->categories_room_id); ?>
+                    <?php echo form_open("web/room/update", ["class"=>"form-horizontal"]); ?>
+                        <?php echo form_hidden("id",$data->rooms_id); ?>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
+                                <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_number; ?></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Kategori</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static">&nbsp;: <?php echo $data->categories_room_name; ?></p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Harga</label>
+                                <label for="" class="col-sm-2 control-label">Status</label>
                                 <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->categories_room_cost; ?></p>
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->status_room_name; ?></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Kapasitas</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_capacity; ?></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Jumlah Penghuni</label>
+                                <div class="col-sm-10">
+                                     <p class="form-control-static">&nbsp;: <?php echo $data->rooms_occupant; ?></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="description" class="col-sm-2 control-label">Deskripsi</label>
                                 <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->categories_room_description; ?></p>
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_description; ?></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="cost" class="col-sm-2 control-label">Foto</label>
                                 <div class="col-sm-10">
-                                    <?php echo imageExist($data->categories_room_image); ?>
+                                    <?php echo imageExist($data->rooms_image); ?>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

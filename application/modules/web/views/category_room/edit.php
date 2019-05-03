@@ -19,7 +19,7 @@
                     <h3 class="box-title">Form Kategori Kamar</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php echo form_open("web/category_room/update", ["class"=>"form-horizontal"]); ?>
+                    <?php echo form_open("web/category_room/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
                         <?php echo form_hidden("id",$data->categories_room_id); ?>
                         <div class="box-body">
                             <div class="form-group">
@@ -38,6 +38,14 @@
                                 <label for="description" class="col-sm-2 control-label">Deskripsi</label>
                                 <div class="col-sm-10">
                                     <textarea class="form-control" name="description" id="description" rows="6"><?php echo $data->categories_room_description; ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Foto</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="file" class="file-input-image" />
+                                    <p></p>
+                                    <?php echo imageExist($data->categories_room_image); ?>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->

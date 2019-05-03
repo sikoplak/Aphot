@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Category_room extends MY_Controller{
+class Category_food extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
-        $this->route = "web/category_room";
-        $this->model = "Category_room_model";
-        $this->template->title = "Kategori Kamar";
-        $this->template->javascript->add(site_url('assets/app/js/category_room.js'));
+        $this->route = "web/category_food";
+        $this->model = "Category_food_model";
+        $this->template->title = "Kategori Menu Restoran";
+        $this->template->javascript->add(site_url('assets/app/js/category_food.js'));
     }
 
     protected function beforeCreate(array $data){ 
@@ -20,9 +20,9 @@ class Category_room extends MY_Controller{
   
 
     protected function beforeUpdate(array $data, $oldData, $id){ 
-        if(!is_null($oldData->categories_room_image)){
-            if(file_exists($oldData->categories_room_image)){
-                unlink($oldData->categories_room_image);
+        if(!is_null($oldData->categories_food_image)){
+            if(file_exists($oldData->categories_food_image)){
+                unlink($oldData->categories_food_image);
             }
         }
         $data["image"] = null;

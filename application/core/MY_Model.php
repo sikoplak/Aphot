@@ -146,16 +146,19 @@ class MY_Model extends CI_Model {
     }
 
     public function toSelectItem($name, $id) {
-        $result = array();
-        $this->db->order_by($name, 'ASC');
-        $data = $this->db->get($this->table)->result();
-        foreach ($data as $row) {
-            $result[] = [
-                "id" => $row->$id,
-                "name" => ucfirst($row->name)
-            ];
+        $db = $this->db;
+        if($this->isTimeStamp()){
+            $db->where($this->table.".deleted_on", null);
+            $db->where($this->table.".deleted_by", null);
         }
-        return $result;
+        $db->order_by($name, "ASC");
+        $result = $db->get($this->table)->result_array(); 
+        $items = array();
+        foreach($result as $r) { 
+            $items[$r[$id]] = $r[$name]; 
+        } 
+        $items[''] = 'Pilih item...'; 
+        return $items; 
     }
 
     protected function column($alias = true) {

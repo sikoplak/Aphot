@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        Kategori Kamar
+         Kamar
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
-        <li><a href="<?php echo base_url("web/category_room");?>">Kategori Kamar</a></li>
+        <li><a href="<?php echo base_url("web/room");?>">Kamar</a></li>
         <li class="active">Tambah Baru</li>
     </ol>
 </section>
@@ -16,21 +16,39 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Form Kategori Kamar</h3>
+                    <h3 class="box-title">Form  Kamar</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php echo form_open("web/category_room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                    <?php echo form_open("web/room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
+                                <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name" value="" >
+                                    <input type="text" class="form-control" name="number" id="number" value="" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Harga</label>
+                                <label for="" class="col-sm-2 control-label">Kategori</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cost" id="cost" value="0" >
+                                    <?php echo form_dropdown('category_id', $categories, '', 'class="select2"');?> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-10">
+                                    <?php echo form_dropdown('status_id', $status, '', 'class="select2"');?> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Kapasitas</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="capacity" id="capacity" value="0" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Jumlah Penghuni</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="occupant" id="occupant" value="0" >
                                 </div>
                             </div>
                             <div class="form-group">

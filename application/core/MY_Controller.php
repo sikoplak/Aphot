@@ -72,7 +72,8 @@ class MY_Controller extends MX_Controller
 			$this->mdl->updateValidation($this->form_validation,$id);
 			if ($this->form_validation->run() == TRUE) {
 				$post = $this->input->post(NULL, TRUE);
-				$mapper = $this->beforeUpdate($post,$id);
+				$oldData = $this->mdl->find($id);
+				$mapper = $this->beforeUpdate($post, $oldData, $id);
 				unset($post["id"]);
 				$update_id = $this->mdl->update($mapper, $id);
 				$this->afterUpdate($post, $update_id);
@@ -97,7 +98,7 @@ class MY_Controller extends MX_Controller
 				"back"=>base_url($this->route),
 				"create"=>base_url($this->route."/create"),
 				"edit"=>base_url($this->route."/edit/".$id),
-				"delete"=>base_url($this->route."/delete/".$id."/0"),
+				"delete"=>base_url($this->route."/delete/".$id),
 			]
 		];
 		if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
@@ -132,7 +133,7 @@ class MY_Controller extends MX_Controller
 
 	protected function afterCreate($post, $insert_id){}
 
-	protected function beforeUpdate(array $data, $id){ return $data; }
+	protected function beforeUpdate(array $data, $oldData,  $id){ return $data; }
 
 	protected function afterUpdate($post, $update_id){}
 

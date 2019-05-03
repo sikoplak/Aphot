@@ -1,12 +1,12 @@
 <section class="content-header">
     <h1>
-        Kategori Kamar
+        Kategori Menu Restoran
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
-        <li><a href="<?php echo base_url("web/category_room");?>">Kategori Kamar</a></li>
-        <li class="active">Tambah Baru</li>
+        <li><a href="<?php echo base_url("web/category_food");?>">Kategori Menu Restoran</a></li>
+        <li class="active">Detail Data</li>
     </ol>
 </section>
 
@@ -16,33 +16,43 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Form Kategori Kamar</h3>
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <h3 class="box-title">Detail Kategori Menu Restoran</h3>
+                        </div>
+                        <div class="pull-right">
+                            <a href="<?php echo $links["create"]; ?>" class="btn btn-success btn-create-data">
+                                <i class="fa fa-plus"></i>&nbsp;Tambah
+                            </a>
+                            <a href="<?php echo $links["edit"]; ?>" class="btn btn-warning btn-edit-data">
+                                <i class="fa fa-edit"></i>&nbsp;Edit
+                            </a>
+                            <a href="<?php echo $links["delete"]; ?>" class="btn btn-danger btn-remove-data">
+                                <i class="fa fa-trash"></i>&nbsp;Hapus
+                            </a>    
+                        </div>
+                    </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php echo form_open("web/category_room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                    <?php echo form_open("web/category_food/update", ["class"=>"form-horizontal"]); ?>
+                        <?php echo form_hidden("id",$data->categories_food_id); ?>
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name" value="" >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Harga</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cost" id="cost" value="0" >
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->categories_food_name; ?></p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="description" class="col-sm-2 control-label">Deskripsi</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="description" id="description" rows="6"></textarea>
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->categories_food_description; ?></p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Foto</label>
+                                <label for="cost" class="col-sm-2 control-label">Foto</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="file" class="file-input-image" />
+                                    <?php echo imageExist($data->categories_food_image); ?>
                                 </div>
                             </div>
                         </div><!-- /.box-body -->
