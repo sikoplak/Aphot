@@ -39,6 +39,7 @@ class Room_model extends MY_Model{
         $this->db->where("category_id", $id);
         $this->db->where($this->table.".deleted_on", null);
         $this->db->where($this->table.".deleted_by", null);
+        $this->db->where($this->table.".occupant", 0);
         $this->db->order_by("number", "ASC");
         return $this->db->get($this->table)->result();
     }

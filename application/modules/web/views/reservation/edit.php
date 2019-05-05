@@ -25,9 +25,8 @@
                         </div>
                     </div>
                 </div><!-- /.box-header -->
-                <?php echo form_open("web/reservation/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                <?php echo form_open("web/reservation/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data", "id"=>"form-submit"]); ?>
                 <?php echo form_hidden("id",$data->invoices_id); ?>
-                <?php echo form_hidden("is_draft", 1); ?>
                 <div class="box-body">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -93,7 +92,21 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody ></tbody>
+                            <tbody>
+                                <?php $i = 1; foreach($detail_rooms as $room): ?>
+                                    <tr class='room-row' data-id='<?php echo $i;?>'>
+                                        <td class='number'><?php echo $i;?></td>
+                                        <td><select class='category_id select2' required='required' data-selected='<?php echo $room->category_id;?>' data-id='<?php echo $i;?>'></select></td>
+                                        <td><select name='room_id[]' class='room_id select2' data-selected='<?php echo $room->room_id;?>' required='required' data-id='<?php echo $i;?>'></select></td>
+                                        <td><input name='capacity[]' type='text' class='form-control capacity' value='<?php echo $room->capacity;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
+                                        <td><input name='occupant[]' type='number' min='1' value='<?php echo $room->occupant;?>' class='form-control occupant' required='required' data-id='<?php echo $i;?>'></td>
+                                        <td><input name='price[]' type='text' class='form-control price' value='<?php echo $room->price;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
+                                        <td><input name='duration[]' type='text' class='form-control duration' value='<?php echo $room->duration;?>' readonly='readonly' data-id='<?php echo $i;?>'></td></td>
+                                        <td><input name='total[]' type='text' class='form-control total' value='<?php echo $room->total;?>' readonly='readonly' data-id='<?php echo $i;?>'></td></td>
+                                        <td><a href="javascript:void(0);" class="btn btn-sm btn-danger delete-room" id="btn-remove-room" data-id='<?php echo $i;?>'><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+                                <?php $i++; EndForeach; ?>
+                            </tbody>
                             <tfoot>
                                 <tr>
                                     <th colspan="8"></th>

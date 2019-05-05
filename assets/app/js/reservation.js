@@ -1,7 +1,26 @@
 var tableRoom = {
 
     "init": function (table) {
-        this.add(table);
+
+        if($(table+" tbody tr").length === 0){
+            this.add(table);
+        }else{
+            let option  = "<option>-- Pilih Kategori Ruangan --</option>";
+            let categories = $("#categories").val();
+            let json = JSON.parse(categories);
+            json.forEach(function(row) {
+                option += "<option data-price='"+row.categories_room_cost+"' value='"+row.categories_room_id+"'>"+row.categories_room_name+"</option>"
+            });
+            $(table+" .category_id").each(function(){
+                let selected = $(this).attr("data-selected");
+                $(this).html(option);
+                $(this).val(selected);
+            });
+            $(table+" .select2").select2();
+            tableRoom.autoNumber(table);
+            tableRoom.Calculate(table);
+        }
+
 
         $("body").on("click", "#btn-add-room", function (e) {
             e.preventDefault();
@@ -78,13 +97,13 @@ var tableRoom = {
         let html = "";
         html += "<tr class='room-row'>"
         html += "<td class='number'></td>";
-        html += "<td><select class='category_id select2' >"+option+"</select></td>";
-        html += "<td><select name='room_id[]' class='room_id select2'><option>-- Pilih Ruangan --</option></select></td>";
-        html += "<td><input type='text' class='form-control capacity' value='0' readonly='readonly'></td>";
-        html += "<td><input type='number' min='1' value='0' class='form-control occupant'></td>";
-        html += "<td><input type='text' class='form-control price' value='0' readonly='readonly'></td>";
-        html += "<td><input type='text' class='form-control duration' value='"+number_of_days+"' readonly='readonly'></td>";
-        html += "<td><input type='text' class='form-control total' value='0' readonly='readonly'></td>";
+        html += "<td><select class='category_id select2' required='required' >"+option+"</select></td>";
+        html += "<td><select name='room_id[]' class='room_id select2' required='required'><option>-- Pilih Ruangan --</option></select></td>";
+        html += "<td><input name='capacity[]' type='text' class='form-control capacity' value='0' readonly='readonly'></td>";
+        html += "<td><input name='occupant[]' type='number' min='1' value='0' class='form-control occupant' required='required'></td>";
+        html += "<td><input name='price[]' type='text' class='form-control price' value='0' readonly='readonly'></td>";
+        html += "<td><input name='duration[]' type='text' class='form-control duration' value='"+number_of_days+"' readonly='readonly'></td>";
+        html += "<td><input name='total[]' type='text' class='form-control total' value='0' readonly='readonly'></td>";
         html += '<td><a href="javascript:void(0);" class="btn btn-sm btn-danger delete-room" id="btn-remove-room"><i class="fa fa-trash"></i></a></td>';
         html += "</tr>"
         $(table + " tbody").append(html);
@@ -245,5 +264,21 @@ $(document).ready(function () {
     if ($("#table-room").length) {
         tableRoom.init("#table-room");
     }
+
+    $("#form-submit").submit(function(e) {
+        let form = this;
+        let category_id = $('.category_id').val();
+        let room_id = $('.room_id').val();
+
+        if(!parseInt(category_id)){
+            swal("Kategori Kamar Kosong", "Silahkan isi Kategori Kamar !", "error");
+        }else if(!parseInt(room_id)){
+            swal("Kamar Kosong", "Silahkan isi Kamar !", "error");
+        }else{
+            $(form).unbind('submit').submit();
+        }
+
+        return false;
+    });
 
 });

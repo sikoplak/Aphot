@@ -67,4 +67,60 @@ class Invoice_model extends MY_Model{
         $form->set_rules('customer_id', 'Nama Pelanggan', 'required');
         $form->set_rules('number_of_days', 'Durasi', 'required');
     }
+
+    public function getDetailRoom($id){
+        $this->db->where("invoice_id", $id);
+        $this->db->join('rooms','rooms.id = invoice_room.room_id');
+        return $this->db->get("invoice_room")->result();
+    }
+
+    public function updateReservation($data, $id){
+        $oldData = $this->find($id);
+        $this->db->trans_begin();
+        
+        $sub = ["invoice_discount", "invoice_extra", "invoice_food","invoice_room", "invoice_service", "invoice_tax"];
+        foreach($sub as $row){
+            $this->db->where("invoice_id", $id);
+            $this->db->delete($row);
+        }
+
+        if(isset($data["room_id"])){
+            $rooms = $data["room_id"];
+            $i = 0;
+            foreach($rooms as $room){
+
+                $this->db->insert("invoice_room", [
+                    "invoice_id"=>$id,
+                    "room_id"=>$room,
+                    "capacity"=>isset($data["capacity"][$i]) ? $data["capacity"][$i] : 0,
+                    "occupant"=>isset($data["occupant"][$i]) ? $data["occupant"][$i] : 0,
+                    "price"=>isset($data["price"][$i]) ? $data["price"][$i] : 0,
+                    "duration"=>isset($data["duration"][$i]) ? $data["duration"][$i] : 0,
+                    "total"=>isset($data["total"][$i]) ? $data["total"][$i] : 0,
+                ]);
+
+                if(isset($data["occupant"][$i])){
+                    $this->db->where("id", $room);
+                    $this->db->limit(1);
+                    $this->db->update("rooms", ["occupant"=>$data["occupant"][$i]]);
+                }
+
+                $i++;
+            }
+        }
+
+        $this->db->where("id", $id);
+        $this->db->limit(1);
+        $updated = $this->db->update($this->table, [
+            "customer_id"=>$data["customer_id"],
+            "number_of_days"=>$data["number_of_days"],
+            "check_in_on"=>$data["check_in_on"],
+            "check_out_on"=>$data["check_out_on"],
+            "is_draft"=>0
+        ]);
+
+        $this->db->trans_commit();
+        audit($oldData, $updated, "UPDATE", $id, $this->table);    
+        return $updated;    
+    }
 }

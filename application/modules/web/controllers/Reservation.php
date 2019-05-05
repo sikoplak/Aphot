@@ -24,11 +24,22 @@ class Reservation extends MY_Controller{
 		$data = $this->mdl->find($id);
         $items =[
             "data"=>$data,
-			"categories"=>$this->categories->getAll(),
+            "categories"=>$this->categories->getAll(),
+            "detail_rooms"=>$this->mdl->getDetailRoom($id)
         ];
 		if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
 		$this->template->content->view($this->route."/edit",$items);
         $this->template->publish();
-	}
+    }
+    
+    public function update(){
+        checkPermission($this->route,"update");
+        $id = $this->input->post('id');
+        $this->load->model($this->model, "mdl");
+        $post = $this->input->post(NULL, TRUE);
+        $this->mdl->updateReservation($post, $id);
+        $this->session->set_flashdata('success', self::SUCCESS_MESSAGE_UPATED);
+        redirect($this->route.'/edit/'.$id);
+    }
 
 }
