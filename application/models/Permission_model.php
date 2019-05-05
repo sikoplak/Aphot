@@ -124,4 +124,91 @@ class Permission_model extends MY_Model{
         
     }
 
+    public function tablePermission(){
+        $this->db->distinct();
+        $this->db->where('parent_id',null);
+        $this->db->where('protected',null);
+        $this->db->order_by('sort','ASC');
+        $data = $this->db->get('routes')->result();
+        if(!is_null($data)){
+            foreach($data as $row){
+                $this->tablePermissionRow($row);
+            }
+        }
+    }
+
+    private function tablePermissionRow($parent, $level = 0, $has_child = false){
+
+        $this->db->distinct();
+        $this->db->where('parent_id',$parent->id);
+        $this->db->where('protected',null);
+        $this->db->order_by('name','ASC');
+        $data = $this->db->get('routes')->result();
+
+        $menu_id = $parent->id;
+        $parentId = $parent->parent_id ? $parent->parent_id : $parent->id;
+
+        $hasChild = $has_child ? "is_child" : "is_parent";
+        $isSecure = (int)$parent->protected == 1 ? '' : '';
+        $isChecked = (int)$parent->protected == 1 ? 'checked' : '';
+        $checkbox = "<input type='checkbox' name='routes[]' value='".$menu_id."' id='menu".$menu_id."' class=' menu  ".$hasChild." parent".$parentId."' data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />";
+        $menuName = $has_child ? "".$this->checkBoxWrapper($checkbox, $parent->name, $level) : "".$this->checkBoxWrapper($checkbox, $parent->name , $level)."";
+
+        if(count($data) > 0){
+            if(isset($parent->url) && !is_null($parent->url)){
+                echo "
+                    <tr>
+                        <td>".$menuName."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_view".$menu_id."' name='can_view".$menu_id."' value='1'  class=' permission view'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_add".$menu_id."' name='can_add".$menu_id."' value='1'  class=' permission create'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_edit".$menu_id."' name='can_edit".$menu_id."' value='1'  class=' permission edit'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_delete".$menu_id."' name='can_delete".$menu_id."' value='1'  class=' permission delete'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                    </tr>
+                ";
+            }else{
+                echo "<tr><td colspan='5'>".$menuName."</td></tr>";
+            }
+            $level++;
+            foreach($data as $row){
+                $this->tablePermissionRow($row,$level,true);
+            }
+        }else{
+            if(isset($parent->url) && !is_null($parent->url)){
+                echo "
+                    <tr class='".$isSecure."'>
+                        <td>".$menuName."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_view".$menu_id."' name='can_view".$menu_id."' value='1'  class=' permission view'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_add".$menu_id."' name='can_add".$menu_id."' value='1'  class=' permission create'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_edit".$menu_id."' name='can_edit".$menu_id."' value='1'  class=' permission edit'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                        <td class='text-center'>".$this->checkBoxWrapper("<input type='checkbox' id='can_delete".$menu_id."' name='can_delete".$menu_id."' value='1'  class=' permission delete'  data-menu-id='".$menu_id."'  data-parent-id='".$parentId."' ".$isChecked."  />", null, 0 ,false)."</td>
+                    </tr>
+                ";
+            }else{
+                echo "<tr><td colspan='5'>C</td></tr>";
+            }
+        }
+
+    }
+
+    private function createSpace($param = null){
+        $html = "&nbsp&nbsp";
+        $max = $param * 5;
+        for($i = 0; $i < $max; $i++){
+            $html .= "&nbsp;";
+        }
+        return $html;
+   }
+
+   private function checkBoxWrapper($checkbox, $name = null, $space = 0, $withIcon = true){
+       if($withIcon){
+            return '
+                '.$this->createSpace($space).'<i class="fa fa-chevron-right"></i>&nbsp;'.$checkbox.'&nbsp;&nbsp;&nbsp;'.$name.'
+            ';
+       }else{
+            return '
+                '.$checkbox.'&nbsp;&nbsp;&nbsp;'.$name.'
+            ';
+       }
+    }
+
 }

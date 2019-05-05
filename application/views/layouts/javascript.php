@@ -19,10 +19,12 @@
 <!-- jQuery Knob Chart -->
 <script src="<?php echo site_url("assets/plugins/knob/jquery.knob.js");?>"></script>
 <!-- daterangepicker -->
-<script src="<?php echo site_url("assets/dist/js/moment.min.js");?>"></script>
+<script src="<?php echo site_url("assets/dist/js/moment-with-locales.js");?>"></script>
 <script src="<?php echo site_url("assets/plugins/daterangepicker/daterangepicker.js");?>"></script>
 <!-- datepicker -->
 <script src="<?php echo site_url("assets/plugins/datepicker/bootstrap-datepicker.js");?>"></script>
+<!-- Datetime Picker -->
+<script src="<?php echo site_url("assets/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js");?>"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo site_url("assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js");?>"></script>
 <!-- DataTables -->

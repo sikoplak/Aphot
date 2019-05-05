@@ -2,14 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (!function_exists('asset')) {
-
-    function asset($url) {
-        return site_url('public/' . $url);
-    }
-
-}
-
 if (!function_exists('now')) {
 
     function now() {
@@ -303,4 +295,22 @@ if (!function_exists('imageExist')) {
             return '<p class="form-control-static">-</p>';
         }
     }
+}
+
+if (!function_exists('company')) {
+    function company($slug) {
+        $CI = get_instance();
+        $CI->load->model('Company_model', 'com');
+        return $CI->com->getBySlug($slug);
+    }
+}
+
+if (!function_exists('tablePermission')) {
+
+    function tablePermission() {
+        $CI = get_instance();
+        $CI->load->model('Permission_model', 'permission');
+        $CI->permission->tablePermission();
+    }
+
 }

@@ -214,7 +214,7 @@ class MY_Model extends CI_Model {
         $query = $this->db->query("DESC ".$this->table)->result_array();
         foreach($query as $row){
             if(isset($row["Field"])){
-                if($row["Field"] == "created_on" || $row["Field"] == "deleted_on"){
+                if($row["Field"] == "deleted_on"){
                     return TRUE;
                     break;
                 }

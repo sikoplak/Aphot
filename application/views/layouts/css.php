@@ -28,6 +28,8 @@
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/datepicker/datepicker3.css");?>">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/daterangepicker/daterangepicker-bs3.css");?>">
+<!-- Datetime Picker -->
+<link rel="stylesheet" href="<?php echo site_url("assets/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css");?>">
 <!-- Cropper -->
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/cropper/cropper.min.css");?>">
 <link rel="stylesheet" href="<?php echo site_url("assets/plugins/cropper/main.css");?>">

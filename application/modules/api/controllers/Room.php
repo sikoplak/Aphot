@@ -9,4 +9,11 @@ class Room extends API_Controller{
 		$this->model = "Room_model";		
 	}
 
+	public function get_category_post(){
+		$this->load->model($this->model, "mdl");
+		$id = $this->input->post("id");
+		$response = $this->mdl->get_category($id);
+		$this->set_response($response, REST_Controller::HTTP_OK);
+	}
+
 }

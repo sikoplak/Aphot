@@ -18,42 +18,40 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Form Kategori Kamar</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                    <?php echo form_open("web/extra/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
-                        <?php echo form_hidden("id",$data->extra_id); ?>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" id="name" value="<?php echo $data->extra_name; ?>" >
-                                </div>
+                <?php echo form_open("web/extra/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                    <?php echo form_hidden("id",$data->extra_id); ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" id="name" value="<?php echo $data->extra_name; ?>" >
                             </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Harga</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cost" id="cost" value="<?php echo $data->extra_cost; ?>" >
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Harga</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" name="cost" id="cost" value="<?php echo $data->extra_cost; ?>" >
                             </div>
-                            <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Deskripsi</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" name="description" id="description" rows="6"><?php echo $data->extra_description; ?></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Deskripsi</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="description" id="description" rows="6"><?php echo $data->extra_description; ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Foto</label>
-                                <div class="col-sm-10">
-                                    <input type="file" name="file" class="file-input-image" />
-                                    <p></p>
-                                    <?php echo imageExist($data->extra_image); ?>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Foto</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="file" class="file-input-image" />
+                                <p></p>
+                                <?php echo imageExist($data->extra_image); ?>
                             </div>
-                        </div><!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                        </div><!-- /.box-footer -->
-                    <?php echo form_close(); ?>
-                </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                    </div><!-- /.box-footer -->
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>

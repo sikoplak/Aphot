@@ -35,6 +35,14 @@ class Room_model extends MY_Model{
         $form->set_rules('occupant', 'Jumlah Penghuni', 'required');
     }
 
+    public function get_category($id){
+        $this->db->where("category_id", $id);
+        $this->db->where($this->table.".deleted_on", null);
+        $this->db->where($this->table.".deleted_by", null);
+        $this->db->order_by("number", "ASC");
+        return $this->db->get($this->table)->result();
+    }
+
     protected function belongsTo(){ 
         return array(
             [

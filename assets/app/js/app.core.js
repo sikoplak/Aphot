@@ -20,6 +20,13 @@ jQuery.browser = {};
     }
 })();
 
+function getFormattedDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear().toString().slice(2);
+    return day + '-' + month + '-' + year;
+}
+
 var browser = function() {
     var ua = navigator.userAgent,
         tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -197,7 +204,7 @@ var appDataTable = {
             var targetUrl = $(this).attr("href");
             var id = $(this).attr("data-id");
             var message = 'Apakan anda yakin akan menghapus data ini ?'
-            var notif = "Ddata berhasil dihapus !";
+            var notif = "Data berhasil dihapus !";
             swal({
                 title: "Konfirmasi Hapus",
                 text: message,
@@ -323,7 +330,16 @@ $(document).ready(function() {
         $(".input-datepicker").datepicker({
             autoclose: true,
             clearBtn: true,
-            format: 'yyyy-dd-mm',
+            format: 'yyyy-mm-dd',
+            language: "id"
+        });
+    }
+
+    if($(".datetime-picker").length){
+        $('.datetime-picker').datetimepicker({
+            format:'YYYY-MM-DD HH:mm:ss',
+            minDate: getFormattedDate(new Date()),
+            locale: "id"
         });
     }
 
@@ -351,5 +367,8 @@ $(document).ready(function() {
         $(".btn-edit-data").hide();
     }
 
+    if($(".table-transaction").length){
+        $(".table-transaction").slimScroll();
+    }
 
 });

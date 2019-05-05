@@ -9,12 +9,12 @@ class Menu_model extends MY_Model{
 
     public function dataTableColumnFilter(){
         return [
-            "rooms.id",
+            "foods.id",
             "categories_food.name",
             "foods.name",
             "foods.cost",
             "foods.description",
-            "rooms.created_on",  
+            "foods.created_on",  
         ];
     }
 

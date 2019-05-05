@@ -161,12 +161,28 @@
             "parent_id": "5"
         },
         {
-            "name": "Aplikasi",
-            "url": "application",
+            "name": "Profil Perusahaan",
+            "url": "company",
             "icon": "",
             "protected": "",
             "sort": "",
             "parent_id": "5"
+        },
+        {
+            "name": "Audit Trail",
+            "url": "audit",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "5"
+        },
+        {
+            "name": "Pelanggan",
+            "url": "customer",
+            "icon": "",
+            "protected": "",
+            "sort": "",
+            "parent_id": "2"
         }
     ]
 }

@@ -9,12 +9,17 @@ class Command extends MX_Controller{
     }
 
     public function db_backup() {
+        $folder = FCPATH.'/database';
+        $files = glob($folder . '/*');
+        foreach($files as $file){
+            if(is_file($file)){ 
+                unlink($file);
+            }
+        }
+        echo exec('mysqldump -u root -p --no-data ' . $this->db->database . ' > '.FCPATH.'/database/schema.sql');
         echo exec('mysqldump -u root -p  '.$this->db->database .' > '.FCPATH.'/database/backup.sql');
     }
 
-    public function db_schema() {
-        echo exec('mysqldump -u root -p --no-data ' . $this->db->database . ' > '.FCPATH.'/database/schema.sql');
-    }
 
     public function seed(){
         $this->load->model('Seed_model', 'seed');

@@ -6,7 +6,7 @@ class Extra extends API_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		$this->model = "Extra_model";
+			$this->model = "Extra_model";
     }
 
 }

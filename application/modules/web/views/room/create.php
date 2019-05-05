@@ -18,57 +18,55 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Form  Kamar</h3>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                    <?php echo form_open("web/room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="number" id="number" value="" >
-                                </div>
+                <?php echo form_open("web/room/store", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="number" id="number" value="" >
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Kategori</label>
-                                <div class="col-sm-10">
-                                    <?php echo form_dropdown('category_id', $categories, '', 'class="select2"');?> 
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Kategori</label>
+                            <div class="col-sm-10">
+                                <?php echo form_dropdown('category_id', $categories, '', 'class="select2"');?> 
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Status</label>
-                                <div class="col-sm-10">
-                                    <?php echo form_dropdown('status_id', $status, '', 'class="select2"');?> 
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-10">
+                                <?php echo form_dropdown('status_id', $status, '', 'class="select2"');?> 
                             </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Kapasitas</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="capacity" id="capacity" value="0" >
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Kapasitas</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" name="capacity" id="capacity" value="0" >
                             </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Jumlah Penghuni</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="occupant" id="occupant" value="0" >
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Jumlah Penghuni</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" name="occupant" id="occupant" value="0" >
                             </div>
-                            <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Deskripsi</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" name="description" id="description" rows="6"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Deskripsi</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="description" id="description" rows="6"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Foto</label>
-                                <div class="col-sm-10">
-                                    <input type="file" name="file" class="file-input-image" />
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Foto</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="file" class="file-input-image" />
                             </div>
-                        </div><!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                        </div><!-- /.box-footer -->
-                    <?php echo form_close(); ?>
-                </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                    </div><!-- /.box-footer -->
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>

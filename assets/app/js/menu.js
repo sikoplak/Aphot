@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var mainArea = "web";
-    var mainRoute = "room";
+    var mainRoute = "menu";
     var renderConfig = {
         "table": "#table",
         "route": mainRoute,

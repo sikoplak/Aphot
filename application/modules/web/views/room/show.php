@@ -33,58 +33,53 @@
                         </div>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                    <?php echo form_open("web/room/update", ["class"=>"form-horizontal"]); ?>
-                        <?php echo form_hidden("id",$data->rooms_id); ?>
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_number; ?></p>
-                                </div>
+                <?php echo form_open("web/room/update", ["class"=>"form-horizontal"]); ?>
+                    <?php echo form_hidden("id",$data->rooms_id); ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Nomor Kamar</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->rooms_number; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Kategori</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->categories_room_name; ?></p>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Kategori</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->categories_room_name; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Status</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->status_room_name; ?></p>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->status_room_name; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Kapasitas</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_capacity; ?></p>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Kapasitas</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->rooms_capacity; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">Jumlah Penghuni</label>
-                                <div class="col-sm-10">
-                                     <p class="form-control-static">&nbsp;: <?php echo $data->rooms_occupant; ?></p>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Jumlah Penghuni</label>
+                            <div class="col-sm-10">
+                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_occupant; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="description" class="col-sm-2 control-label">Deskripsi</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">&nbsp;: <?php echo $data->rooms_description; ?></p>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Deskripsi</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->rooms_description; ?></p>
                             </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Foto</label>
-                                <div class="col-sm-10">
-                                    <?php echo imageExist($data->rooms_image); ?>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Foto</label>
+                            <div class="col-sm-10">
+                                <?php echo imageExist($data->rooms_image); ?>
                             </div>
-                        </div><!-- /.box-body -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                        </div><!-- /.box-footer -->
-                    <?php echo form_close(); ?>
-                </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                <?php echo form_close(); ?>
             </div>
         </div>
     </div>
