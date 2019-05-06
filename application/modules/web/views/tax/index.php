@@ -33,6 +33,7 @@
                                 <th>#</th>
                                 <th>Nama Pajak</th>
                                 <th>Nominal (%)</th>
+                                <th>Transaksi</th>
                                 <th>Deskripsi</th>
                                 <th>Status</th>
                                 <th>Aksi</th>

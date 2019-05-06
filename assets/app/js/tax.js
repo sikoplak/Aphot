@@ -25,17 +25,24 @@ $(document).ready(function() {
             },
             {
                 "targets": 3,
-                "data": "taxes_description"
+                "data": "taxes_type",
+                "render": function(data, type, row, meta) {
+                    return parseInt(data) === 0 ? "Reservasi" : "Restoran";
+                }
             },
             {
                 "targets": 4,
+                "data": "taxes_description"
+            },
+            {
+                "targets": 5,
                 "data": "taxes_active",
                 "render": function(data, type, row, meta) {
                     return labelStatus(data);
                 }
             },
             {
-                "targets": 5,
+                "targets": 6,
                 "orderable": false,
                 "className": "text-center",
                 "render": function(data, type, row, meta) {

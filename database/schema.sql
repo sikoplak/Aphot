@@ -37,7 +37,7 @@ CREATE TABLE `audits` (
   `date_created` timestamp NULL DEFAULT NULL,
   `date_updated` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,13 +147,14 @@ CREATE TABLE `discounts` (
   `name` varchar(255) DEFAULT NULL,
   `cost` double(20,0) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL,
   `active` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,6 +284,11 @@ DROP TABLE IF EXISTS `invoice_room`;
 CREATE TABLE `invoice_room` (
   `invoice_id` int(11) unsigned NOT NULL,
   `room_id` int(10) unsigned NOT NULL,
+  `capacity` int(11) DEFAULT NULL,
+  `occupant` int(11) DEFAULT NULL,
+  `price` double(20,0) DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `total` double(20,0) DEFAULT NULL,
   PRIMARY KEY (`invoice_id`,`room_id`),
   KEY `room_id` (`room_id`),
   CONSTRAINT `invoice_room_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -357,7 +363,7 @@ CREATE TABLE `invoices` (
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `invoices_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -486,6 +492,22 @@ CREATE TABLE `services` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `config_value` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `status_room`
 --
 
@@ -516,6 +538,7 @@ CREATE TABLE `taxes` (
   `name` varchar(255) DEFAULT NULL,
   `cost` double(20,0) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
+  `type` tinyint(4) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `deleted_on` datetime DEFAULT NULL,
@@ -610,4 +633,4 @@ CREATE TABLE `users_profile` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-06  4:31:22
+-- Dump completed on 2019-05-06 16:56:04

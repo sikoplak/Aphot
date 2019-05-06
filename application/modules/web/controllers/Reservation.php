@@ -25,7 +25,9 @@ class Reservation extends MY_Controller{
         $items =[
             "data"=>$data,
             "categories"=>$this->categories->getAll(),
-            "detail_rooms"=>$this->mdl->getDetailRoom($id)
+            "detail_rooms"=>$this->mdl->getDetailRoom($id),
+            "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
+            "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0)
         ];
 		if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
 		$this->template->content->view($this->route."/edit",$items);

@@ -97,7 +97,7 @@
                                     <tr class='room-row' data-id='<?php echo $i;?>'>
                                         <td class='number'><?php echo $i;?></td>
                                         <td><select class='category_id select2' required='required' data-selected='<?php echo $room->category_id;?>' data-id='<?php echo $i;?>'></select></td>
-                                        <td><select name='room_id[]' class='room_id select2' data-selected='<?php echo $room->room_id;?>' required='required' data-id='<?php echo $i;?>'></select></td>
+                                        <td><select name='room_id[]' class='room_id select2' data-number='<?php echo $room->number;?>' data-selected='<?php echo $room->room_id;?>' required='required' data-id='<?php echo $i;?>'></select></td>
                                         <td><input name='capacity[]' type='text' class='form-control capacity' value='<?php echo $room->capacity;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
                                         <td><input name='occupant[]' type='number' min='1' value='<?php echo $room->occupant;?>' class='form-control occupant' required='required' data-id='<?php echo $i;?>'></td>
                                         <td><input name='price[]' type='text' class='form-control price' value='<?php echo $room->price;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
@@ -118,9 +118,65 @@
                                 </tr>
                             </tfoot>
                         </table>
+                        <table class="table">
+                            <tr class="success">
+                                <th colspan="4">SUBTOTAL</th>
+                                <th colspan="5" class="text-right">
+                                    <strong>
+                                        <span class="subtotal">0</span>
+                                    </strong>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">DISKON (%)</th>
+                                <th colspan="5">PAJAK (%)</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <ul class="detail detail-discount">
+                                        <?php foreach($detail_discounts as $discount): ?>
+                                            <li class="clearfix">
+                                                <span class="pull-left"><?php echo $discount->name."(".$discount->cost."%)"; ?></span>
+                                                <span class="pull-right cost-disc" data-discount-id="<?php echo $discount->id; ?>" data-cost="<?php echo $discount->cost; ?>">
+                                                    <?php echo !is_null($discount->cost) ? $discount->cost : 0; ?>
+                                                </span>
+                                                <input type="hidden" class="cost_discount" name="cost_discount[]" data-discount-id="<?php echo $discount->id; ?>" value="<?php echo !is_null($discount->cost) ? $discount->cost : 0; ?>" />
+                                                <input type="hidden" name="discount_id[]" value="<?php echo $discount->id; ?>" />
+                                            </li>
+                                        <?php EndForeach; ?>
+                                    </ul>
+                                </th>
+                                <th colspan="5">
+                                    <ul class="detail detail-tax">
+                                        <?php foreach($detail_taxes as $tax): ?>
+                                            <li class="clearfix">
+                                                <span class="pull-left"><?php echo $tax->name."(".$tax->cost."%)"; ?></span>
+                                                <span class="pull-right cost-tax" data-tax-id="<?php echo $tax->id; ?>" data-cost="<?php echo $tax->cost; ?>">
+                                                    <?php echo !is_null($tax->cost) ? $tax->cost : 0; ?>
+                                                </span>
+                                                <input type="hidden" class="cost_tax" name="cost_tax[]" data-tax-id="<?php echo $tax->id; ?>" value="<?php echo !is_null($tax->cost) ? $tax->cost : 0; ?>" />
+                                                <input type="hidden" name="tax_id[]" value="<?php echo $tax->id; ?>" />
+                                            </li>
+                                        <?php EndForeach; ?>
+                                    </ul>
+                                </th>
+                            </tr>
+                            <tr class="success">
+                                <th colspan="2">TOTAL DISKON</th>
+                                <th colspan="2" class="text-right total-discount">0</th>
+                                <th colspan="3">TOTAL PAJAK</th>
+                                <th colspan="2" class="text-right total-tax">0</th>
+                            </tr>
+                            <tr class="info">
+                                <th colspan="4">GRAND TOTAL</th>
+                                <th colspan="5" class="text-right grand-total-txt">0</th>
+                                <input type="hidden" name="grand_total" class="grand-total" />
+                            </tr>
+                        </table>
                     </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer">
+                    <a href="javascript:void(0);" class="btn btn-success pull-left"><i class="fa fa-money"></i>&nbsp;Check Out</a>
                     <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
                 </div><!-- /.box-footer -->
                 <?php echo form_close(); ?>

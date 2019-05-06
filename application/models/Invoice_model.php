@@ -109,6 +109,32 @@ class Invoice_model extends MY_Model{
             }
         }
 
+        if(isset($data["discount_id"])){
+            $discounts = $data["discount_id"];
+            $i = 0;
+            foreach($discounts as $disc){
+                $this->db->insert("invoice_discount", [
+                    "invoice_id"=>$id,
+                    "discount_id"=>$disc,
+                    "cost"=>isset($data["cost_discount"][$i]) ? $data["cost_discount"][$i] : 0,
+                ]);
+                $i++;
+            }
+        }
+
+        if(isset($data["tax_id"])){
+            $taxes = $data["tax_id"];
+            $i = 0;
+            foreach($taxes as $tax){
+                $this->db->insert("invoice_tax", [
+                    "invoice_id"=>$id,
+                    "tax_id"=>$tax,
+                    "cost"=>isset($data["cost_tax"][$i]) ? $data["cost_tax"][$i] : 0,
+                ]);
+                $i++;
+            }
+        }
+
         $this->db->where("id", $id);
         $this->db->limit(1);
         $updated = $this->db->update($this->table, [
@@ -122,5 +148,35 @@ class Invoice_model extends MY_Model{
         $this->db->trans_commit();
         audit($oldData, $updated, "UPDATE", $id, $this->table);    
         return $updated;    
+    }
+
+    public function getInvoiceTax($id, $type){
+        $this->db->distinct();
+        $this->db->where("invoice_id", $id);
+        $this->db->where("active", 1);
+        $this->db->join('taxes','taxes.id = invoice_tax.tax_id');
+        $exists = $this->db->get("invoice_tax")->result();
+        if(count($exists) > 0){
+            return $exists;
+        }else{
+            $this->db->where("active", 1);
+            $this->db->where("type", $type);
+            return $this->db->get("taxes")->result();
+        }
+    }
+
+    public function getInvoiceDiscount($id, $type){
+        $this->db->distinct();
+        $this->db->where("invoice_id", $id);
+        $this->db->where("active", 1);
+        $this->db->join('discounts','discounts.id = invoice_discount.discount_id');
+        $exists = $this->db->get("invoice_discount")->result();
+        if(count($exists) > 0){
+            return $exists;
+        }else{
+            $this->db->where("active", 1);
+            $this->db->where("type", $type);
+            return $this->db->get("discounts")->result();
+        }
     }
 }

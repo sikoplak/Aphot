@@ -35,3 +35,6 @@ label.file-upload input[type=file] {
     width: auto !important;
 }
 
+ul.detail {
+    list-style-type: none !important;
+}

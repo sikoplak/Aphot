@@ -50,6 +50,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="cost" class="col-sm-2 control-label">Transaksi</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->taxes_type == "0" ? "Reservasi" : "Restoran"; ?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">Deskripsi</label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">&nbsp;: <?php echo $data->taxes_description; ?></p>

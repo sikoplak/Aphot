@@ -12,6 +12,7 @@ class Tax_model extends MY_Model{
             "taxes.id",
             "taxes.name",
             "taxes.cost",
+            "taxes.type",
             "taxes.description",
             "taxes.active",
             "taxes.created_on",  
@@ -19,13 +20,15 @@ class Tax_model extends MY_Model{
     }
 
     public function createValidation($form) {
-        $form->set_rules('name', 'Nama Pajak', 'required|is_unique[' . $this->table . '.name]');
-        $form->set_rules('cost', 'Harga', 'required');
+        $form->set_rules('name', 'Nama Pajak', 'required');
+        $form->set_rules('cost', 'Nominal', 'required');
+        $form->set_rules('type', 'Transaksi', 'required');
     }
 
     public function updateValidation($form, $id) {
-        $form->set_rules('name', 'Nama Pajak', 'required|edit_unique['.$this->table.'.name.' . $id . ']');
-        $form->set_rules('cost', 'Harga', 'required');
+        $form->set_rules('name', 'Nama Pajak', 'required');
+        $form->set_rules('cost', 'Nominal', 'required');
+        $form->set_rules('type', 'Transaksi', 'required');
     }
 
 }
