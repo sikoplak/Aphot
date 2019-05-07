@@ -259,9 +259,9 @@ var appDataTable = {
 
     },
     "action": function(option) {
-        var edit = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/edit/" + option.id + "' class='btn btn-sm btn-warning btn-edit'><i class='fa fa-edit'></i></a>";
-        var detail = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/show/" + option.id + "' class='btn btn-sm btn-success btn-detail'><i class='fa fa-search'></i></a>";
-        var deleted = "<a href='" + BASE_URL + "api/" + option.route + "/delete' data-id='" + option.id + "'  class='btn btn-sm btn-danger btn-remove'><i class='fa fa-trash'></i></a>";
+        var edit = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/edit/" + option.id + "' class='btn btn-sm btn-warning btn-edit'><i class='fa fa-edit'></i>&nbsp;Edit</a>";
+        var detail = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/show/" + option.id + "' class='btn btn-sm btn-success btn-detail'><i class='fa fa-search'></i>&nbsp;Lihat</a>";
+        var deleted = "<a href='" + BASE_URL + "api/" + option.route + "/delete' data-id='" + option.id + "'  class='btn btn-sm btn-danger btn-remove'><i class='fa fa-trash'></i>&nbsp;Hapus</a>";
 
 
         if (parseInt(USER_CAN_VIEW) == 0) {
@@ -337,8 +337,7 @@ $(document).ready(function() {
 
     if($(".datetime-picker").length){
         $('.datetime-picker').datetimepicker({
-            format:'YYYY-MM-DD HH:mm:ss',
-            minDate: getFormattedDate(new Date()),
+            format:'YYYY-MM-DD HH:mm:ss',   
             locale: "id"
         });
     }

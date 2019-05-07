@@ -9,4 +9,11 @@ class Reservation extends API_Controller{
 		$this->model = "Invoice_model";		
 	}
 
+	public function checkout_post(){
+		$this->load->model($this->model, "mdl");
+		$post = $this->input->post(NULL, TRUE);
+		$result = $this->mdl->checkOut($post);
+		$this->set_response($result, REST_Controller::HTTP_OK);
+	}
+
 }

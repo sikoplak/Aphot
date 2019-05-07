@@ -57,6 +57,8 @@ class Invoice_model extends MY_Model{
             "invoice_date"=>date("Y-m-d"),
             "type"=>$type,
             "is_draft"=>1,
+            "is_paid"=>0,
+            "check_in_on"=>date("Y-m-d H:i:s"),
             "created_on"=>date("Y-m-d H:i:s"),
             "created_by"=>$this->session->userdata('user_id')
         ]);
@@ -141,7 +143,10 @@ class Invoice_model extends MY_Model{
             "customer_id"=>$data["customer_id"],
             "number_of_days"=>$data["number_of_days"],
             "check_in_on"=>$data["check_in_on"],
-            "check_out_on"=>$data["check_out_on"],
+            "check_out_on"=>isset($data["check_out_on"]) ? $data["check_out_on"] : null,
+            "due"=>$data["grand_total"],
+            "discount"=>$data["discount"],
+            "tax"=>$data["tax"],
             "is_draft"=>0
         ]);
 
@@ -178,5 +183,51 @@ class Invoice_model extends MY_Model{
             $this->db->where("type", $type);
             return $this->db->get("discounts")->result();
         }
+    }
+
+    public function checkOut(array $data){
+        $id = $data["id"];
+        if($data["payment_type"] == "0"){
+            $this->db->where("id", $id);
+            $this->db->limit(1);
+            $this->db->update($this->table, [
+                "tendered"=>$data["tendered"],
+                "change"=>$data["change"],
+                "payment_type"=>0,
+                "bank_name"=>null,
+                "credit_number"=>null,
+                "created_on"=>date("Y-m-d H:i:s"),
+                "created_by"=>$this->session->userdata('user_id'),
+                "check_out_on"=>$data["check_out_on"],
+                "due"=>$data["due"],
+                "discount"=>$data["discount"],
+                "tax"=>$data["tax"]
+            ]);
+        }else{
+            $this->db->where("id", $id);
+            $this->db->limit(1);
+            $this->db->update($this->table, [
+                "tendered"=>0,
+                "change"=>0,
+                "payment_type"=>1,
+                "bank_name"=>$data["bank_name"],
+                "credit_number"=>$data["credit_number"],
+                "created_on"=>date("Y-m-d H:i:s"),
+                "created_by"=>$this->session->userdata('user_id'),
+                "check_out_on"=>$data["check_out_on"],
+                "due"=>$data["due"],
+                "discount"=>$data["discount"],
+                "tax"=>$data["tax"]
+            ]);
+        }
+
+        $rooms = $this->getDetailRoom($id);
+        foreach($rooms as $row){
+            $this->db->where("id", $row->room_id);
+            $this->db->limit(1);
+            $this->db->update("rooms", ["occupant" => 0]);
+        }
+
+        return TRUE;
     }
 }

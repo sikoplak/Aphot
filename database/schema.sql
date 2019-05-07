@@ -37,7 +37,7 @@ CREATE TABLE `audits` (
   `date_created` timestamp NULL DEFAULT NULL,
   `date_updated` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,10 +350,14 @@ CREATE TABLE `invoices` (
   `tendered` double(20,0) DEFAULT NULL,
   `due` double(20,0) DEFAULT NULL,
   `change` double(20,0) DEFAULT NULL,
+  `discount` double(20,0) DEFAULT NULL,
+  `tax` double(20,0) DEFAULT NULL,
   `payment_type` tinyint(4) DEFAULT NULL,
   `type` tinyint(4) DEFAULT NULL,
   `parent_id` int(10) unsigned DEFAULT NULL,
   `is_draft` tinyint(4) DEFAULT NULL,
+  `bank_name` varchar(255) DEFAULT NULL,
+  `credit_number` varchar(255) DEFAULT NULL,
   `created_on` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `deleted_on` datetime DEFAULT NULL,
@@ -363,7 +367,7 @@ CREATE TABLE `invoices` (
   KEY `parent_id` (`parent_id`),
   CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `invoices_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,4 +637,4 @@ CREATE TABLE `users_profile` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-06 16:56:04
+-- Dump completed on 2019-05-07  8:45:36

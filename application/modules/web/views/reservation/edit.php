@@ -6,7 +6,7 @@
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
         <li><a href="<?php echo base_url("web/reservation");?>">Reservasi</a></li>
-        <li class="active"><?php echo $data->invoices_is_draft == '1' ? 'Tambah Data' : 'Edit Data'; ?></li>
+        <li class="active"><?php echo count($detail_rooms) > 0 ? 'Check Out' : 'Check In'; ?></li>
     </ol>
 </section>
 
@@ -68,7 +68,11 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Tanggal Check Out</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datetime-picker" name="check_out_on" id="check_out_on" value="<?php echo $data->invoices_check_out_on;?>">
+                                <?php if(count($detail_rooms) > 0): ?>
+                                    <input type="text" class="form-control datetime-picker" name="check_out_on" id="check_out_on" value="<?php echo !is_null($data->invoices_check_out_on) ? $data->invoices_check_out_on : date("Y-m-d H:i:s");?>">
+                                <?php Else: ?>
+                                    <p class="form-control-static">-</p>
+                                <?php EndIf; ?>
                             </div>
                         </div>
                     </div>
@@ -163,20 +167,50 @@
                             </tr>
                             <tr class="success">
                                 <th colspan="2">TOTAL DISKON</th>
-                                <th colspan="2" class="text-right total-discount">0</th>
+                                <th colspan="2" class="text-right total-discount-txt">0</th>
                                 <th colspan="3">TOTAL PAJAK</th>
-                                <th colspan="2" class="text-right total-tax">0</th>
+                                <th colspan="2" class="text-right total-tax-txt">0</th>
+                                <input type="hidden" name="discount" value="<?php echo !is_null($data->invoices_discount) ? $data->invoices_discount : 0; ?>" />
+                                <input type="hidden" name="tax" value="<?php echo !is_null($data->invoices_tax) ? $data->invoices_tax : 0; ?>" />
                             </tr>
                             <tr class="info">
                                 <th colspan="4">GRAND TOTAL</th>
                                 <th colspan="5" class="text-right grand-total-txt">0</th>
-                                <input type="hidden" name="grand_total" class="grand-total" />
+                                <input type="hidden" name="grand_total" class="grand-total" value="<?php echo !is_null($data->invoices_due) ? $data->invoices_due : 0; ?>" />
                             </tr>
+                            <?php if($data->invoices_payment_type == "0"): ?>
+                            <tr class="warning">
+                                <th colspan="4">CASH</th>
+                                <th colspan="5" class="text-right tendered-txt"><?php echo !is_null($data->invoices_tendered) ? $data->invoices_tendered : 0; ?></th>
+                                <input type="hidden" name="tendered" class="tendered" value="<?php echo !is_null($data->invoices_tendered) ? $data->invoices_tendered : 0; ?>" />
+                            </tr>
+                            <tr class="warning">
+                                <th colspan="4">KEMBALIAN</th>
+                                <th colspan="5" class="text-right change-txt"><?php echo !is_null($data->invoices_change) ? $data->invoices_change : 0; ?></th>
+                                <input type="hidden" name="change" class="change" value="<?php echo !is_null($data->invoices_change) ? $data->invoices_change : 0; ?>" />
+                            </tr>
+                            <?php Else: ?>
+                            <tr class="warning">
+                                <th colspan="4">NAMA BANK</th>
+                                <th colspan="5" class="text-right tendered-txt"><?php echo !is_null($data->invoices_bank_name) ? $data->invoices_bank_name : ""; ?></th>
+                            </tr>
+                            <tr class="warning">
+                                <th colspan="4">NOMOR KARTU KREDIT</th>
+                                <th colspan="5" class="text-right tendered-txt"><?php echo !is_null($data->invoices_credit_number) ? $data->invoices_credit_number : ""; ?></th>
+                            </tr>
+                            <?php EndIf; ?>
                         </table>
                     </div>
                 </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <a href="javascript:void(0);" class="btn btn-success pull-left"><i class="fa fa-money"></i>&nbsp;Check Out</a>
+                <div class="box-footer clearfix">
+                    <div class="pull-left">
+                        <?php if(count($detail_rooms) > 0): ?>
+                            <a href="javascript:void(0);" class="btn btn-success" id="btn-check-out"><i class="fa fa-money"></i>&nbsp;Check Out</a>
+                        <?php EndIf; ?>
+                        <?php if(!is_null($data->invoices_payment_type)): ?>
+                            <a href="javacript:void(0);" class="btn btn-warning" id="btn-invoice-print"><i class="fa fa-copy"></i>&nbsp;Preview Invoice</a>
+                        <?php EndIf; ?>
+                    </div>
                     <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
                 </div><!-- /.box-footer -->
                 <?php echo form_close(); ?>
@@ -184,3 +218,69 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Check Out</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="form-checkout">
+                    <?php echo form_hidden("id",$data->invoices_id); ?>
+                    <div class="form-group">
+                      <label for="">Jenis Pembayaran</label>
+                      <select class="form-control select2" id="payment_type" name="payment_type">
+                          <option value="-1">-- Pilih Jenis Pembayaran--</option>
+                          <option value="0" <?php echo $data->invoices_payment_type == "0" ? "selected" : ""; ?>>Tunai</option>
+                          <option value="1" <?php echo $data->invoices_payment_type == "1" ? "selected" : ""; ?>>Kredit</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Total Bayar</label>
+                      <input type="text" name="grand_total" class="form-control grand-total" value="<?php echo !is_null($data->invoices_due) ? $data->invoices_due : 0; ?>" readonly="readonly" />
+                    </div>
+                    <div class="form-group cash">
+                      <label for="">Tunai</label>
+                      <input type="number" name="tendered" class="form-control" id="input-cash" value="<?php echo !is_null($data->invoices_tendered) ? $data->invoices_tendered : 0; ?>"  />
+                    </div>
+                    <div class="form-group cash">
+                      <label for="">Kembalian</label>
+                      <input type="number" name="change" class="form-control" id="input-change" readonly="readonly" value="<?php echo !is_null($data->invoices_change) ? $data->invoices_change : 0; ?>" />
+                    </div>
+                    <div class="form-group credit">
+                      <label for="">Nama Bank</label>
+                      <input type="text" name="bank_name" class="form-control" id="input-bank" value="<?php echo !is_null($data->invoices_bank_name) ? $data->invoices_bank_name : ""; ?>" />
+                    </div>
+                    <div class="form-group credit">
+                      <label for="">No Kartu Kredit</label>
+                      <input type="text" name="credit_number" class="form-control" id="input-credit-number" value="<?php echo !is_null($data->invoices_credit_number) ? $data->invoices_credit_number : ""; ?>" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Tutup</button>
+                <button type="button" class="btn btn-primary" id="btn-save-checkout"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal-print">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Invoice</h4>
+            </div>
+            <div class="modal-body">
+                <iframe src="<?php echo base_url("web/reservation/invoice/".$data->invoices_id);?>" style="zoom:0.60" width="99.6%" height="768" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Tutup</button>
+                <button type="button" data-url="<?php echo base_url("web/reservation/invoice/".$data->invoices_id);?>" class="btn btn-default" id="btn-print"><i class="fa fa-print"></i>&nbsp;Cetak</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

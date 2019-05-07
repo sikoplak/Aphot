@@ -44,4 +44,19 @@ class Reservation extends MY_Controller{
         redirect($this->route.'/edit/'.$id);
     }
 
+    public function invoice($id){
+        checkPermission($this->route,"view");
+        $this->load->model($this->model, "mdl");
+        $data = $this->mdl->find($id);
+        $items =[
+            "data"=>$data,
+            "categories"=>$this->categories->getAll(),
+            "detail_rooms"=>$this->mdl->getDetailRoom($id),
+            "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
+            "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0)
+        ];
+        if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
+        $this->load->view("reservation/invoice", $items);
+    }
+
 }

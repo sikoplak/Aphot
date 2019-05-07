@@ -21,7 +21,7 @@
                         </div>
                         <div class="pull-right">
                             <a href="<?php echo base_url('web/reservation/create');?>" class="btn btn-success btn-sm btn-create-data">
-                                <i class="fa fa-plus"></i>&nbsp;Tambah Baru
+                                <i class="fa fa-calendar-check-o"></i>&nbsp;Check In
                             </a>
                         </div>
                     </div>
