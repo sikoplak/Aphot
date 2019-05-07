@@ -50,18 +50,19 @@ class Invoice_model extends MY_Model{
         }
     }
 
-    public function createInvoice($type){
+    public function createInvoice($type, $customer_id = null){
         $number = $this->createInvoiceNumber($type);
-        $this->db->insert($this->table, [
+        $data = array(
             "invoice_number"=>$number,
             "invoice_date"=>date("Y-m-d"),
             "type"=>$type,
             "is_draft"=>1,
-            "is_paid"=>0,
             "check_in_on"=>date("Y-m-d H:i:s"),
             "created_on"=>date("Y-m-d H:i:s"),
             "created_by"=>$this->session->userdata('user_id')
-        ]);
+        );
+        if(!is_null($customer_id)) $data["customer_id"] = $customer_id;
+        $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
 
@@ -71,8 +72,9 @@ class Invoice_model extends MY_Model{
     }
 
     public function getDetailRoom($id){
-        $this->db->where("invoice_id", $id);
+        $this->db->where("invoice_room.invoice_id", $id);
         $this->db->join('rooms','rooms.id = invoice_room.room_id');
+        $this->db->join("categories_room","categories_room.id = rooms.category_id");
         return $this->db->get("invoice_room")->result();
     }
 
@@ -198,7 +200,7 @@ class Invoice_model extends MY_Model{
                 "credit_number"=>null,
                 "created_on"=>date("Y-m-d H:i:s"),
                 "created_by"=>$this->session->userdata('user_id'),
-                "check_out_on"=>$data["check_out_on"],
+                "check_out_on"=>isset($data["check_out_on"]) && $data["check_out_on"] != "" ? $data["check_out_on"] : date("Y-m-d H:i:s"),
                 "due"=>$data["due"],
                 "discount"=>$data["discount"],
                 "tax"=>$data["tax"]
@@ -214,7 +216,7 @@ class Invoice_model extends MY_Model{
                 "credit_number"=>$data["credit_number"],
                 "created_on"=>date("Y-m-d H:i:s"),
                 "created_by"=>$this->session->userdata('user_id'),
-                "check_out_on"=>$data["check_out_on"],
+                "check_out_on"=>isset($data["check_out_on"]) && $data["check_out_on"] != "" ? $data["check_out_on"] : date("Y-m-d H:i:s"),
                 "due"=>$data["due"],
                 "discount"=>$data["discount"],
                 "tax"=>$data["tax"]

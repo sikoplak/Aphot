@@ -1,6 +1,67 @@
+var tableCustomer = {
+
+    "init": function() {
+        let mainArea = "web";
+        let mainRoute = "customer";
+        let renderConfig = {
+            "table": "#table-customer",
+            "route": mainRoute,
+            "request": "POST",
+            "area": mainArea,
+            "column": [{
+                    "targets": 0,
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
+                    "targets": 1,
+                    "data": "customers_name",
+                    "render": function(data, type, row, meta) {
+                        return data ? data : "-";
+                    }
+                },
+                {
+                    "targets": 2,
+                    "data": "customers_phone",
+                    "render": function(data, type, row, meta) {
+                        return data ? data : "-";
+                    }
+                },
+                {
+                    "targets": 3,
+                    "data": "customers_email",
+                    "render": function(data, type, row, meta) {
+                        return data ? data : "-";
+                    }
+                },
+                {
+                    "targets": 4,
+                    "data": "customers_address",
+                    "render": function(data, type, row, meta) {
+                        return data ? data : "-";
+                    }
+                },
+                {
+                    "targets": 5,
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function(data, type, row, meta) {
+                        return "<a href='" + BASE_URL + "web/reservation/checkin_customer/" + row.customers_id + "' class='btn btn-success btn-sm'><i class='fa fa-check'></i></a>"
+                    }
+                },
+            ]
+        };
+        appDataTable.render(renderConfig);
+    },
+
+}
+
 var tableRoom = {
 
-    "init": function (table) {
+    "init": function(table) {
 
         if ($(table + " tbody tr").length === 0) {
             this.add(table);
@@ -8,10 +69,10 @@ var tableRoom = {
             let option = "<option>-- Pilih Kategori Kamar --</option>";
             let categories = $("#categories").val();
             let json = JSON.parse(categories);
-            json.forEach(function (row) {
+            json.forEach(function(row) {
                 option += "<option data-price='" + row.categories_room_cost + "' value='" + row.categories_room_id + "'>" + row.categories_room_name + "</option>"
             });
-            $(table + " .category_id").each(function () {
+            $(table + " .category_id").each(function() {
                 let selected = $(this).attr("data-selected");
                 $(this).html(option);
                 $(this).val(selected).change();
@@ -22,13 +83,13 @@ var tableRoom = {
         }
 
 
-        $("body").on("click", "#btn-add-room", function (e) {
+        $("body").on("click", "#btn-add-room", function(e) {
             e.preventDefault();
             tableRoom.add(table);
             return false;
         });
 
-        $("body").on("click", "#btn-remove-room", function (e) {
+        $("body").on("click", "#btn-remove-room", function(e) {
             e.preventDefault();
             let id = $(this).attr("data-id");
             $(".room-row[data-id='" + id + "']").remove();
@@ -39,14 +100,14 @@ var tableRoom = {
             return false;
         });
 
-        $("body").on("change", ".category_id", function (e) {
+        $("body").on("change", ".category_id", function(e) {
             e.preventDefault();
             tableRoom.GetRooms(this);
             tableRoom.Calculate(table);
             return false;
         });
 
-        $("body").on("change", ".room_id", function (e) {
+        $("body").on("change", ".room_id", function(e) {
             e.preventDefault();
             let row_id = $(this).attr("data-id");
             let capacity = $('option:selected', this).attr('data-capacity');
@@ -54,7 +115,7 @@ var tableRoom = {
             let room_number = $('option:selected', this).text();
             let room_id = $(this).val();
             let selected = 0;
-            $(".room_id").each(function () {
+            $(".room_id").each(function() {
                 if ($(this).val() === room_id) {
                     selected++;
                 }
@@ -75,122 +136,17 @@ var tableRoom = {
             return false;
         });
 
-        $("body").on("keyup change", "#number_of_days", function () {
+        $("body").on("keyup change", "#number_of_days", function() {
             let value = $(this).val();
             $(".duration").val(value);
             tableRoom.Calculate(table);
         });
 
-        $("body").on("click", "#btn-check-out", function(e){
-            e.preventDefault();
-            let type = $("#payment_type").val();
-            $(".cash").hide();
-            $(".credit").hide();
-            if(parseInt(type) === 0){
-                $(".cash").show();
-                $(".credit").hide();
-            }
-            if(parseInt(type) === 1){
-                $(".cash").hide();
-                $(".credit").show();
-            }
-            $("#myModal").modal("show");
-            return false;
-        });
 
-        $("#payment_type").change(function(e){
-            e.preventDefault();
-            let type = $(this).val();
-            if(parseInt(type) === 0){
-                $(".cash").show();
-                $(".credit").hide();
-            }else{
-                $(".cash").hide();
-                $(".credit").show();
-            }
-            return false;
-        });
-
-        $("body").on("click", "#btn-save-checkout", function(e){
-            e.preventDefault();
-            let formCheckOut = $("#form-checkout");
-            let grandTotal = $(".grand-total").val();
-            let type = $("#payment_type").val();
-            let cash = $("#input-cash").val();
-            let bank = $("#input-bank").val();
-            let credit_number = $("#input-credit-number").val();
-            let postData = formCheckOut.serializeArray();
-            let validation = false;
-            postData.push({ name: CSRF_NAME, value: CSRF_VALUE });
-            postData.push({ name: "check_out_on" , value: $("#check_out_on").val() });
-            postData.push({ name: "due" , value: $("input[name='grand_total']").val() });
-            postData.push({ name: "discount" , value: $("input[name='discount']").val() });
-            postData.push({ name: "tax" , value: $("input[name='tax']").val() });
-            if(parseInt(type) === -1){
-                swal("Pilih Jenis Pembayaran", "Silahkan pilih jenis pembayaran !", "error");
-            }else{
-                if(parseInt(type) === 0){
-                    if(!cash){
-                        swal("Input Kosong", "Silahkan input uang tunai !", "error");
-                    }else if(parseFloat(cash) < parseFloat(grandTotal)){
-                        swal("Input Salah", "Uang tunai harus lebih besar sama dengan "+grandTotal, "error");
-                    }else{
-                        validation = true;
-                    }
-                }else{
-                    if(!bank){
-                        swal("Input Kosong", "Silahkan input nama bank !", "error");
-                    }else if(!credit_number){
-                        swal("Input Kosong", "Silahkan input nomor kartu kredit !", "error");
-                    }else{
-                        validation = true;
-                    }
-                }
-            }
-
-            if(validation === true){
-                swal({
-                    title: "Konfirmasi Check Out",
-                    text: "Apakah anda yakin ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    closeOnConfirm: false,
-                    confirmButtonText: "Ya",
-                    cancelButtonText: "Tidak",
-                    confirmButtonColor: "#ec6c62"
-                }, function() {
-                    swal.close();
-                    tableRoom.checkOut(postData);
-                });
-            }
-
-            return false;
-        });
-
-        $("body").on("keyup change", "#input-cash", function(){
-            let grandTotal = $(".grand-total").val();
-            let cash = $("#input-cash").val();
-            let change = parseFloat(cash) - parseFloat(grandTotal);
-            $("#input-change").val( change <= 0 ? 0 : change || 0);
-        });
-
-        $("#btn-invoice-print").click(function(e){
-            e.preventDefault();
-            $("#modal-print").modal("show");
-            return false;
-        });
-
-        $("#btn-print").click(function(e){
-            e.preventDefault();
-            let url = $(this).attr("data-url");
-            let W = window.open(url);
-            W.window.print();
-            return false;
-        });
 
     },
 
-    "checkOut": function(data){
+    "checkOut": function(data) {
         $("#myModal").modal("hide");
         swal({
             html: true,
@@ -202,7 +158,7 @@ var tableRoom = {
             showConfirmButton: false,
         });
         headerRequest();
-        $.post(BASE_URL + "/api/reservation/checkout", data, function (result) {
+        $.post(BASE_URL + "/api/reservation/checkout", data, function(result) {
             toastShow({
                 "title": "Pesan Sukses",
                 "message": "Check Out Berhasil !!",
@@ -215,14 +171,14 @@ var tableRoom = {
         });
     },
 
-    "add": function (table) {
+    "add": function(table) {
 
         let option = "<option>-- Pilih Kategori Ruangan --</option>";
         let categories = $("#categories").val();
         let json = JSON.parse(categories);
         let number_of_days = $("#number_of_days").val() || 0;
 
-        json.forEach(function (row) {
+        json.forEach(function(row) {
             option += "<option data-price='" + row.categories_room_cost + "' value='" + row.categories_room_id + "'>" + row.categories_room_name + "</option>"
         });
 
@@ -244,8 +200,8 @@ var tableRoom = {
         tableRoom.Calculate(table);
     },
 
-    "autoNumber": function (table) {
-        $(table + " .number").each(function (i) {
+    "autoNumber": function(table) {
+        $(table + " .number").each(function(i) {
             var num = parseInt(i + 1);
             $(this).text(num);
             $(this).attr("id", num);
@@ -261,15 +217,15 @@ var tableRoom = {
             ".duration",
             ".total"
         ];
-        action.forEach(function (row) {
-            $(table + " " + row).each(function (i) {
+        action.forEach(function(row) {
+            $(table + " " + row).each(function(i) {
                 var num = parseInt(i + 1);
                 $(this).attr("data-id", num);
             });
         })
     },
 
-    "GetRooms": function (elem) {
+    "GetRooms": function(elem) {
         let id = $(elem).val();
         let row_id = $(elem).attr("data-id");
         let price = $('option:selected', elem).attr('data-price');
@@ -283,13 +239,13 @@ var tableRoom = {
         headerRequest();
         $(".room_id[data-id='" + row_id + "']").val('');
         $(".price[data-id='" + row_id + "']").val(price);
-        $.post(BASE_URL + "/api/room/get_category", postData, function (result) {
+        $.post(BASE_URL + "/api/room/get_category", postData, function(result) {
             let option = "<option>-- Pilih Kamar --</option>";
             if (id_selected && number_selected) {
                 option += "<option data-capacity=" + capacity_selected + " data-occupant=" + occupant_selected + " value='" + id_selected + "' selected>" + number_selected + "</option>";
             }
             if (result) {
-                result.forEach(function (row) {
+                result.forEach(function(row) {
                     option += "<option data-capacity=" + row.capacity + " data-occupant=" + row.occupant + " value='" + row.id + "'>" + row.number + "</option>";
                 });
             }
@@ -297,13 +253,13 @@ var tableRoom = {
         });
     },
 
-    "Calculate": function (table) {
+    "Calculate": function(table) {
 
         var subtotal = 0;
         var total_disc = 0;
         var total_tax = 0;
 
-        $(".room-row").each(function () {
+        $(".room-row").each(function() {
             let row_id = $(this).attr("data-id");
             let _price = $(".price[data-id='" + row_id + "']").val() || 0;
             let _duration = $(".duration[data-id='" + row_id + "']").val() || 0;
@@ -314,7 +270,7 @@ var tableRoom = {
             $(".total[data-id='" + row_id + "']").val(total || 0);
         });
 
-        $(".cost-tax").each(function () {
+        $(".cost-tax").each(function() {
             let id = $(this).attr("data-tax-id");
             let cost = $(this).attr("data-cost");
             let tax = (parseFloat(cost) * parseFloat(subtotal)) / 100;
@@ -323,7 +279,7 @@ var tableRoom = {
             $(".cost_tax[data-tax-id='" + id + "']").val(tax || 0);
         });
 
-        $(".cost-disc").each(function () {
+        $(".cost-disc").each(function() {
             let id = $(this).attr("data-discount-id");
             let cost = $(this).attr("data-cost");
             let disc = (parseFloat(cost) * parseFloat(subtotal)) / 100;
@@ -333,8 +289,8 @@ var tableRoom = {
         });
 
         $(".subtotal").text(subtotal);
-        $(".total-tax-txt").text(total_disc);
-        $(".total-discount-txt").text(total_tax);
+        $(".total-tax-txt").text(total_tax);
+        $(".total-discount-txt").text(total_disc);
         $("#discount").val(total_disc);
         $("#tax").val(total_tax);
 
@@ -346,7 +302,7 @@ var tableRoom = {
 
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     var mainArea = "web";
     var mainRoute = "reservation";
@@ -359,7 +315,7 @@ $(document).ready(function () {
                 "targets": 0,
                 "orderable": false,
                 "className": "text-center",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
@@ -374,35 +330,35 @@ $(document).ready(function () {
             {
                 "targets": 3,
                 "data": "customers_name",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     return data ? "<a target='_blank' href='" + BASE_URL + "web/customer/show/" + row.invoices_customer_id + "'>" + data + "</a>" : "-";
                 }
             },
             {
                 "targets": 4,
                 "data": "invoices_number_of_days",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     return data ? data : "-";
                 }
             },
             {
                 "targets": 5,
                 "data": "invoices_check_in_on",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     return data ? '<span class="label label-info">' + data + '</span>' : "-";
                 }
             },
             {
                 "targets": 6,
                 "data": "invoices_check_out_on",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     return data ? '<span class="label label-info">' + data + '</span>' : "-";
                 }
             },
             {
                 "targets": 7,
                 "data": "invoices_is_draft",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     if (parseInt(data) === 1) {
                         return '<span class="label label-danger">Belum disimpan</span>';
                     } else {
@@ -414,7 +370,7 @@ $(document).ready(function () {
                 "targets": 8,
                 "orderable": false,
                 "className": "text-center",
-                "render": function (data, type, row, meta) {
+                "render": function(data, type, row, meta) {
                     var option = {
                         "route": mainRoute,
                         "id": row.invoices_id,
@@ -444,7 +400,7 @@ $(document).ready(function () {
                         return checkout + " " + detail + " " + deleted;
                     }
 
-                   
+
                 }
             },
         ]
@@ -463,13 +419,13 @@ $(document).ready(function () {
                 type: "POST",
                 dataType: 'json',
                 delay: 250,
-                data: function (params) {
+                data: function(params) {
                     var postData = {};
                     postData["q"] = params.term;
                     postData[CSRF_NAME] = CSRF_VALUE;
                     return postData;
                 },
-                processResults: function (data) {
+                processResults: function(data) {
                     return {
                         results: data
                     };
@@ -483,7 +439,7 @@ $(document).ready(function () {
         tableRoom.init("#table-room");
     }
 
-    $("#form-submit").submit(function (e) {
+    $("#form-submit").submit(function(e) {
         let form = this;
         let category_id = $('.category_id').val();
         let room_id = $('.room_id').val();
@@ -496,6 +452,138 @@ $(document).ready(function () {
             $(form).unbind('submit').submit();
         }
 
+        return false;
+    });
+
+    if ($("#table-customer").length) {
+        tableCustomer.init();
+    }
+
+    $("#btn-check-in").click(function(e) {
+        e.preventDefault();
+        $("#modal-check-in").modal("show");
+        return false;
+    });
+
+    $("body").on("click", "#btn-check-out", function(e) {
+        e.preventDefault();
+        let type = $("#payment_type").val();
+        $(".cash").hide();
+        $(".credit").hide();
+        if (parseInt(type) === 0) {
+            $(".cash").show();
+            $(".credit").hide();
+        }
+        if (parseInt(type) === 1) {
+            $(".cash").hide();
+            $(".credit").show();
+        }
+        $("#myModal").modal("show");
+        return false;
+    });
+
+    $("#payment_type").change(function(e) {
+        e.preventDefault();
+        let type = $(this).val();
+        if (parseInt(type) === 0) {
+            $(".cash").show();
+            $(".credit").hide();
+        } else {
+            $(".cash").hide();
+            $(".credit").show();
+        }
+        return false;
+    });
+
+    $("body").on("click", "#btn-save-checkout", function(e) {
+        e.preventDefault();
+        let formCheckOut = $("#form-checkout");
+        let grandTotal = $(".grand-total").val();
+        let type = $("#payment_type").val();
+        let cash = $("#input-cash").val();
+        let bank = $("#input-bank").val();
+        let credit_number = $("#input-credit-number").val();
+        let postData = formCheckOut.serializeArray();
+        let validation = false;
+        postData.push({
+            name: CSRF_NAME,
+            value: CSRF_VALUE
+        });
+        postData.push({
+            name: "check_out_on",
+            value: $("#check_out_on").val()
+        });
+        postData.push({
+            name: "due",
+            value: $("input[name='grand_total']").val()
+        });
+        postData.push({
+            name: "discount",
+            value: $("input[name='discount']").val()
+        });
+        postData.push({
+            name: "tax",
+            value: $("input[name='tax']").val()
+        });
+        if (parseInt(type) === -1) {
+            swal("Pilih Jenis Pembayaran", "Silahkan pilih jenis pembayaran !", "error");
+        } else {
+            if (parseInt(type) === 0) {
+                if (!cash) {
+                    swal("Input Kosong", "Silahkan input uang tunai !", "error");
+                } else if (parseFloat(cash) < parseFloat(grandTotal)) {
+                    swal("Input Salah", "Uang tunai harus lebih besar sama dengan " + grandTotal, "error");
+                } else {
+                    validation = true;
+                }
+            } else {
+                if (!bank) {
+                    swal("Input Kosong", "Silahkan input nama bank !", "error");
+                } else if (!credit_number) {
+                    swal("Input Kosong", "Silahkan input nomor kartu kredit !", "error");
+                } else {
+                    validation = true;
+                }
+            }
+        }
+
+        if (validation === true) {
+            swal({
+                title: "Konfirmasi Check Out",
+                text: "Apakah anda yakin ?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Ya",
+                cancelButtonText: "Tidak",
+                confirmButtonColor: "#ec6c62"
+            }, function() {
+                swal.close();
+                tableRoom.checkOut(postData);
+            });
+        }
+
+        return false;
+    });
+
+    $("body").on("keyup change", "#input-cash", function() {
+        let grandTotal = $(".grand-total").val();
+        let cash = $("#input-cash").val();
+        let change = parseFloat(cash) - parseFloat(grandTotal);
+        $("#input-change").val(change <= 0 ? 0 : change || 0);
+    });
+
+    $("#btn-invoice-print").click(function(e) {
+        e.preventDefault();
+        $("#modal-print").modal("show");
+        return false;
+    });
+
+    $("#btn-print").click(function(e) {
+        e.preventDefault();
+        let url = $(this).attr("data-url");
+        let W = window.open(url);
+        W.window.print();
         return false;
     });
 

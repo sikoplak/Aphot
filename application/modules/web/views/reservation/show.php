@@ -6,7 +6,7 @@
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Transaksi</a></li>
         <li><a href="<?php echo base_url("web/reservation");?>">Reservasi</a></li>
-        <li class="active"><?php echo count($detail_rooms) > 0 ? 'Check Out' : 'Check In'; ?></li>
+        <li class="active">Detail Data</li>
     </ol>
 </section>
 
@@ -18,7 +18,7 @@
                 <div class="box-header with-border">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h3 class="box-title">Form Reservasi</h3>
+                            <h3 class="box-title">Detail Reservasi</h3>
                         </div>
                         <div class="pull-right">
                             <h3 class="box-title">Resepsionis : <?php echo profile()->first_name." ".profile()->last_name; ?></h3>
@@ -32,19 +32,19 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Nomor Reservasi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="invoice_number" id="invoice_number" value="<?php echo $data->invoices_invoice_number;?>" readonly="readonly">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->invoices_invoice_number;?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Tanggal Reservasi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="invoice_date" id="invoice_date" value="<?php echo $data->invoices_invoice_date;?>" readonly="readonly">
+                                <p class="form-control-static">&nbsp;: <?php echo $data->invoices_invoice_date;?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Tanggal Check In</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datetime-picker" name="check_in_on" id="check_in_on" value="<?php echo $data->invoices_check_in_on;?>" >
+                                <p class="form-control-static">&nbsp;: <?php echo $data->invoices_check_in_on;?></p>
                             </div>
                         </div>
                     </div>
@@ -52,27 +52,19 @@
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Nama Pelanggan</label>
                             <div class="col-sm-9">
-                                <select name="customer_id" id="customer_id">
-                                    <?php if(!is_null($data->customers_id)): ?>
-                                        <option value="<?php echo $data->customers_id; ?>"><?php echo $data->customers_name; ?></option>
-                                    <?php EndIf; ?>
-                                </select>
+                                <p class="form-control-static">&nbsp;: <?php echo $data->customers_name;?></p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Durasi (Hari)</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control number_of_days" name="number_of_days" id="number_of_days" value="<?php echo $data->invoices_number_of_days; ?>" min="1" >
+                                <p class="form-control-static">&nbsp;: <?php echo $data->invoices_number_of_days; ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-sm-3 control-label">Tanggal Check Out</label>
                             <div class="col-sm-9">
-                                <?php if(!is_null($data->invoices_payment_type)): ?>
-                                    <input type="text" class="form-control datetime-picker" name="check_out_on" id="check_out_on" value="<?php echo !is_null($data->invoices_check_out_on) ? $data->invoices_check_out_on : date("Y-m-d H:i:s");?>">
-                                <?php Else: ?>
-                                    <p class="form-control-static">-</p>
-                                <?php EndIf; ?>
+                                <p class="form-control-static">&nbsp;: <?php echo !is_null($data->invoices_check_out_on) ? $data->invoices_check_out_on : "-";?>
                             </div>
                         </div>
                     </div>
@@ -82,7 +74,7 @@
                     <div class="col-md-12 ">
                         <h4><i class="fa fa-bed"></i>&nbsp;&nbsp;Detail Kamar</h4>
                         <input type="hidden" id="categories" value='<?php echo json_encode($categories);?>' />
-                        <table class="table" id="table-room">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -93,41 +85,29 @@
                                     <th>Harga / Hari</th>
                                     <th>Durasi (Hari)</th>
                                     <th>Total</th>
-                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1; foreach($detail_rooms as $room): ?>
-                                    <tr class='room-row' data-id='<?php echo $i;?>'>
-                                        <td class='number'><?php echo $i;?></td>
-                                        <td><select class='category_id select2' required='required' data-selected='<?php echo $room->category_id;?>' data-id='<?php echo $i;?>'></select></td>
-                                        <td><select name='room_id[]' class='room_id select2' data-number='<?php echo $room->number;?>' data-selected='<?php echo $room->room_id;?>' required='required' data-id='<?php echo $i;?>'></select></td>
-                                        <td><input name='capacity[]' type='text' class='form-control capacity' value='<?php echo $room->capacity;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
-                                        <td><input name='occupant[]' type='number' min='1' value='<?php echo $room->occupant;?>' class='form-control occupant' required='required' data-id='<?php echo $i;?>'></td>
-                                        <td><input name='price[]' type='text' class='form-control price' value='<?php echo $room->price;?>' readonly='readonly' data-id='<?php echo $i;?>'></td>
-                                        <td><input name='duration[]' type='text' class='form-control duration' value='<?php echo $room->duration;?>' readonly='readonly' data-id='<?php echo $i;?>'></td></td>
-                                        <td><input name='total[]' type='text' class='form-control total' value='<?php echo $room->total;?>' readonly='readonly' data-id='<?php echo $i;?>'></td></td>
-                                        <td><a href="javascript:void(0);" class="btn btn-sm btn-danger delete-room" id="btn-remove-room" data-id='<?php echo $i;?>'><i class="fa fa-trash"></i></a></td>
+                                <?php $subtotal = 0;  $i = 1; foreach($detail_rooms as $room): ?>
+                                    <tr>
+                                        <td><?php echo $i; ?></td>
+                                        <td><?php echo $room->name;?></td>
+                                        <td><?php echo $room->number;?></td>
+                                        <td><?php echo $room->capacity;?></td>
+                                        <td><?php echo $room->occupant;?></td>
+                                        <td><?php echo $room->price;?></td>
+                                        <td><?php echo $room->duration;?></td>
+                                        <td><?php echo $room->total;?></td>
                                     </tr>
-                                <?php $i++; EndForeach; ?>
+                                <?php $i++; $subtotal += $room->total;  EndForeach; ?>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th colspan="8"></th>
-                                    <th>
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-success" id="btn-add-room">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </th>
-                                </tr>
-                            </tfoot>
                         </table>
                         <table class="table">
                             <tr class="success">
                                 <th colspan="4">SUBTOTAL</th>
                                 <th colspan="5" class="text-right">
                                     <strong>
-                                        <span class="subtotal">0</span>
+                                        <span class="subtotal"><?php echo $subtotal; ?></span>
                                     </strong>
                                 </th>
                             </tr>
@@ -138,56 +118,48 @@
                             <tr>
                                 <th colspan="4">
                                     <ul class="detail detail-discount">
-                                        <?php foreach($detail_discounts as $discount): ?>
+                                        <?php $total_disc = 0; foreach($detail_discounts as $discount): ?>
                                             <li class="clearfix">
                                                 <span class="pull-left"><?php echo $discount->name."(".$discount->cost."%)"; ?></span>
                                                 <span class="pull-right cost-disc" data-discount-id="<?php echo $discount->id; ?>" data-cost="<?php echo $discount->cost; ?>">
-                                                    <?php echo !is_null($discount->cost) ? $discount->cost : 0; ?>
+                                                    <?php echo !is_null($discount->cost) ? ($discount->cost / 100) *  $subtotal  : 0; ?>
                                                 </span>
-                                                <input type="hidden" class="cost_discount" name="cost_discount[]" data-discount-id="<?php echo $discount->id; ?>" value="<?php echo !is_null($discount->cost) ? $discount->cost : 0; ?>" />
-                                                <input type="hidden" name="discount_id[]" value="<?php echo $discount->id; ?>" />
                                             </li>
-                                        <?php EndForeach; ?>
+                                        <?php $total_disc += ($discount->cost / 100) *  $subtotal;  EndForeach; ?>
                                     </ul>
                                 </th>
                                 <th colspan="5">
                                     <ul class="detail detail-tax">
-                                        <?php foreach($detail_taxes as $tax): ?>
+                                        <?php $total_tax = 0; foreach($detail_taxes as $tax): ?>
                                             <li class="clearfix">
                                                 <span class="pull-left"><?php echo $tax->name."(".$tax->cost."%)"; ?></span>
                                                 <span class="pull-right cost-tax" data-tax-id="<?php echo $tax->id; ?>" data-cost="<?php echo $tax->cost; ?>">
-                                                    <?php echo !is_null($tax->cost) ? $tax->cost : 0; ?>
+                                                    <?php echo !is_null($tax->cost) ? ($tax->cost / 100) *  $subtotal  : 0; ?>
                                                 </span>
-                                                <input type="hidden" class="cost_tax" name="cost_tax[]" data-tax-id="<?php echo $tax->id; ?>" value="<?php echo !is_null($tax->cost) ? $tax->cost : 0; ?>" />
-                                                <input type="hidden" name="tax_id[]" value="<?php echo $tax->id; ?>" />
                                             </li>
-                                        <?php EndForeach; ?>
+                                        <?php $total_tax += ($tax->cost / 100) *  $subtotal; EndForeach; ?>
                                     </ul>
                                 </th>
                             </tr>
                             <tr class="success">
                                 <th colspan="2">TOTAL DISKON</th>
-                                <th colspan="2" class="text-right total-discount-txt">0</th>
+                                <th colspan="2" class="text-right total-discount-txt"><?php echo $total_disc;?></th>
                                 <th colspan="3">TOTAL PAJAK</th>
-                                <th colspan="2" class="text-right total-tax-txt">0</th>
-                                <input type="hidden" name="discount" value="<?php echo !is_null($data->invoices_discount) ? $data->invoices_discount : 0; ?>" />
-                                <input type="hidden" name="tax" value="<?php echo !is_null($data->invoices_tax) ? $data->invoices_tax : 0; ?>" />
+                                <th colspan="2" class="text-right total-tax-txt"><?php echo $total_tax;?></th>
                             </tr>
                             <tr class="info">
                                 <th colspan="4">GRAND TOTAL</th>
-                                <th colspan="5" class="text-right grand-total-txt">0</th>
+                                <th colspan="5" class="text-right grand-total-txt"><?php echo !is_null($data->invoices_due) ? $data->invoices_due : 0; ?></th>
                                 <input type="hidden" name="grand_total" class="grand-total" value="<?php echo !is_null($data->invoices_due) ? $data->invoices_due : 0; ?>" />
                             </tr>
                             <?php if($data->invoices_payment_type == "0"): ?>
                             <tr class="warning">
                                 <th colspan="4">CASH</th>
                                 <th colspan="5" class="text-right tendered-txt"><?php echo !is_null($data->invoices_tendered) ? $data->invoices_tendered : 0; ?></th>
-                                <input type="hidden" name="tendered" class="tendered" value="<?php echo !is_null($data->invoices_tendered) ? $data->invoices_tendered : 0; ?>" />
                             </tr>
                             <tr class="warning">
                                 <th colspan="4">KEMBALIAN</th>
                                 <th colspan="5" class="text-right change-txt"><?php echo !is_null($data->invoices_change) ? $data->invoices_change : 0; ?></th>
-                                <input type="hidden" name="change" class="change" value="<?php echo !is_null($data->invoices_change) ? $data->invoices_change : 0; ?>" />
                             </tr>
                             <?php EndIf; ?>
                             <?php if($data->invoices_payment_type == "1"): ?>
@@ -212,7 +184,14 @@
                             <a href="javacript:void(0);" class="btn btn-warning" id="btn-invoice-print"><i class="fa fa-copy"></i>&nbsp;Preview Invoice</a>
                         <?php EndIf; ?>
                     </div>
-                    <button type="submit" class="btn btn-info pull-right"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                    <div class="pull-right">
+                        <a href="<?php echo $links["edit"]; ?>" class="btn btn-warning btn-edit-data">
+                            <i class="fa fa-edit"></i>&nbsp;Edit
+                        </a>
+                        <a href="<?php echo $links["delete"]; ?>" class="btn btn-danger btn-remove-data">
+                            <i class="fa fa-trash"></i>&nbsp;Hapus
+                        </a>    
+                    </div>  
                 </div><!-- /.box-footer -->
                 <?php echo form_close(); ?>
             </div>

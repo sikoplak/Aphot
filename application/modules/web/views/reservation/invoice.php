@@ -168,45 +168,65 @@
                 </td>
 
                 <td>
-                    Price
+                    Total
                 </td>
             </tr>
-
+            <?php $subtotal = 0;  $i = 1; foreach($detail_rooms as $room): ?>
             <tr class="item">
                 <td>
-                    Website design
+                    <?php echo "Room ".$room->name." / Harga : ".$room->price." / Durasi : ".$room->duration." (Hari) ";?>
                 </td>
-
                 <td>
-                    $300.00
+                    <?php echo $room->total;?>
                 </td>
             </tr>
+            <?php $i++; $subtotal += $room->total;  EndForeach; ?>
 
+            <tr class="heading">
+                <td>
+                    Diskon
+                </td>
+                <td>
+                   Total
+                </td>
+            </tr>
+            <?php $total_disc = 0; foreach($detail_discounts as $discount): ?>  
             <tr class="item">
                 <td>
-                    Hosting (3 months)
+                    <?php echo $discount->name; ?>
                 </td>
-
-                <td>
-                    $75.00
-                </td>
-            </tr>
-
-            <tr class="item last">
-                <td>
-                    Domain name (1 year)
-                </td>
-
-                <td>
-                    $10.00
+                <td style="text-align:left;">
+                    <?php echo ($discount->cost / 100) *  $subtotal; ?>
                 </td>
             </tr>
+            <?php $total_disc += ($discount->cost / 100) *  $subtotal;  EndForeach; ?>
+
+            <tr class="heading">
+                <td>
+                    Pajak
+                </td>
+                <td>
+                   Total
+                </td>
+            </tr>
+            <?php $total_tax = 0; foreach($detail_taxes as $tax): ?>
+            <tr class="item">
+                <td>
+                    <?php echo $tax->name; ?>
+                </td>
+                <td style="text-align:left;">
+                    <?php echo ($tax->cost / 100) *  $subtotal; ?>
+                </td>
+            </tr>
+            <?php $total_tax += ($tax->cost / 100) *  $subtotal; EndForeach; ?>
+           
+
 
             <tr class="total">
                 <td></td>
 
                 <td>
-                    Total: $385.00
+                    Grand Total: <?php echo $data->invoices_due; ?>
                 </td>
             </tr>
         </table>
