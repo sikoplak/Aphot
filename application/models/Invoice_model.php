@@ -7,6 +7,21 @@ class Invoice_model extends MY_Model{
         $this->table = 'invoices';
     }
 
+    public function dataTableColumnSelect() {
+        return [
+            "invoices.id",
+            "invoices.invoice_number",
+            "invoices.invoice_date",
+            "customers.name",
+            "invoices.number_of_days",
+            'DATE_ADD(invoices.invoice_date, INTERVAL invoices.number_of_days DAY) as due_date',
+            "invoices.check_in_on",
+            "invoices.check_out_on",
+            "invoices.is_draft",
+            "invoices.created_on",  
+        ];
+    }
+
     public function dataTableColumnFilter(){
         return [
             "invoices.id",
@@ -14,6 +29,7 @@ class Invoice_model extends MY_Model{
             "invoices.invoice_date",
             "customers.name",
             "invoices.number_of_days",
+            "invoices.invoice_date",
             "invoices.check_in_on",
             "invoices.check_out_on",
             "invoices.is_draft",
@@ -136,6 +152,38 @@ class Invoice_model extends MY_Model{
                     "cost"=>isset($data["cost_tax"][$i]) ? $data["cost_tax"][$i] : 0,
                 ]);
                 $i++;
+            }
+        }
+
+        if(isset($data["service_id"])){
+            $services = $data["service_id"];
+            foreach($services as $s){
+
+                $this->db->where("id", $s);
+                $this->db->limit(1);
+                $_service = $this->db->get("services")->row();
+
+                $this->db->insert("invoice_service", [
+                    "invoice_id"=>$id,
+                    "service_id"=>$s,
+                    "cost"=>$_service->cost,
+                ]);
+            }
+        }
+
+        if(isset($data["extra_id"])){
+            $extra = $data["extra_id"];
+            foreach($extra as $e){
+
+                $this->db->where("id", $e);
+                $this->db->limit(1);
+                $_extra = $this->db->get("extra")->row();
+
+                $this->db->insert("invoice_extra", [
+                    "invoice_id"=>$id,
+                    "extra_id"=>$e,
+                    "cost"=>$_extra->cost,
+                ]);
             }
         }
 

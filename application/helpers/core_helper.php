@@ -314,3 +314,11 @@ if (!function_exists('tablePermission')) {
     }
 
 }
+
+if (!function_exists('internetConnected')) {
+
+    function internetConnected($sCheckHost = 'www.google.com') {
+        return (bool) @fsockopen($sCheckHost, 80, $iErrno, $sErrStr, 5);
+    }
+
+}

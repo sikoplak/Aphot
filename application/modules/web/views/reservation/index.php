@@ -35,6 +35,7 @@
                                 <th>Tanggal Reservasi</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Durasi (Hari)</th>
+                                <th>Tanggal Akhir Reservasi</th>
                                 <th>Check In</th>
                                 <th>Check Out</th>
                                 <th>Status</th>

@@ -143,38 +143,30 @@
             </tr>
 
             <tr class="heading">
-                <td>
-                    Jenis Pembayaran
-                </td>
-
-                <td>
-                    <?php echo $data->invoices_payment_type == "0" ? "#Tunai" : "#Kredit"; ?>
-                </td>
+                <td>Jenis Pembayaran</td>
+                <td></td>
             </tr>
-
-            <tr class="details">
-                <td>
-                    Check
-                </td>
-
-                <td>
-                    1000
-                </td>
+            <?php if($data->invoices_payment_type == "0"): ?>
+            <tr class="item">
+                <td>Cash</td>
+                <td></td>
             </tr>
+            <?php Else: ?>
+            <tr class="item">
+                <td>Kredit</td>
+                <td><?php echo $data->invoices_bank_name." / ".$data->invoices_credit_number; ?></td>
+            </tr>
+            <?php EndIf; ?>
 
             <tr class="heading">
-                <td>
+                <td colspan="2">
                     Item
-                </td>
-
-                <td>
-                    Total
                 </td>
             </tr>
             <?php $subtotal = 0;  $i = 1; foreach($detail_rooms as $room): ?>
             <tr class="item">
                 <td>
-                    <?php echo "Room ".$room->name." / Harga : ".$room->price." / Durasi : ".$room->duration." (Hari) ";?>
+                    <?php echo  "Kamar: ".$room->number." / "."type: ".$room->name." / Harga: ".$room->price." / Durasi: ".$room->duration." (Hari) ";?>
                 </td>
                 <td>
                     <?php echo $room->total;?>
@@ -182,12 +174,10 @@
             </tr>
             <?php $i++; $subtotal += $room->total;  EndForeach; ?>
 
+            <?php if(count($detail_discounts) > 0): ?>
             <tr class="heading">
-                <td>
+                <td colspan="2">
                     Diskon
-                </td>
-                <td>
-                   Total
                 </td>
             </tr>
             <?php $total_disc = 0; foreach($detail_discounts as $discount): ?>  
@@ -195,18 +185,17 @@
                 <td>
                     <?php echo $discount->name; ?>
                 </td>
-                <td style="text-align:left;">
-                    <?php echo ($discount->cost / 100) *  $subtotal; ?>
+                <td style="">
+                    (-) <?php echo ($discount->cost / 100) *  $subtotal; ?>
                 </td>
             </tr>
             <?php $total_disc += ($discount->cost / 100) *  $subtotal;  EndForeach; ?>
+            <?php EndIf; ?>
 
+            <?php if(count($detail_taxes) > 0): ?>
             <tr class="heading">
-                <td>
+                <td colspan="2">
                     Pajak
-                </td>
-                <td>
-                   Total
                 </td>
             </tr>
             <?php $total_tax = 0; foreach($detail_taxes as $tax): ?>
@@ -214,21 +203,35 @@
                 <td>
                     <?php echo $tax->name; ?>
                 </td>
-                <td style="text-align:left;">
-                    <?php echo ($tax->cost / 100) *  $subtotal; ?>
+                <td style="">
+                    (+) <?php echo ($tax->cost / 100) *  $subtotal; ?>
                 </td>
             </tr>
             <?php $total_tax += ($tax->cost / 100) *  $subtotal; EndForeach; ?>
+            <?php EndIf; ?>
            
-
 
             <tr class="total">
                 <td></td>
-
                 <td>
                     Grand Total: <?php echo $data->invoices_due; ?>
                 </td>
             </tr>
+            <?php if($data->invoices_payment_type == "0"): ?>
+            <tr class="total">
+                <td></td>
+                <td>
+                    Cash: <?php echo $data->invoices_tendered; ?>
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td>
+                    Kembalian: <?php echo $data->invoices_change; ?>
+                </td>
+            </tr>
+            <?php EndIf; ?>
+
         </table>
     </div>
 </body>

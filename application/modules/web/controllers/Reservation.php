@@ -9,6 +9,8 @@ class Reservation extends MY_Controller{
         $this->template->title = "Reservasi";
         $this->template->javascript->add(site_url('assets/app/js/reservation.js'));
         $this->load->model("Category_room_model","categories");
+        $this->load->model("Extra_model","extra");
+        $this->load->model("Service_model","service");
     }
 
     public function create(){
@@ -42,6 +44,8 @@ class Reservation extends MY_Controller{
         $items =[
             "data"=>$data,
             "categories"=>$this->categories->getAll(),
+            "extra"=>$this->extra->getAll(),
+            "service"=>$this->service->getAll(),
             "detail_rooms"=>$this->mdl->getDetailRoom($id),
             "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
             "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0)

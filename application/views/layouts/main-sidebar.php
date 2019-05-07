@@ -8,7 +8,11 @@
             </div>
             <div class="pull-left info">
                 <p><?php echo profile()->first_name." ".profile()->last_name; ?></p>
+                <?php if(internetConnected()): ?>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <?php Else: ?>
+                <a href="#"><i class="fa fa-circle text-danger"></i> Offline</a>
+                <?php EndIf; ?>
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->

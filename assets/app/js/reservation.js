@@ -288,6 +288,13 @@ var tableRoom = {
             $(".cost_discount[data-discount-id='" + id + "']").val(disc || 0);
         });
 
+        $(".checkbox-other").each(function(){
+             if($(this).is(":checked")){
+                 let cost = $(this).attr("data-cost") || 0;
+                 subtotal = parseFloat(subtotal) + parseFloat(cost);
+             }
+        });
+
         $(".subtotal").text(subtotal);
         $(".total-tax-txt").text(total_tax);
         $(".total-discount-txt").text(total_disc);
@@ -321,43 +328,50 @@ $(document).ready(function() {
             },
             {
                 "targets": 1,
-                "data": "invoices_invoice_number"
+                "data": "invoice_number"
             },
             {
                 "targets": 2,
-                "data": "invoices_invoice_date",
+                "data": "invoice_date",
             },
             {
                 "targets": 3,
-                "data": "customers_name",
+                "data": "name",
                 "render": function(data, type, row, meta) {
-                    return data ? "<a target='_blank' href='" + BASE_URL + "web/customer/show/" + row.invoices_customer_id + "'>" + data + "</a>" : "-";
+                    return data ? "<a target='_blank' href='" + BASE_URL + "web/customer/show/" + row.customer_id + "'>" + data + "</a>" : "-";
                 }
             },
             {
                 "targets": 4,
-                "data": "invoices_number_of_days",
+                "data": "number_of_days",
                 "render": function(data, type, row, meta) {
                     return data ? data : "-";
                 }
             },
             {
                 "targets": 5,
-                "data": "invoices_check_in_on",
+                "data": "due_date",
                 "render": function(data, type, row, meta) {
-                    return data ? '<span class="label label-info">' + data + '</span>' : "-";
+                    return data ? data : "-";
                 }
             },
             {
                 "targets": 6,
-                "data": "invoices_check_out_on",
+                "data": "check_in_on",
                 "render": function(data, type, row, meta) {
                     return data ? '<span class="label label-info">' + data + '</span>' : "-";
                 }
             },
             {
                 "targets": 7,
-                "data": "invoices_is_draft",
+                "data": "check_out_on",
+                "render": function(data, type, row, meta) {
+                    return data ? '<span class="label label-info">' + data + '</span>' : "-";
+                }
+            },
+            {
+                "targets": 8,
+                "data": "is_draft",
                 "render": function(data, type, row, meta) {
                     if (parseInt(data) === 1) {
                         return '<span class="label label-danger">Belum disimpan</span>';
@@ -367,40 +381,16 @@ $(document).ready(function() {
                 }
             },
             {
-                "targets": 8,
+                "targets": 9,
                 "orderable": false,
                 "className": "text-center",
                 "render": function(data, type, row, meta) {
-                    var option = {
+                    var config = {
                         "route": mainRoute,
-                        "id": row.invoices_id,
+                        "id": row.id,
                         "area": "web"
                     };
-                    var edit = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/edit/" + option.id + "' class='btn btn-sm btn-warning btn-edit'><i class='fa fa-edit'></i>&nbsp;Edit</a>";
-                    var checkout = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/edit/" + option.id + "' class='btn btn-sm btn-info btn-edit'><i class='fa fa-check-square-o'></i>&nbsp;Check Out</a>";
-                    var detail = "<a href='" + BASE_URL + "" + option.area + "/" + option.route + "/show/" + option.id + "' class='btn btn-sm btn-success btn-detail'><i class='fa fa-search'></i>&nbsp;Lihat</a>";
-                    var deleted = "<a href='" + BASE_URL + "api/" + option.route + "/delete' data-id='" + option.id + "'  class='btn btn-sm btn-danger btn-remove'><i class='fa fa-trash'></i>&nbsp;Hapus</a>";
-
-                    if (parseInt(USER_CAN_VIEW) == 0) {
-                        detail = "";
-                    }
-
-                    if (parseInt(USER_CAN_DELETE) == 0) {
-                        deleted = "";
-                    }
-
-                    if (parseInt(USER_CAN_UPDATE) == 0) {
-                        edit = "";
-                        checkout = "";
-                    }
-
-                    if (parseInt(row.invoices_is_draft) === 1) {
-                        return edit + " " + detail + " " + deleted;
-                    } else {
-                        return checkout + " " + detail + " " + deleted;
-                    }
-
-
+                    return appDataTable.action(config);
                 }
             },
         ]
@@ -584,6 +574,40 @@ $(document).ready(function() {
         let url = $(this).attr("data-url");
         let W = window.open(url);
         W.window.print();
+        return false;
+    });
+
+    $("#checkbox-all-service").change(function(e) {
+        e.preventDefault();
+        $('.checkbox-service').not(this).not(":disabled").prop('checked', this.checked).change();
+        return false;
+    });
+
+    $(".checkbox-service").change(function(e) {
+        e.preventDefault();
+        if($(this).is(":checked")){
+            $(this).parent().parent().addClass("warning");
+        }else{
+            $(this).parent().parent().removeClass("warning");
+        }
+        tableRoom.Calculate();
+        return false;
+    });
+
+    $("#checkbox-all-extra").change(function(e) {
+        e.preventDefault();
+        $('.checkbox-extra').not(this).not(":disabled").prop('checked', this.checked).change();
+        return false;
+    });
+
+    $(".checkbox-extra").change(function(e) {
+        e.preventDefault();
+        if($(this).is(":checked")){
+            $(this).parent().parent().addClass("warning");
+        }else{
+            $(this).parent().parent().removeClass("warning");
+        }
+        tableRoom.Calculate();
         return false;
     });
 
