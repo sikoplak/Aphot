@@ -163,7 +163,8 @@
                     Item
                 </td>
             </tr>
-            <?php $subtotal = 0;  $i = 1; foreach($detail_rooms as $room): ?>
+
+            <?php $subtotal = 0;  foreach($detail_rooms as $room): ?>
             <tr class="item">
                 <td>
                     <?php echo  "Kamar: ".$room->number." / "."type: ".$room->name." / Harga: ".$room->price." / Durasi: ".$room->duration." (Hari) ";?>
@@ -172,7 +173,36 @@
                     <?php echo $room->total;?>
                 </td>
             </tr>
-            <?php $i++; $subtotal += $room->total;  EndForeach; ?>
+            <?php $subtotal += $room->total;  EndForeach; ?>
+
+            <?php foreach($serviceSelected as $s): ?>
+            <tr class="item">
+                <td>
+                    <?php echo $s->name; ?>
+                </td>
+                <td>
+                    <?php echo $s->cost;?>
+                </td>
+            </tr>
+            <?php $subtotal += $s->cost; EndForeach; ?>
+
+            <?php foreach($extraSelected as $e): ?>
+            <tr class="item">
+                <td>
+                    <?php echo $e->name; ?>
+                </td>
+                <td>
+                    <?php echo $e->cost;?>
+                </td>
+            </tr>
+            <?php $subtotal += $e->cost; EndForeach; ?>
+
+            <tr class="total">
+                <td></td>
+                <td>
+                    Sub Total: <?php echo $subtotal; ?>
+                </td>
+            </tr>
 
             <?php if(count($detail_discounts) > 0): ?>
             <tr class="heading">

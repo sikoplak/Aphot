@@ -102,6 +102,60 @@
                                 <?php $i++; $subtotal += $room->total;  EndForeach; ?>
                             </tbody>
                         </table>
+                        <div class="col-md-6">
+                            <h4><i class="fa fa-fire-extinguisher"></i>&nbsp;&nbsp;Servis</h4>
+                            <table class="table" id="table-service">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1; if(count($serviceSelected) > 0): ?>
+                                        <?php foreach($serviceSelected as $s): ?>
+                                        <tr>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $s->name;?></td>
+                                            <td><?php echo $s->cost;?></td>
+                                        </tr>
+                                        <?php $no++; $subtotal += $s->cost; EndForeach; ?>
+                                    <?php Else: ?>
+                                    <tr>
+                                        <td colspan='2' class='text-center'>-- tidak ada data --</td>
+                                    </tr>
+                                    <?php EndIf; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><i class="fa fa-bell"></i>&nbsp;&nbsp;Extra</h4>
+                            <table class="table" id="table-service">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Harga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1; if(count($extraSelected) > 0): ?>
+                                        <?php foreach($extraSelected as $e): ?>
+                                        <tr>
+                                            <td><?php echo $no; ?></td>
+                                            <td><?php echo $e->name;?></td>
+                                            <td><?php echo $e->cost;?></td>
+                                        </tr>
+                                        <?php $no++; $subtotal += $e->cost; EndForeach; ?>
+                                    <?php Else: ?>
+                                    <tr>
+                                        <td colspan='2' class='text-center'>-- tidak ada data --</td>
+                                    </tr>
+                                    <?php EndIf; ?>
+                                </tbody>
+                            </table>
+                        </div>
                         <table class="table">
                             <tr class="success">
                                 <th colspan="4">SUBTOTAL</th>
@@ -122,10 +176,10 @@
                                             <li class="clearfix">
                                                 <span class="pull-left"><?php echo $discount->name."(".$discount->cost."%)"; ?></span>
                                                 <span class="pull-right cost-disc" data-discount-id="<?php echo $discount->id; ?>" data-cost="<?php echo $discount->cost; ?>">
-                                                    <?php echo !is_null($discount->cost) ? ($discount->cost / 100) *  $subtotal  : 0; ?>
+                                                    <?php echo !is_null($discount->cost) ? ($discount->cost / 100) * $subtotal  : 0; ?>
                                                 </span>
                                             </li>
-                                        <?php $total_disc += ($discount->cost / 100) *  $subtotal;  EndForeach; ?>
+                                        <?php $total_disc += ($discount->cost / 100) * $subtotal;  EndForeach; ?>
                                     </ul>
                                 </th>
                                 <th colspan="5">

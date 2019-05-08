@@ -270,6 +270,14 @@ var tableRoom = {
             $(".total[data-id='" + row_id + "']").val(total || 0);
         });
 
+        $(".checkbox-other").each(function(){
+            if($(this).is(":checked")){
+                let cost = $(this).attr("data-cost") || 0;
+                subtotal = parseFloat(subtotal) + parseFloat(cost);
+            }
+       });
+
+
         $(".cost-tax").each(function() {
             let id = $(this).attr("data-tax-id");
             let cost = $(this).attr("data-cost");
@@ -288,13 +296,7 @@ var tableRoom = {
             $(".cost_discount[data-discount-id='" + id + "']").val(disc || 0);
         });
 
-        $(".checkbox-other").each(function(){
-             if($(this).is(":checked")){
-                 let cost = $(this).attr("data-cost") || 0;
-                 subtotal = parseFloat(subtotal) + parseFloat(cost);
-             }
-        });
-
+        
         $(".subtotal").text(subtotal);
         $(".total-tax-txt").text(total_tax);
         $(".total-discount-txt").text(total_disc);

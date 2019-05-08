@@ -280,4 +280,44 @@ class Invoice_model extends MY_Model{
 
         return TRUE;
     }
+
+    public function serviceSelected($id, $isArray = false){
+        $this->db->select("
+            invoice_service.service_id,
+            services.name,
+            invoice_service.cost
+        ");
+        $this->db->where("invoice_id", $id);
+        $this->db->join('services','services.id = invoice_service.service_id');
+        $result = $this->db->get("invoice_service")->result();
+        if($isArray){
+            $array = array();
+            foreach($result as $row){
+                $array[] = $row->service_id;
+            }
+            return $array;
+        }else{  
+            return $result;
+        }
+    }
+
+    public function extraSelected($id, $isArray = false){
+        $this->db->select("
+            invoice_extra.extra_id,
+            extra.name,
+            invoice_extra.cost
+        ");
+        $this->db->where("invoice_id", $id);
+        $this->db->join('extra','extra.id = invoice_extra.extra_id');
+        $result = $this->db->get("invoice_extra")->result();
+        if($isArray){
+            $array = array();
+            foreach($result as $row){
+                $array[] = $row->extra_id;
+            }
+            return $array;
+        }else{  
+            return $result;
+        }
+    }
 }

@@ -48,7 +48,9 @@ class Reservation extends MY_Controller{
             "service"=>$this->service->getAll(),
             "detail_rooms"=>$this->mdl->getDetailRoom($id),
             "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
-            "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0)
+            "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0),
+            "serviceSelected"=>$this->mdl->serviceSelected($id, true),
+            "extraSelected"=>$this->mdl->extraSelected($id, true)
         ];
 		if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
 		$this->template->content->view($this->route."/edit",$items);
@@ -65,6 +67,8 @@ class Reservation extends MY_Controller{
             "detail_rooms"=>$this->mdl->getDetailRoom($id),
             "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
             "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0),
+            "serviceSelected"=>$this->mdl->serviceSelected($id, false),
+            "extraSelected"=>$this->mdl->extraSelected($id, false),
             "links"=>[
 				"back"=>base_url($this->route),
 				"edit"=>base_url($this->route."/edit/".$id),
@@ -96,6 +100,8 @@ class Reservation extends MY_Controller{
             "detail_rooms"=>$this->mdl->getDetailRoom($id),
             "detail_taxes"=>$this->mdl->getInvoiceTax($id, 0),
             "detail_discounts"=>$this->mdl->getInvoiceDiscount($id, 0),
+            "serviceSelected"=>$this->mdl->serviceSelected($id, false),
+            "extraSelected"=>$this->mdl->extraSelected($id, false)
         ];
         if(is_null($data)) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
         $this->load->view("reservation/invoice", $items);

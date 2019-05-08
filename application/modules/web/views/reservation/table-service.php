@@ -11,8 +11,10 @@
         <tbody>
             <?php if(count($service) > 0): ?>
                 <?php foreach($service as $s): ?>
-                <tr>
-                    <td><input type="checkbox" class="checkbox-service checkbox-other" name="service_id[]" data-cost="<?php echo $s->services_cost;?>" value="<?php echo $s->services_id;?>" /></td>
+                <?php $checked = in_array($s->services_id, $serviceSelected) ? "checked" : "";  ?>
+                <?php $rowColor = in_array($s->services_id, $serviceSelected) ? "warning" : "";  ?>
+                <tr class="<?php echo $rowColor;?>">
+                    <td><input type="checkbox" class="checkbox-service checkbox-other" name="service_id[]" data-cost="<?php echo $s->services_cost;?>" value="<?php echo $s->services_id;?>" <?php echo $checked;?> /></td>
                     <td><?php echo $s->services_name;?></td>
                     <td><?php echo $s->services_cost;?></td>
                 </tr>
