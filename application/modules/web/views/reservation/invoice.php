@@ -122,6 +122,17 @@
                 </td>
             </tr>
 
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td><small>Tanggal Cetak : <?php echo now();?></small></td>
+                            <td><small>Kasir : <?php echo profile()->first_name." ".profile()->last_name; ?></small></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
             <tr class="information">
                 <td colspan="2">
                     <table>
@@ -261,7 +272,13 @@
                 </td>
             </tr>
             <?php EndIf; ?>
-
+        </table>
+        <table style="width:100%;">
+            <tr>
+                <td style="text-align:center;">
+                    <img src="<?php echo site_url("web/reservation/invoice_barcode/".md5($data->invoices_invoice_number.'.'.APP_KEY));?>">
+                </td>
+            </tr>
         </table>
     </div>
 </body>

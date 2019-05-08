@@ -107,6 +107,13 @@ class Reservation extends MY_Controller{
         $this->load->view("reservation/invoice", $items);
     }
 
+    public function invoice_barcode($code){
+        checkPermission($this->route,"view");
+        $this->load->library('Zend');
+        $this->zend->load('Zend/Barcode');
+        Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
+    }
+
 
 
 }
