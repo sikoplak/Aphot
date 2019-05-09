@@ -320,4 +320,27 @@ class Invoice_model extends MY_Model{
             return $result;
         }
     }
+
+    public function delete($value, $primary = "id") {
+        $oldData = $this->find($value);
+        $data = array();
+        $data["deleted_on"] = date("Y-m-d H:i:s");
+        $data["deleted_by"] = $this->session->userdata('user_id');
+        $this->db->where($this->table.".".$primary,$value);
+        $this->db->limit(1);
+        $this->db->update($this->table, $data);
+        $updateValue = $this->find($value);
+
+        if(is_null($updateValue->invoices_payment_type)){
+            $rooms = $this->getDetailRoom($value);
+            foreach($rooms as $row){
+                $this->db->where("id", $row->room_id);
+                $this->db->limit(1);
+                $this->db->update("rooms", ["occupant" => 0]);
+            }
+        }
+
+        audit($oldData, $updateValue, "DELETE", $value, $this->table);
+        return TRUE;
+    }
 }
