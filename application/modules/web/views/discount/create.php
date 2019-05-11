@@ -36,7 +36,7 @@
                             <label for="first_name" class="col-sm-2 control-label">Transaksi</label>
                             <div class="col-sm-10 no-padding">
                                 <label class="radio-inline">
-                                    <input type="radio" class="iradio" name="type" value="0">&nbsp;&nbsp;Reservasi
+                                    <input type="radio" class="iradio" name="type" value="0">&nbsp;&nbsp;Penginapan
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" class="iradio" name="type" value="1">&nbsp;&nbsp;Restoran

@@ -6,7 +6,7 @@ class Reservation extends MY_Controller{
         parent::__construct();
         $this->route = "web/reservation";
         $this->model = "Invoice_model";
-        $this->template->title = "Reservasi";
+        $this->template->title = "Penginapan";
         $this->template->javascript->add(site_url('assets/app/js/reservation.js'));
         $this->load->model("Category_room_model","categories");
         $this->load->model("Extra_model","extra");

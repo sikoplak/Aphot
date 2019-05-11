@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        Reservasi
+        Penginapan
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Transaksi</a></li>
-        <li class="active">Reservasi</li>
+        <li class="active">Penginapan</li>
     </ol>
 </section>
 
@@ -17,7 +17,7 @@
                 <div class="box-header with-border">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h3 class="box-title">Daftar Reservasi</h3>
+                            <h3 class="box-title">Daftar Check In / Check Out</h3>
                         </div>
                         <div class="pull-right">
                             <a href="javascript:void(0);" id="btn-check-in" class="btn btn-success btn-sm btn-create-data">

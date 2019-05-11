@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var mainArea = "web";
-    var mainRoute = "discount";
+    var mainRoute = "table";
     var renderConfig = {
         "table": "#table",
         "route": mainRoute,
@@ -17,38 +17,30 @@ $(document).ready(function() {
             },
             {
                 "targets": 1,
-                "data": "discounts_name"
+                "data": "tables_number"
             },
             {
                 "targets": 2,
-                "data": "discounts_cost"
+                "data": "tables_is_available",
+                "render": function(data, type, row, meta) {
+                    return parseInt(data) === 1 ? "Ya" : "Tidak";
+                }
             },
             {
                 "targets": 3,
-                "data": "discounts_type",
+                "data": "tables_is_booked",
                 "render": function(data, type, row, meta) {
-                    return parseInt(data) === 0 ? "Penginapan" : "Restoran";
+                    return parseInt(data) === 1 ? "Ya" : "Tidak";
                 }
             },
             {
                 "targets": 4,
-                "data": "discounts_description"
-            },
-            {
-                "targets": 5,
-                "data": "discounts_active",
-                "render": function(data, type, row, meta) {
-                    return labelStatus(data);
-                }
-            },
-            {
-                "targets": 6,
                 "orderable": false,
                 "className": "text-center",
                 "render": function(data, type, row, meta) {
                     var config = {
                         "route": mainRoute,
-                        "id": row.discounts_id,
+                        "id": row.tables_id,
                         "area": "web"
                     };
                     return appDataTable.action(config);
@@ -58,5 +50,4 @@ $(document).ready(function() {
     };
 
     appDataTable.render(renderConfig);
-
 });

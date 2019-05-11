@@ -6,6 +6,28 @@ class Permission_model extends MY_Model{
 		parent::__construct();
         $this->db = $this->load->database('default', TRUE);
     }
+
+    public function redirectUser(){
+        $this->load->model("User_model", "user");
+        $roles = $this->user->getRoles();
+        $group_id = array();
+        foreach($roles as $row){
+            $group_id[] = (int)$row->group_id;
+        }
+        $this->db->distinct();
+        $this->db->where('group_id IN ('.implode(",",$group_id).')', NULL, FALSE);
+        $this->db->where('url !=', null);
+        $this->db->where('sort !=', null);
+        $this->db->join('routes','routes.id = permissions.route_id');
+        $this->db->order_by('name');
+        $this->db->limit(1);
+        $result = $this->db->get("permissions")->row();
+        if(!is_null($result)){
+            return "web/".$result->url;
+        }else{
+            return "auth/logout";
+        }
+    }
     
     public function getMenuUser(){
         $this->load->model("User_model", "user");

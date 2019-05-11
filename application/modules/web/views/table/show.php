@@ -1,11 +1,11 @@
 <section class="content-header">
     <h1>
-        Pajak
+        Meja Restoran
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Pengaturan</a></li>
-        <li><a href="<?php echo base_url("web/tax");?>">Pajak</a></li>
+        <li><a href="#">Master</a></li>
+        <li><a href="<?php echo base_url("web/table");?>">Meja Restoran</a></li>
         <li class="active">Detail</li>
     </ol>
 </section>
@@ -19,7 +19,7 @@
                 <div class="box-header with-border">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h3 class="box-title">Detail Pajak</h3>
+                            <h3 class="box-title">Detail Diskon</h3>
                         </div>
                         <div class="pull-right">
                             <a href="<?php echo $links["create"]; ?>" class="btn btn-success btn-create-data">
@@ -34,37 +34,25 @@
                         </div>
                     </div>
                 </div><!-- /.box-header -->
-                <?php echo form_open("web/tax/update", ["class"=>"form-horizontal"]); ?>
-                    <?php echo form_hidden("id",$data->taxes_id); ?>
+                <?php echo form_open("web/table/update", ["class"=>"form-horizontal"]); ?>
+                    <?php echo form_hidden("id",$data->tables_id); ?>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="first_name" class="col-sm-2 control-label">Nama Pajak</label>
+                            <label for="first_name" class="col-sm-2 control-label">Nomor Meja</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo $data->taxes_name; ?></p>
+                                <p class="form-control-static">&nbsp;: <?php echo $data->tables_number; ?></p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cost" class="col-sm-2 control-label">Nominal (%)</label>
+                            <label for="description" class="col-sm-2 control-label">Ketersediaan</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo $data->taxes_cost; ?></p>
+                                <p class="form-control-static">&nbsp;: <?php echo labelStatus($data->tables_is_available, ["Ya", "Tidak"]); ?></p>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cost" class="col-sm-2 control-label">Transaksi</label>
+                            <label for="description" class="col-sm-2 control-label">Reservasi</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo $data->taxes_type == "0" ? "Penginapan" : "Restoran"; ?></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Deskripsi</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo $data->taxes_description; ?></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Status</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo labelStatus($data->taxes_active); ?></p>
+                                <p class="form-control-static">&nbsp;: <?php echo labelStatus($data->tables_is_booked, ["Ya", "Tidak"]); ?></p>
                             </div>
                         </div>
                     </div><!-- /.box-body -->

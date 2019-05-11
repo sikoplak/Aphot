@@ -172,9 +172,8 @@ var appDataTable = {
                 });
             },
             "columns": option.column,
-            "order": option.order || [
-                [columnLength, "desc"]
-            ],
+            "order": option.order || [[columnLength, "desc"]],
+            "rowCallback": option.rowCallback,
             "language": {
                 "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
                 "sProcessing": "Sedang memproses...",

@@ -27,7 +27,7 @@ $(document).ready(function() {
                 "targets": 3,
                 "data": "taxes_type",
                 "render": function(data, type, row, meta) {
-                    return parseInt(data) === 0 ? "Reservasi" : "Restoran";
+                    return parseInt(data) === 0 ? "Penginapan" : "Restoran";
                 }
             },
             {

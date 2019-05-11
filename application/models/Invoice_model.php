@@ -51,18 +51,18 @@ class Invoice_model extends MY_Model{
         $db->where($this->table.".type", 0);
     }
 
-    private function createInvoiceNumber($type){
+    public function createInvoiceNumber($type){
         $now = date("Y-m-d", strtotime("now"));
         $this->db->select_max('invoice_number');
         $this->db->where("type", $type);
         $this->db->where("invoice_date", $now);
         $result = $this->db->get("invoices")->row();
         if(!is_null($result->invoice_number)){
-            $number = explode(".", $result->invoice_number);
+            $number = explode("/", $result->invoice_number);
             $counter = index_number((int)end($number) + 1, 5);
-            return $type == "0" ? "INN.".date("Ymd").".".$counter : "RES.".date("Ymd").".".$counter;
+            return $type == "0" ? "INN/".date("Ymd")."/".$counter : "RES/".date("Ymd")."/".$counter;
         }else{
-            return $type == "0" ? "INN.".date("Ymd").".00001" : "RES.".date("Ymd").".00001";
+            return $type == "0" ? "INN/".date("Ymd")."/00001" : "RES/".date("Ymd")."/00001";
         }
     }
 
@@ -95,8 +95,8 @@ class Invoice_model extends MY_Model{
     }
 
     public function updateReservation($data, $id){
-        $oldData = $this->find($id);
         $this->db->trans_begin();
+        $oldData = $this->find($id);
         
         $sub = ["invoice_discount", "invoice_extra", "invoice_food","invoice_room", "invoice_service", "invoice_tax"];
         foreach($sub as $row){
@@ -187,22 +187,60 @@ class Invoice_model extends MY_Model{
             }
         }
 
+        if(isset($data["menu_id"])){
+            $menu = $data["menu_id"];
+            $i = 0;
+            foreach($menu as $m){
+                $this->db->insert("invoice_food", [
+                    "invoice_id"=>$id,
+                    "food_id"=>$m,
+                    "qty"=>isset($data["qty"][$i]) ? $data["qty"][$i] : 0,
+                    "price"=>isset($data["price"][$i]) ? $data["price"][$i] : 0,
+                    "total"=>isset($data["total"][$i]) ? $data["total"][$i] : 0,
+                ]);
+                $i++;
+            }
+        }
+
+        if(isset($data["table_id"])){
+            $this->db->where("id", $data["table_id"]);
+            $this->db->limit(1);
+            $this->db->update("tables", ["is_available"=> 1, "is_booked"=> 0]);
+        }
+
+        $updated = null;
         $this->db->where("id", $id);
         $this->db->limit(1);
-        $updated = $this->db->update($this->table, [
-            "customer_id"=>$data["customer_id"],
-            "number_of_days"=>$data["number_of_days"],
-            "check_in_on"=>$data["check_in_on"],
-            "check_out_on"=>isset($data["check_out_on"]) ? $data["check_out_on"] : null,
-            "due"=>$data["grand_total"],
-            "discount"=>$data["discount"],
-            "tax"=>$data["tax"],
-            "is_draft"=>0
-        ]);
-
-        $this->db->trans_commit();
-        audit($oldData, $updated, "UPDATE", $id, $this->table);    
-        return $updated;    
+        if(isset($data["room_id"])){
+            $updated = $this->db->update($this->table, [
+                "customer_id"=>$data["customer_id"],
+                "number_of_days"=>$data["number_of_days"],
+                "check_in_on"=>$data["check_in_on"],
+                "check_out_on"=>isset($data["check_out_on"]) ? $data["check_out_on"] : null,
+                "due"=>$data["grand_total"],
+                "discount"=>$data["discount"],
+                "tax"=>$data["tax"],
+                "is_draft"=>0
+            ]);
+        }else{
+            $updated = $this->db->update($this->table, [
+                "check_in_on"=> null,
+                "check_out_on"=> null,
+                "customer_id"=>$data["customer_id"],
+                "due"=>$data["grand_total"],
+                "discount"=>$data["discount"],
+                "tendered"=>$data["tendered"],
+                "payment_type"=>$data["payment_type"],
+                "bank_name"=>$data["bank_name"],
+                "credit_number"=>$data["credit_number"],
+                "change"=>$data["change"],
+                "tax"=>$data["tax"],
+                "is_draft"=>0
+            ]);
+        }
+        audit($oldData, $updated, "UPDATE", $id, $this->table);   
+        $this->db->trans_commit(); 
+        return $id;    
     }
 
     public function getInvoiceTax($id, $type){

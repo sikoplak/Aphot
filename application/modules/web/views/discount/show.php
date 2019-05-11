@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label for="cost" class="col-sm-2 control-label">Transaksi</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">&nbsp;: <?php echo $data->discounts_type == "0" ? "Reservasi" : "Restoran"; ?></p>
+                                <p class="form-control-static">&nbsp;: <?php echo $data->discounts_type == "0" ? "Penginpan" : "Restoran"; ?></p>
                             </div>
                         </div>
                         <div class="form-group">

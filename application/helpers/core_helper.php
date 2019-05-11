@@ -31,11 +31,11 @@ if (!function_exists('gen_token')) {
 
 if (!function_exists('labelStatus')) {
 
-    function labelStatus($value = null) {
+    function labelStatus($value = null,$text = ["Aktif", "Tidak Aktif"]) {
         if ((int) $value == 1) {
-            return '<span class="label label-success"> Aktif</span>';
+            return '<span class="label label-success">'.$text[0].'</span>';
         } else {
-            return '<span class="label label-danger"> Tidak Aktif</span>';
+            return '<span class="label label-danger">'.$text[1].'</span>';
         }
     }
 

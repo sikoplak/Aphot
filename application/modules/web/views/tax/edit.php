@@ -37,7 +37,7 @@
                             <label for="first_name" class="col-sm-2 control-label">Transaksi</label>
                             <div class="col-sm-10 no-padding">
                                 <label class="radio-inline">
-                                    <input type="radio" class="iradio" name="type" value="0" <?php echo $data->taxes_type == "0" ? "checked" : ""; ?> >&nbsp;&nbsp;Reservasi
+                                    <input type="radio" class="iradio" name="type" value="0" <?php echo $data->taxes_type == "0" ? "checked" : ""; ?> >&nbsp;&nbsp;Penginapan
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" class="iradio" name="type" value="1" <?php echo $data->taxes_type == "1" ? "checked" : ""; ?>>&nbsp;&nbsp;Restoran
