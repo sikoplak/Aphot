@@ -38,7 +38,7 @@ Cara Install
  - Kemudian extract pada direktori web server C:/xampp/htdocs/ atau /var/www/
  - Setelah di extract,  import file .sql ke database yang sudah dibuat di phpmyadmin, letak file .sql ada pada folder aphot/database/backup.sql
  - Setelah di import melalui phpmyadmin, ubah konfigurasi database aplikasi menggunakan text editor (notepad / notepad ++), file konfigurasi terletak pada folder aphot/settings/app.php
- - Terakhir silahkan di browser dengan alamat url http://localhost/aphot.
+ - Terakhir silahkan di browser dengan alamat url http://localhost/aphot. silahkan login menggunakan username : admin, password: passsword
 
 *******************
 FAQ
