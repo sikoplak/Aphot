@@ -2,11 +2,11 @@
 Apa Itu ApHot
 *******************
 
-ApHot merupakan  sebuah program komputer (hotel & restoran software) bertujuan membantu
+ApHot merupakan  sebuah program komputer (hotel & restoran software) yang diperuntukan secara "GRATIS" (FREE OPENSOURCE) bertujuan membantu
 manajemen hotel dalam kegiatan hotel baik kegiatan sehari-hari maupun laporan-laporan yang diperlukan hotel. 
 Kegiatan itu adalah menerima tamu (check in), mendata tagihan tamu (guest folio), pembayaran tamu (guest payment), dan restoran.
-Dengan adanya sistem ini diharapkan para tamu mendapatkan pelayanan yang lebih baik (good of service). 
-Hasil lain yang dicapai dengan pemakaian sistem manajemen adalah efisiensi dalam operasional sehari-hari hotel.
+Dengan adanya sistem ini diharapkan para tamu mendapatkan pelayanan yang lebih baik (good of service).Tujuan lainnya untuk pembelajaran
+bagi pengembang perangkat lunak khususnya bagi seseorang yang bergelut dengan dunia IT.
 
 
 ************************
