@@ -43,30 +43,25 @@ class Report_model extends CI_Model{
     }
 
     public function getByPeriodSum($type, $year){
-        $sql = "
-            SELECT 
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 1 AND TABEL.date_year = ".$year."), 0) as jan,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 2 AND TABEL.date_year = ".$year."), 0) as feb,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 3 AND TABEL.date_year = ".$year."), 0) as mar,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 4 AND TABEL.date_year = ".$year."), 0) as apr,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 5 AND TABEL.date_year = ".$year."), 0) as mei,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 6 AND TABEL.date_year = ".$year."), 0) as jun,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 7 AND TABEL.date_year = ".$year."), 0) as jul,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 8 AND TABEL.date_year = ".$year."), 0) as aug,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 9 AND TABEL.date_year = ".$year."), 0) as sept,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 10 AND TABEL.date_year = ".$year."), 0) as okt,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 11 AND TABEL.date_year = ".$year."), 0) as nov,
-                IFNULL((SELECT SUM(TABEl.due) WHERE TABEL.date_month = 12 AND TABEL.date_year = ".$year."), 0) as des
-            FROM 
-            (
-                SELECT 
-                DATE_FORMAT(invoice_date,'%c') as date_month,
-                DATE_FORMAT(invoice_date,'%Y') as date_year,
-                IFNULL(due, 0) as due
-                FROM invoices WHERE invoices.deleted_on IS NULL AND invoices.deleted_by IS NULL AND invoices.is_draft = 0 AND invoices.type = ".$type."
-            ) AS TABEL 
-        ";
-        return $this->db->query($sql)->result();
+        $array = array();
+        $months = ["jan","feb","mar","apr","mei","jun","jul","aug","sept","okt","nov","des"];
+        $j = 0;
+        for($i = 1; $i <= 12; $i++){
+            $array[] = "
+                (
+                    SELECT IFNULL(SUM(due), 0)
+                    FROM invoices 
+                    WHERE invoices.deleted_on IS NULL 
+                    AND invoices.deleted_by IS NULL 
+                    AND invoices.is_draft = 0 AND invoices.type = ".$type."
+                    AND DATE_FORMAT(invoice_date,'%c') = ".$i." 
+                    AND DATE_FORMAT(invoice_date,'%Y') = ".$year."
+                ) as ".$months[$j]."
+            ";
+            $j++;
+        }
+        $query = implode(",", $array);
+        return $this->db->query("SELECT ".$query)->result();
     }
     
     public function getByMenu($first, $last){

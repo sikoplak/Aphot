@@ -5,6 +5,7 @@ class Account extends MY_Controller {
     public function __construct() {
 		parent::__construct();
         $this->template->title = "Akun Saya";
+        if(DEMO == true) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
     }
 
     public function index() {
@@ -38,7 +39,7 @@ class Account extends MY_Controller {
         $this->form_validation->set_rules('username', 'Username', 'min_length[5]|required|edit_unique[users.username.' . $id . ']');
         $this->form_validation->set_rules('email', 'Alamat email', 'trim|required|valid_email|edit_unique[users.email.' . $id . ']');
         if($password){
-            $this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]|max_length[16]|matches[password_confirm]');
+            $this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]|matches[password_confirm]');
             $this->form_validation->set_rules('password_confirm', 'Ulangi Kata Sandi', 'required');
             $changePassword = true;
         }

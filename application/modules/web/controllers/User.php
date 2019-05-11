@@ -105,7 +105,7 @@ class User extends MY_Controller{
         $this->form_validation->set_rules('email', 'Alamat email', 'trim|required|valid_email|edit_unique[users.email.' . $id . ']');
         $this->form_validation->set_rules('roles[]', 'Akses Pengguna', 'required');
         if($password){
-            $this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]|max_length[16]|matches[password_confirm]');
+            $this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]|matches[password_confirm]');
             $this->form_validation->set_rules('password_confirm', 'Ulangi Kata Sandi', 'required');
             $changePassword = true;
         }

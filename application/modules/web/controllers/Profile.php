@@ -5,6 +5,7 @@ class Profile extends MY_Controller {
     public function __construct() {
 		parent::__construct();
         $this->template->title = "Profil Saya";
+        if(DEMO == true) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
     }
 
     public function index() {
