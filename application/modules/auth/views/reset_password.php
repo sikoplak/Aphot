@@ -18,6 +18,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php echo site_url("assets/plugins/iCheck/square/blue.css");?>">
     <link rel="stylesheet" href="<?php echo site_url("assets/app/css/custom.css");?>">
+    <link rel="shortcut icon" href="<?php echo site_url("assets/dist/img/logo.png");?>">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

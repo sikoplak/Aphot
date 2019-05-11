@@ -11,6 +11,7 @@
     <meta name="csrf-token-value" content="<?php echo $this->security->get_csrf_hash() ?>">
     <meta name="base-url" content="<?php echo base_url();?>">
     <meta name="api-token" content="<?php echo getUserApiToken();?>">
+    <link rel="shortcut icon" href="<?php echo site_url("assets/dist/img/logo.png");?>">
     <?php echo $this->template->permissions; ?>
     <?php $this->load->view("layouts/css"); ?>
 
