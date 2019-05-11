@@ -19,6 +19,7 @@ class Permission_model extends MY_Model{
         $this->db->where('url !=', null);
         $this->db->where('protected', null);
         $this->db->join('routes','routes.id = permissions.route_id');
+        $this->db->order_by('sort');
         $this->db->order_by('name');
         $this->db->limit(1);
         $result = $this->db->get("permissions")->row();
