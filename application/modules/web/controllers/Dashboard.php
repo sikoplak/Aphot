@@ -8,6 +8,7 @@ class Dashboard extends MY_Controller {
     }
     
     public function index() {
+        checkPermission($this->route,"view");
         $this->template->javascript->add(site_url('assets/app/js/dashboard.js'));
         $this->template->content->view('dashboard/index');
         $this->template->publish();
