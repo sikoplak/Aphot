@@ -41,25 +41,6 @@ Cara Install
  - Terakhir silahkan di browser dengan alamat url http://localhost/aphot. silahkan login menggunakan username : admin, password: passsword
 
 *******************
-FAQ
-*******************
- Q: Berapa harganya ?
- A: Rp. 0.00 / GRATIS
-
- Q: Donasi ?
- A: Donasikan aja ke pihak yang lebih membutuhkan. Dari developer tidak memungut apapun.
-
- Q: Boleh saya komersilkan ?
- A: Boleh, tapi resiko tanggung sendiri jika terjadi masalah dengan pihak yang anda komersilkan. Dari developer tidak ada garansi.
-
- Q: Boleh saya gunakan untuk skripsi / tugas akhir ?
- A: Ya boleh, dari pihak developer cuma ngashi saran dan petunjuk tidak bantu dalam pengkodean.
-
- Q: Ada error gan !
- A: Bikin issue di github nya nanti di follow up sama developer, dengan label 'bug'
-
-
-*******************
 Konsultasi
 *******************
 WA : 0857 5906 2617
