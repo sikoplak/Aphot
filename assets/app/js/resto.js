@@ -12,7 +12,8 @@ var reservation = {
             if (parseInt($("#payment_type").val()) === 0) {
                 $(".cash").show();
                 $(".credit").hide();
-            } else {
+            } 
+            if (parseInt($("#payment_type").val()) === 1) {
                 $(".cash").hide();
                 $(".credit").show();
             }

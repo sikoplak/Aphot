@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?php echo site_url("assets/dist/css/AdminLTE.min.css");?>">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php echo site_url("assets/plugins/iCheck/square/blue.css");?>">
+    <link rel="stylesheet" href="<?php echo site_url("assets/app/css/custom.css");?>">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,11 +28,13 @@
   </head>
   <body class="hold-transition login-page">
     <div class="login-box">
-      <div class="login-logo">
-        <a href="<?php echo base_url();?>"><b><?php echo APP_NAME; ?></b></a>
-      </div><!-- /.login-logo -->
+      <div class="login-logo"></div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Silahkan lengkapi isian form dibawah ini.</p>
+        <div class="text-center">
+          <img src="<?php echo site_url("assets/dist/img/logo.png");?>" class="img-logo"/>
+          <h1></h1>
+        </div>
+        <strong><p class="login-box-msg">Silahkan lengkapi isian form dibawah ini.</p></strong>
 
         <?php if(!is_null($message)): ?>
         <div class="alert alert-warning alert-dismissable">
@@ -47,7 +50,9 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat"><?php echo lang('forgot_password_submit_btn');?></button>
+                <button type="submit" class="btn btn-success btn-block btn-flat">
+                  <i class="fa fa-envelope"></i>&nbsp;&nbsp;<?php echo lang('forgot_password_submit_btn');?>
+                </button>
             </div>
           </div>
         <?php echo form_close();?>

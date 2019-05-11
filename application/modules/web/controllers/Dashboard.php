@@ -8,8 +8,7 @@ class Dashboard extends MY_Controller {
     }
     
     public function index() {
-        $this->template->javascript->add(site_url('assets/dist/js/pages/dashboard.js'));
-        $this->template->javascript->add(site_url('assets/dist/js/demo.js'));
+        $this->template->javascript->add(site_url('assets/app/js/dashboard.js'));
         $this->template->content->view('dashboard/index');
         $this->template->publish();
     }

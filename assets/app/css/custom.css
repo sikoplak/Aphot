@@ -38,3 +38,52 @@ label.file-upload input[type=file] {
 ul.detail {
     list-style-type: none !important;
 }
+
+.skin-blue .main-header .navbar {
+    background-color: #800000;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #800000;
+}
+
+.skin-blue .main-header li.user-header {
+    background-color: #800000;
+}
+
+.skin-blue .sidebar-menu>li:hover>a,
+.skin-blue .sidebar-menu>li.active>a {
+    border-left-color: #800000;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: #922B21;
+}
+
+
+.skin-blue .main-header .logo:hover {
+    background-color: #922B21;
+}
+
+.box.box-primary {
+    border-top-color: #922B21;
+}
+
+@media (max-width: 767px) {
+
+    .skin-blue .main-header .navbar .dropdown-menu li a:hover {
+        background-color: #922B21;
+    }
+}
+
+.login-page, .register-page {
+    background: url(/assets/dist/img/background.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.img-logo{
+    width: 50%;
+}

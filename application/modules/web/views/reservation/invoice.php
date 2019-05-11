@@ -108,10 +108,10 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="<?php echo file_exists(site_url(company("company-logo"))) ? site_url(company("company-logo")) : site_url('assets/dist/img/no-image.png') ;?>"
+                                <img src="<?php echo file_exists(company("company-logo")) ? site_url(company("company-logo")) : site_url('assets/dist/img/no-image.png') ;?>"
                                     style="width:100%; max-width:200px;">
                             </td>
-
+                        
                             <td>
                                 Nomor Invoice #: <?php echo $data->invoices_invoice_number;?><br>
                                 Tanggal Check In: <?php echo $data->invoices_check_in_on;?><br>

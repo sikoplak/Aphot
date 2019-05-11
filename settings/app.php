@@ -10,7 +10,8 @@ if(isset($_SERVER['HTTP_HOST'])){
 
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 // Core Application
-define("APP_NAME","Hoteria");
+define("DEMO",false);
+define("APP_NAME","Aphot");
 define("APP_AUTHOR","SI KOPLAK");
 define("APP_DEBUG",TRUE);
 define("APP_DEMO",FALSE);
@@ -25,6 +26,6 @@ define("DB_NAME","hoteria");
 define("MAIL_DRIVER","smtp");
 define("MAIL_HOST","ssl://smtp.gmail.com");
 define("MAIL_PORT","465");
-define("MAIL_USERNAME","5andy.4ndryanto@gmail.com");
-define("MAIL_PASSWORD","458t4589t945it954it954ti945it594it459ti");
+define("MAIL_USERNAME", "email.kamu@isi.com");
+define("MAIL_PASSWORD", "password.email.kamu");
 define("MAIL_ENCRYPTION","tls");

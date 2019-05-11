@@ -27,6 +27,10 @@ function getFormattedDate(date) {
     return day + '-' + month + '-' + year;
 }
 
+var randomColor = function(){
+    return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+}
+
 var browser = function () {
     var ua = navigator.userAgent,
         tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];

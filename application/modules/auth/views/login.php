@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?php echo site_url("assets/dist/css/AdminLTE.min.css");?>">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php echo site_url("assets/plugins/iCheck/square/blue.css");?>">
+    <link rel="stylesheet" href="<?php echo site_url("assets/app/css/custom.css");?>">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,11 +28,13 @@
   </head>
   <body class="hold-transition login-page">
     <div class="login-box">
-      <div class="login-logo">
-        <a href="<?php echo base_url();?>"><b><?php echo APP_NAME; ?></b></a>
-      </div><!-- /.login-logo -->
+      <div class="login-logo"></div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Silahkan lengkapi isian form dibawah ini.</p>
+        <div class="text-center">
+          <img src="<?php echo site_url("assets/dist/img/logo.png");?>" class="img-logo"/>
+          <h1></h1>
+        </div>
+        <strong><p class="login-box-msg">Silahkan lengkapi isian form dibawah ini.</p></strong>
 
         <?php if(!is_null($message)): ?>
         <div class="alert alert-warning alert-dismissable">
@@ -58,12 +61,16 @@
               </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat"><?php echo lang('login_submit_btn');?></button>
+              <button type="submit" class="btn btn-success btn-block btn-flat">
+                  <i class="fa fa-key"></i>&nbsp;<?php echo lang('login_submit_btn');?>
+              </button>
             </div><!-- /.col -->
           </div>
         <?php echo form_close();?>
 
-        <a href="forgot_password"><?php echo lang('login_forgot_password');?></a><br>
+        <?php if(DEMO == false): ?>
+          <a href="forgot_password"><?php echo lang('login_forgot_password');?></a><br>
+        <?php EndIf; ?>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->

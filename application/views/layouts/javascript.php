@@ -11,6 +11,8 @@
 <!-- Morris.js charts -->
 <script src="<?php echo site_url("assets/dist/js/raphael-min.js");?>"></script>
 <script src="<?php echo site_url("assets/plugins/morris/morris.min.js");?>"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="<?php echo site_url("assets/plugins/chartjs/Chart.min.js");?>"></script>
 <!-- Sparkline -->
 <script src="<?php echo site_url("assets/plugins/sparkline/jquery.sparkline.min.js");?>"></script>
 <!-- jvectormap -->
