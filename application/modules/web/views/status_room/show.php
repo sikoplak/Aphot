@@ -5,7 +5,7 @@
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Master Data</a></li>
-        <li><a href="<?php echo base_url("web/status_room");?>">Kategori Menu Restoran</a></li>
+        <li><a href="<?php echo base_url("web/status_room");?>">Status Kamar</a></li>
         <li class="active">Detail Data</li>
     </ol>
 </section>

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Kategori Kamar
+        Extra
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -18,7 +18,7 @@
                 <div class="box-header with-border">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h3 class="box-title">Detail Kategori Kamar</h3>
+                            <h3 class="box-title">Detail Extra</h3>
                         </div>
                         <div class="pull-right">
                             <a href="<?php echo $links["create"]; ?>" class="btn btn-success btn-create-data">
@@ -37,7 +37,7 @@
                     <?php echo form_hidden("id",$data->extra_id); ?>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
+                            <label for="first_name" class="col-sm-2 control-label">Nama Extra</label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">&nbsp;: <?php echo $data->extra_name; ?></p>
                             </div>

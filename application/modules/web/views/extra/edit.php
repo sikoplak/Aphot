@@ -16,13 +16,13 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Form Kategori Kamar</h3>
+                    <h3 class="box-title">Form Extra</h3>
                 </div><!-- /.box-header -->
                 <?php echo form_open("web/extra/update", ["class"=>"form-horizontal", "enctype"=>"multipart/form-data"]); ?>
                     <?php echo form_hidden("id",$data->extra_id); ?>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="first_name" class="col-sm-2 control-label">Nama Kategori</label>
+                            <label for="first_name" class="col-sm-2 control-label">Nama Extra</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="name" id="name" value="<?php echo $data->extra_name; ?>" >
                             </div>
