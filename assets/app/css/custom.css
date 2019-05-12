@@ -60,7 +60,6 @@ ul.detail {
     background-color: #922B21;
 }
 
-
 .skin-blue .main-header .logo:hover {
     background-color: #922B21;
 }
@@ -69,21 +68,24 @@ ul.detail {
     border-top-color: #922B21;
 }
 
-@media (max-width: 767px) {
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #800000 !important;
+}
 
+@media (max-width: 767px) {
     .skin-blue .main-header .navbar .dropdown-menu li a:hover {
         background-color: #922B21;
     }
 }
 
-.login-page, .register-page {
-    background: url(/assets/dist/img/background.png) no-repeat center center fixed; 
+.login-page,
+.register-page {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-.img-logo{
+.img-logo {
     width: 50%;
 }
