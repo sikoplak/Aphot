@@ -11,6 +11,7 @@ class MY_Controller extends MX_Controller
 	protected $libraries = ['template','form_validation','session','security','ion_auth'];
 	protected $route;
 	protected $model;
+	protected $cleanInput = false;
 
 	const SUCCESS_MESSAGE_SAVED = "Berhasil simpan data";
 	const SUCCESS_MESSAGE_UPATED = "Berhasil edit data";
@@ -24,7 +25,8 @@ class MY_Controller extends MX_Controller
 	public function __construct() 
 	{
 		parent::__construct();
-		$_POST = array_map('strip_tags', $_POST);
+		if($this->cleanInput) $_POST = array_map('strip_tags', $_POST); 
+		if($this->cleanInput) $_GET = array_map('strip_tags', $_GET); 
 		$this->_hmvc_fixes();
 		$this->db = $this->load->database('default', TRUE);
         $this->load->library($this->libraries);

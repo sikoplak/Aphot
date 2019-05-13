@@ -4,6 +4,7 @@ class Role extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/role";
         $this->model = "Role_model";
         $this->template->title = "Akses Pengguna";

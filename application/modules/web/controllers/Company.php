@@ -4,6 +4,7 @@ class Company extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/company";
         $this->model = "Company_model";
         $this->template->title = "Profil Perusahaan";

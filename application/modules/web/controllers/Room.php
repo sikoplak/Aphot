@@ -4,6 +4,7 @@ class Room extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/room";
         $this->model = "Room_model";
         $this->template->title = "Kamar";

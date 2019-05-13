@@ -3,7 +3,8 @@
 class Account extends MY_Controller {
 
     public function __construct() {
-		parent::__construct();
+        parent::__construct();
+        $this->cleanInput = true;
         $this->template->title = "Akun Saya";
         if(DEMO == true) show_error('Anda tidak diperkenankan mengakses halaman ini oleh administrator.', 403, 'Akses Ditolak'); 
     }

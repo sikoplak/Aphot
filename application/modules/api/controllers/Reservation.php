@@ -10,6 +10,7 @@ class Reservation extends API_Controller{
 	}
 
 	public function checkout_post(){
+		$_POST = array_map('strip_tags', $_POST);
 		$this->load->model($this->model, "mdl");
 		$post = $this->input->post(NULL, TRUE);
 		$result = $this->mdl->checkOut($post);

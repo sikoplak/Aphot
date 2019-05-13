@@ -4,6 +4,7 @@ class Category_room extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/category_room";
         $this->model = "Category_room_model";
         $this->template->title = "Kategori Kamar";

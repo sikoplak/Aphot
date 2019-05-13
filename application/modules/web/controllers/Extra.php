@@ -4,6 +4,7 @@ class Extra extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/extra";
         $this->model = "Extra_model";
         $this->template->title = "Extra";

@@ -4,6 +4,7 @@ class Table extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/table";
         $this->model = "Table_model";
         $this->template->title = "Meja Restoran";

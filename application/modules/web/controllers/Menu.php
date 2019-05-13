@@ -4,6 +4,7 @@ class Menu extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/menu";
         $this->model = "Menu_model";
         $this->template->title = "Menu Restoran";

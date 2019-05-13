@@ -4,6 +4,7 @@ class User extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/user";
         $this->model = "User_model";
         $this->template->title = "Pengguna";

@@ -28,6 +28,7 @@ class Reservation extends MY_Controller{
     }
 
     public function checkin_new_customer(){
+        $_POST = array_map('strip_tags', $_POST);
         checkPermission($this->route,"create");
         $this->load->model($this->model, "mdl");
         $this->load->model("Customer_model", "customer");

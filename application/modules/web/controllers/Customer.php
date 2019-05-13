@@ -4,6 +4,7 @@ class Customer extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/customer";
         $this->model = "Customer_model";
         $this->template->title = "Pelanggan";

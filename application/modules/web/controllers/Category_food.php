@@ -4,6 +4,7 @@ class Category_food extends MY_Controller{
 
     public function __construct() {
         parent::__construct();
+        $this->cleanInput = true;
         $this->route = "web/category_food";
         $this->model = "Category_food_model";
         $this->template->title = "Kategori Menu Restoran";
