@@ -24,6 +24,7 @@ class MY_Controller extends MX_Controller
 	public function __construct() 
 	{
 		parent::__construct();
+		$_POST = array_map('strip_tags', $_POST);
 		$this->_hmvc_fixes();
 		$this->db = $this->load->database('default', TRUE);
         $this->load->library($this->libraries);

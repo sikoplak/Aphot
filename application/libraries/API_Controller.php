@@ -24,6 +24,7 @@ class API_Controller extends REST_Controller {
 
     public function __construct($config = 'rest') {
         parent::__construct($config);
+        $_POST = array_map('strip_tags', $_POST);
         $this->db = $this->load->database('default', TRUE);
         $this->load->library($this->libraries);
         $this->cektoken();
